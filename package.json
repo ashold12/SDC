@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/wolfshirts/FEC/issues"
   },
-  "homepage": "https://github.com/wolfshirts/FEC#readme"
+  "homepage": "https://github.com/wolfshirts/FEC#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "jest": "^26.6.3"
+  }
 }
