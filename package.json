@@ -1,0 +1,19 @@
+{
+  "name": "fec",
+  "version": "1.0.0",
+  "description": "Front end capstone.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolfshirts/FEC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wolfshirts/FEC/issues"
+  },
+  "homepage": "https://github.com/wolfshirts/FEC#readme"
+}
