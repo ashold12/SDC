@@ -9,6 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR,
   },
+  mode: 'development',
   module: {
     rules: [
       {
