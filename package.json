@@ -4,8 +4,8 @@
   "description": "Front end capstone.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js "
+    "test": "jest",
+    "start": "nodemon server -w "
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,18 @@
   },
   "homepage": "https://github.com/wolfshirts/FEC#readme",
   "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "express": "^4.17.1",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   }
 }
