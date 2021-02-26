@@ -6,10 +6,7 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div>react is up and running</div>
-
-    );
+    return <div>react is up and running</div>;
   }
 }
 
