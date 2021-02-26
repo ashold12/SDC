@@ -1,4 +1,4 @@
-const server = require('./index.js');
+//const server = require('./index.js');
 
 describe('server', () => {
   test('Basic test', () => {
