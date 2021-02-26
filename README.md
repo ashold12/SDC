@@ -12,3 +12,5 @@ We're a team working on a beautiful front-end project.
 * npm install
 * npm start
 * use your web browser of choice to navigate to http://localhost:3000
+
+#### Enjoy the beauty!
