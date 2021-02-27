@@ -7,7 +7,42 @@ $color-blue: #0059ff;
   /*Setting app to take whole page for our containers*/
 }
 
-/*Ratings and Reviews*/
+/*Ratings and Reviews Section*/
+/*
+*
+*
+*
+*/
+/*Star settings*/
+:root {
+  --star-size: 30px;
+  --star-color: rgb(194, 133, 133);
+  --star-background: rgb(153, 0, 255);
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times; // make sure ★ appears correctly
+  line-height: 1;
+
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--star-background) var(--percent),
+      var(--star-color) var(--percent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.rr-check-square {
+  color: rgb(0, 0, 0);
+}
 .rr-parent {
   color: rgb(0, 0, 0);
   display: grid;
