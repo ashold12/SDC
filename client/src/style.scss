@@ -4,4 +4,29 @@ $color-blue: #0059ff;
   color: $color-blue;
   font-size: 2rem;
   text-align: center;
+  /*Setting app to take whole page for our containers*/
 }
+
+/*Ratings and Reviews*/
+.rr-parent {
+  color: rgb(0, 0, 0);
+  display: grid;
+  height: 400px;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 10% 10% 10% 70%;
+  background-color: rgb(220, 230, 212);
+}
+.rr-rating-breakdown {
+  background-color: cadetblue;
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.rr-rating-big {
+  background-color: chocolate;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+/*End Ratings and Reviews*/

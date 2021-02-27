@@ -1,5 +1,6 @@
 import React from 'react';
-import style from './style.scss'
+import style from './style.scss';
+import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -7,7 +8,12 @@ class App extends React.Component {
   }
 
   render() {
-    return <div>react is up and running</div>;
+    return (
+      <div>
+        react is up and running
+        <RatingsReviews />
+      </div>
+    );
   }
 }
 
