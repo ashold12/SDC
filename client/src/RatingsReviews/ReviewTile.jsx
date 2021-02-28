@@ -13,6 +13,10 @@ class ReviewTile extends React.Component {
     this.state = {
       ...testReview,
     };
+    this.state.body =
+      this.state.body +
+      'Some super long winded review that no one is ever going to read because it is stupid and who cares about all this bs seriously its like who cares there is so much other stuff to do and these reviews are useless';
+    this.showMoreReview = this.showMoreReview.bind(this);
   }
 
   getReviewSummary() {
@@ -27,13 +31,42 @@ class ReviewTile extends React.Component {
     } else {
       summary = summary.split(' ');
       delete summary[summary.length - 1];
-      summary = `${summary.join(' ')} ...`;
+      summary = `${summary.join(' ')}...`;
     }
 
     return summary;
   }
 
-  getReviewBodyObject() {}
+  getReviewBodyObject() {
+    const { body } = this.state;
+    const bodObject = {};
+    bodObject.body = body;
+    bodObject.truncatedBody = `${body.slice(0, 250)}...`;
+    if (body.length > 250) {
+      bodObject.isTruncated = true;
+    } else {
+      bodObject.isTruncated = false;
+    }
+    return bodObject;
+  }
+
+  getReviewBodyHTML() {
+    const { body, truncatedBody, isTruncated } = this.getReviewBodyObject();
+    const id = this.state.review_id;
+    if (isTruncated) {
+      return (
+        <div className="rr-body-text" id={id}>
+          {truncatedBody}
+          <div className="rr-body-show-more">
+            <a href="#" onClick={this.showMoreReview}>
+              Show More...
+            </a>
+          </div>
+        </div>
+      );
+    }
+    return <div className="rr-body-text">{body}</div>;
+  }
 
   getFormattedDate() {
     const date = new Date(this.state.date);
@@ -59,6 +92,11 @@ class ReviewTile extends React.Component {
     return formattedDate;
   }
 
+  showMoreReview(e) {
+    const bodyText = document.getElementById(this.state.review_id);
+    bodyText.innerText = this.state.body;
+  }
+
   hasRegisteredEmail() {
     const { email } = this.state;
     if (email) {
@@ -73,6 +111,7 @@ class ReviewTile extends React.Component {
     if (this.hasRegisteredEmail()) {
       checkmark = '✓';
     }
+
     const title = this.getReviewSummary();
     return (
       <div className="rr-review-tile-container">
@@ -87,7 +126,7 @@ class ReviewTile extends React.Component {
         <div className="rr-tile-summary">
           <b>{title}</b>
         </div>
-        <div className="rr-review-body">{this.state.body}</div>
+        <div className="rr-review-body">{this.getReviewBodyHTML()}</div>
       </div>
     );
   }
