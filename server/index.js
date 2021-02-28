@@ -9,11 +9,6 @@ const apiUrl = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 app.use(express.static('public'));
 app.use(express.json());
 
-const attachAuth = (req) => {
-  req.authorization = apiKey;
-  return req;
-};
-
 app.all('/api/*', (req, res) => {
   // req.method is what type we used
   // req.originalUrl is what we're targeting.
