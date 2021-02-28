@@ -22,6 +22,8 @@ class ReviewTile extends React.Component {
     this.showMoreReview = this.showMoreReview.bind(this);
     this.showPhotoModal = this.showPhotoModal.bind(this);
     this.hidePhotoModal = this.hidePhotoModal.bind(this);
+    this.changeHelpfulness = this.changeHelpfulness.bind(this);
+    this.reportReview = this.reportReview.bind(this);
   }
 
   getReviewSummary() {
@@ -113,14 +115,6 @@ class ReviewTile extends React.Component {
     return formattedDate;
   }
 
-  showPhotoModal(e) {
-    this.setState({ showModal: true, modalURL: e.target.src });
-  }
-
-  hidePhotoModal() {
-    this.setState({ showModal: false, modalURL: '' });
-  }
-
   showMoreReview() {
     const { body, review_id } = this.state;
     const bodyText = document.getElementById(review_id);
@@ -131,6 +125,10 @@ class ReviewTile extends React.Component {
     if (this.state.recommend) {
       return <div className="rr-recommended">✓ I recommend this product.</div>;
     }
+  }
+
+  showPhotoModal(e) {
+    this.setState({ showModal: true, modalURL: e.target.src });
   }
 
   getResponseHTML() {
@@ -145,8 +143,34 @@ class ReviewTile extends React.Component {
   }
 
   getHelpfulHTML() {
+    // FIXME: A11y wants a key handler for these as well.
     const { helpfulness } = this.state;
-    return <div className="rr-helpfulness">Helpful? Yes ({helpfulness}) | Report</div>;
+    return (
+      <div className="rr-helpfulness">
+        Was this review helpful?
+        <button className="rr-helpfulness-button" type="button" onClick={this.changeHelpfulness}>
+          {/*eslint-disable*/
+          /*wants to change parens*/}
+          Yes ({helpfulness}){/* eslint-enable */}
+        </button>
+        |
+        <button className="rr-helpfulness-button" type="button" onClick={this.reportReview}>
+          No
+        </button>
+      </div>
+    );
+  }
+
+  hidePhotoModal() {
+    this.setState({ showModal: false, modalURL: '' });
+  }
+
+  changeHelpfulness() {
+    console.log('Change helpfulness');
+  }
+
+  reportReview() {
+    console.log('Report review');
   }
 
   hasRegisteredEmail() {
@@ -183,6 +207,7 @@ class ReviewTile extends React.Component {
         {this.getRecommendedHTML()}
         <div className="rr-photos-div">{this.getPhotosHTML()}</div>
         {this.getResponseHTML()}
+        {this.getHelpfulHTML()}
         <RRModal
           displayModal={this.state.showModal}
           closeModal={this.hidePhotoModal}
