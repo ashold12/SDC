@@ -2,6 +2,13 @@ import React from 'react';
 import RRModal from './PhotoModal.jsx';
 import dummyReviews from './dummyReviews';
 
+// TODO: Fix technical debt. A11y issues, general formatting.
+// Tile needs to be a fixed size.
+// Update helpfulness state.
+// Update for use with real data.
+// Write some tests.
+// Clean up CSS
+
 class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +22,7 @@ class ReviewTile extends React.Component {
       ...testReview,
       showModal: false,
       modalURL: '',
+      helpfulClicked: false,
     };
     this.state.body =
       this.state.body +
@@ -23,7 +31,6 @@ class ReviewTile extends React.Component {
     this.showPhotoModal = this.showPhotoModal.bind(this);
     this.hidePhotoModal = this.hidePhotoModal.bind(this);
     this.changeHelpfulness = this.changeHelpfulness.bind(this);
-    this.reportReview = this.reportReview.bind(this);
   }
 
   getReviewSummary() {
@@ -115,12 +122,6 @@ class ReviewTile extends React.Component {
     return formattedDate;
   }
 
-  showMoreReview() {
-    const { body, review_id } = this.state;
-    const bodyText = document.getElementById(review_id);
-    bodyText.innerText = body;
-  }
-
   getRecommendedHTML() {
     if (this.state.recommend) {
       return <div className="rr-recommended">✓ I recommend this product.</div>;
@@ -143,34 +144,48 @@ class ReviewTile extends React.Component {
   }
 
   getHelpfulHTML() {
-    // FIXME: A11y wants a key handler for these as well.
-    const { helpfulness } = this.state;
-    return (
-      <div className="rr-helpfulness">
-        Was this review helpful?
-        <button className="rr-helpfulness-button" type="button" onClick={this.changeHelpfulness}>
+    const { helpfulness, helpfulClicked } = this.state;
+    if (!helpfulClicked) {
+      return (
+        <div className="rr-helpfulness">
+          Was this review helpful?
           {/*eslint-disable*/
-          /*wants to change parens*/}
-          Yes ({helpfulness}){/* eslint-enable */}
-        </button>
-        |
-        <button className="rr-helpfulness-button" type="button" onClick={this.reportReview}>
-          No
-        </button>
-      </div>
-    );
+          /*using link as button per spec*/}
+          <a href="#" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
+            {/*eslint-disable*/
+            /*wants to change parens*/}
+            Yes ({helpfulness})
+          </a>
+          {' | '}
+          <a href="#" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
+            No
+          </a>
+          {/* eslint-enable */}
+        </div>
+      );
+    }
+    return <div className="rr-helpfulness">{helpfulness} users found this review helpful.</div>;
+  }
+
+  showMoreReview() {
+    const { body, review_id } = this.state;
+    const bodyText = document.getElementById(review_id);
+    bodyText.innerText = body;
   }
 
   hidePhotoModal() {
     this.setState({ showModal: false, modalURL: '' });
   }
 
-  changeHelpfulness() {
-    console.log('Change helpfulness');
-  }
-
-  reportReview() {
-    console.log('Report review');
+  changeHelpfulness(e) {
+    let { helpfulness } = this.state;
+    if (e.target.innerText.includes('Yes')) {
+      // FIXME: hit the api and adjust the rating.
+      this.setState({ helpfulness: (helpfulness += 1), helpfulClicked: true });
+    } else {
+      // FIXME: According to docs we don't remove helpfulness only update and increment it.
+      this.setState({ helpfulClicked: true });
+    }
   }
 
   hasRegisteredEmail() {
