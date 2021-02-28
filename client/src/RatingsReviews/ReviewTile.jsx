@@ -122,8 +122,9 @@ class ReviewTile extends React.Component {
   }
 
   showMoreReview() {
-    const bodyText = document.getElementById(this.state.review_id);
-    bodyText.innerText = this.state.body;
+    const { body, review_id } = this.state;
+    const bodyText = document.getElementById(review_id);
+    bodyText.innerText = body;
   }
 
   getRecommendedHTML() {
@@ -141,6 +142,11 @@ class ReviewTile extends React.Component {
         </div>
       );
     }
+  }
+
+  getHelpfulHTML() {
+    const { helpfulness } = this.state;
+    return <div className="rr-helpfulness">Helpful? Yes ({helpfulness}) | Report</div>;
   }
 
   hasRegisteredEmail() {

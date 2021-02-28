@@ -2,6 +2,7 @@
 	"extends": ["airbnb", "airbnb/hooks"],
 	"plugins": ["prettier"],
 	"rules": {
-		"prettier/prettier": ["error"]
+		"prettier/prettier": ["warn"],
+		"react/destructuring-assignment": ["warn"]
 	}
 }
