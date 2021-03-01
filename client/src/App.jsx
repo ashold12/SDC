@@ -11,6 +11,7 @@ class App extends React.Component {
     return (
       <div>
         react is up and running
+        {/*need to pass in what item we're on here*/}
         <RatingsReviews />
       </div>
     );
