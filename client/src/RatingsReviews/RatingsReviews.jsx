@@ -1,6 +1,6 @@
 import React from 'react';
 import NumberAndStars from './NumberAndStars.jsx';
-
+import ReviewTile from './ReviewTile.jsx';
 import dummyReviews from './dummyReviews';
 
 class RatingsReviews extends React.Component {
@@ -27,6 +27,7 @@ class RatingsReviews extends React.Component {
             <div className="rr-rating">5 divs with rating breakdowns</div>
           </div>
         </div>
+        <ReviewTile />
       </div>
     );
   }
