@@ -1,13 +1,21 @@
 import React from 'react';
+import QuestionList from './QuestionList.jsx';
+import data from './dummyQuestions.js';
 
 class QuestionsAndAnswers extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      questions: data,
+    };
   }
 
   render() {
-    return <div>QuestionsAndAnswers</div>;
+    return (
+      <div>
+        <QuestionList questions={this.state.questions} />
+      </div>
+    );
   }
 }
 
