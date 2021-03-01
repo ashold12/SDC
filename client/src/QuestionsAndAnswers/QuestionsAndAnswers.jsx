@@ -1,5 +1,6 @@
 import React from 'react';
 import QuestionList from './QuestionList.jsx';
+import SearchQuestions from './SearchQuestions.jsx';
 import data from './dummyQuestions.js';
 
 class QuestionsAndAnswers extends React.Component {
@@ -13,6 +14,7 @@ class QuestionsAndAnswers extends React.Component {
   render() {
     return (
       <div>
+        <SearchQuestions questions={this.state.questions}/>
         <QuestionList questions={this.state.questions} />
       </div>
     );
