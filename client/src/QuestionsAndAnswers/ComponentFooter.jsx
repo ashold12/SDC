@@ -1,16 +1,15 @@
 import React from 'react';
 
 const ComponentFooter = function (props) {
-
   return (
     <div>
-    <div>Load More Answers</div>
-    <div>
-    <button>More Answered Questions</button>
-    <button>Add A Question</button>
+      <button>Load More Answers</button>
+      <div>
+        <button>More Answered Questions</button>
+        <button>Add A Question</button>
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
 export default ComponentFooter;
