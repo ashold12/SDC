@@ -9,6 +9,7 @@ class QuestionsAndAnswers extends React.Component {
     super();
     this.state = {
       questions: data,
+      numberOfQuestionsToRender: 4
     };
 
     // BINDINGS
@@ -18,6 +19,7 @@ class QuestionsAndAnswers extends React.Component {
     this.returnNumberOfLoadMoreAnswerButtonClicks = this.returnNumberOfLoadMoreAnswerButtonClicks.bind(
       this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
+    this.increaseNumberOfQuestionsToRender = this.increaseNumberOfQuestionsToRender.bind(this);
   }
 
   // HANDLERS
@@ -44,7 +46,13 @@ class QuestionsAndAnswers extends React.Component {
     })
   }
 
+  //QUESTIONLIST HANDLERS
 
+  increaseNumberOfQuestionsToRender() {
+    this.setState({
+      numberOfQuestionsToRender: this.state.numberOfQuestionsToRender + 2,
+    });
+  }
 
   render() {
     return (
@@ -55,8 +63,9 @@ class QuestionsAndAnswers extends React.Component {
           trackClicks={this.tracksNumberOfLoadMoreAnswersButtonClicks}
           getClickCount={this.returnNumberOfLoadMoreAnswerButtonClicks}
           collapseAnswers={this.collapseAnswers}
+          numberOfQuestionsToRender ={this.state.numberOfQuestionsToRender}
         />
-        <ComponentFooter questions={this.state.questions} />
+        <ComponentFooter questions={this.state.questions} incrementQuestions={this.increaseNumberOfQuestionsToRender}/>
       </div>
     );
   }

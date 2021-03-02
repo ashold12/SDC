@@ -4,7 +4,7 @@ import AnswerList from './AnswerList.jsx';
 const QuestionListEntry = function ({ question, trackClicks, getClickCount, collapseAnswers }) {
   return (
     <div>
-      <div>{question.question_body}</div>
+      <h4>Q: {question.question_body}</h4>
       <div>
         <AnswerList
           answers={question.answers}

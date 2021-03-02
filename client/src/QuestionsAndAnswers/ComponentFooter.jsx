@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ComponentFooter = function (props) {
+const ComponentFooter = function ({incrementQuestions}) {
   return (
     <div>
       <div>
-        <button>More Answered Questions</button>
+        <button onClick={incrementQuestions}>More Answered Questions</button>
         <button>Add A Question</button>
       </div>
     </div>
