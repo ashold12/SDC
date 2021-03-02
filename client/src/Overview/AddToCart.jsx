@@ -2,7 +2,7 @@ import React from 'react';
 
 const AddToCart = (props) => {
   return (
-    <div>
+    <div className='o-addToCart'>
       add to cart
     </div>
   );

@@ -3,9 +3,8 @@ import axios from 'axios';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
-import SizeSelector from './SizeSelector.jsx';
-import QuantitySelector from './QuantitySelector.jsx';
 import AddToCart from './AddToCart.jsx';
+import ProductOverview from './ProductOverview.jsx'
 
 // this is the outer holder component
 class Overview extends React.Component {
@@ -16,12 +15,12 @@ class Overview extends React.Component {
       selectedProduct: null
     };
 
-    this.getSelectedImage = this.getSelectedImage.bind(this);
+    // this.getSelectedImage = this.getSelectedImage.bind(this);
 
   }
 
   componentDidMount() {
-    this.getSelectedImage();
+    // this.getSelectedImage();
     // this.state.selectedProduct.data.results[0].photos[0].url should be the url for the image
 
   }
@@ -29,23 +28,20 @@ class Overview extends React.Component {
   getSelectedImage() {
     axios.get('/api/products/17762/styles')
       .then((product) => {
-        console.log(product.data.results[0].photos[0].url)
-        this.setState({
-          selectedProduct: product
-        })
+        console.log(product)
       })
 
   }
 
   render() {
     return (
-      <div>
+      <div className='o-overView'>
         <ImageGallery />
         <ProductInfo />
+        <ProductOverview />
         <StyleSelector />
-        <SizeSelector />
-        <QuantitySelector />
         <AddToCart />
+        <div></div>
       </div>
     );
   }

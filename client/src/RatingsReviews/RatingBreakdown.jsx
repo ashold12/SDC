@@ -23,6 +23,7 @@ class RatingBreakdown extends React.Component {
   getReviewBar(indexNumber, starNumber) {
     let numberOfVotes = this.state.ratings[starNumber];
     let percentage;
+
     if (!this.state.ratings[starNumber]) {
       percentage = 0;
       numberOfVotes = 0;
