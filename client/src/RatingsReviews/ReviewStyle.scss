@@ -66,6 +66,24 @@
 /* Stars settings ends */
 
 /* Review bar */
+.rr-product-overview-bar-container {
+  width: 100%;
+  background-color: rgb(175, 165, 165);
+}
+.rr-product-overview-review-bar {
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: green;
+}
+.rr-product-overview-bar-container h2 {
+  color: black;
+  font-size: 30px;
+  position: relative;
+  top: 0px;
+  left: 1.5%;
+}
+
 .rr-review-bar-container {
   width: 100%;
   background-color: #ddd;

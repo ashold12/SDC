@@ -25,16 +25,17 @@ class ProductBreakDown extends React.Component {
     for (let i = 0; i < names.length; i += 1) {
       const key = characteristics[names[i]].id;
       const percentage = parseInt(characteristics[names[i]].value).toFixed(0) * 20;
+
       const inlineStyle = {
-        width: percentage,
+        width: `${percentage}%`,
         backgroundColor: '#2196F3',
       };
       bar.push(
-        <div key={key} className='rr-characteristics-bar'>
+        <div key={key} className='rr-product-overview-bar-container'>
           {names[i] + ' '}
           {parseInt(characteristics[names[i]].value).toFixed(0)}
-          <div style={inlineStyle} className='rr-review-bar'>
-
+          <div style={inlineStyle} className='rr-product-overview-review-bar'>
+            <h2>⇓</h2>
           </div>
           {characteristicsToScale[names[i]][0] + ' ' + characteristicsToScale[names[i]][1]}
         </div>
