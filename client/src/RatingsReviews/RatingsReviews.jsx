@@ -9,16 +9,19 @@ class RatingsReviews extends React.Component {
     this.state = {
       product_id: dummyReviews.product,
       rating: dummyReviews.results[0].rating,
+      filters: [],
     };
   }
 
   render() {
-    const { product_id } = this.state;
+    const { product_id, filters } = this.state;
     return (
-      <div className="rr-parent">
+      <div>
         Ratings & Reviews
         <div className="rr-rating-big">
-          <RatingBreakdown productId={this.state.product_id} />
+          <div className="rr-rating-breakdown">
+            <RatingBreakdown productId={product_id} filters={filters} />
+          </div>
         </div>
         <ReviewTile item={product_id} />
       </div>
