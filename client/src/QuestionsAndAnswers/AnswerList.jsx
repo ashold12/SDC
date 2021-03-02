@@ -27,7 +27,7 @@ const AnswerList = function ({
 
   let numberOfAnswersToRender = getNumberOfAnswersToRender();
 
-  if (numberOfAnswers === 0 || numberOfAnswers - answersToRender <= 0) {
+  if (numberOfAnswers === 0 || numberOfAnswers === 1 || numberOfAnswers - answersToRender <= 0) {
     return (
       <div>
         {Object.values(answers).map((answer) => {
