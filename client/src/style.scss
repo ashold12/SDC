@@ -42,6 +42,8 @@ $color-blue: #0059ff;
 .rr-display-none {
   display: none;
 }
+/* modal settings ends */
+
 /*Star settings*/
 :root {
   --star-size: 30px;
@@ -69,6 +71,21 @@ $color-blue: #0059ff;
     -webkit-text-fill-color: transparent;
   }
 }
+/* Stars settings ends */
+
+/* Review bar */
+.rr-review-bar-container {
+  width: 100%;
+  background-color: #ddd;
+}
+.rr-review-bar {
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: green;
+}
+/* Review bar ends */
+
 .rr-check-square {
   color: rgb(0, 0, 0);
 }
