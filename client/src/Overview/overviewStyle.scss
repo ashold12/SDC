@@ -1,0 +1,42 @@
+.o-overView {
+  background-color: white;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+}
+.o-imageGallery {
+  background-color: rgb(78, 89, 243);
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 6;
+}
+
+.o-productInfo {
+  background-color: rgb(224, 210, 226);
+  display: grid;
+  grid-column-start: 7;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.o-styleSelector {
+  background-color: rgb(229, 233, 168);
+  display: grid;
+  grid-column-start: 7;
+  grid-column-end: 11;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.o-addToCart {
+  background-color: rgb(168, 233, 171);
+  display: grid;
+  grid-column-start: 7;
+  grid-column-end: 11;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
