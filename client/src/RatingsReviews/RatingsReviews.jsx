@@ -57,7 +57,7 @@ class RatingsReviews extends React.Component {
           <RatingBreakdown productId={product_id} filters={filters} />
         </div>
         <div className='rr-product-breakdown-container'>
-          <ProductBreakDown characteristics={this.state.meta} />
+          <ProductBreakDown characteristics={this.state.meta.characteristics} />
         </div>
       </div>
     );
