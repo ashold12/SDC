@@ -18,6 +18,7 @@ class QuestionsAndAnswers extends React.Component {
     this.collapseAnswers = this.collapseAnswers.bind(this);
     this.increaseNumberOfQuestionsToRender = this.increaseNumberOfQuestionsToRender.bind(this);
     this.userWantsMoreAnswers = this.userWantsMoreAnswers.bind(this);
+    this.findNumberOfQuestionsToRender = this.findNumberOfQuestionsToRender.bind(this);
   }
 
   // HANDLERS
@@ -40,10 +41,24 @@ class QuestionsAndAnswers extends React.Component {
 
   //QUESTION LIST HANDLERS
 
+  findNumberOfQuestionsToRender() {
+    let numberOfQuestions = this.state.questions.results.length;
+
+    if (numberOfQuestions < 4) {
+      this.setState({
+        numberOfQuestionsToRender: numberOfQuestions,
+      })
+    }
+  }
+
   increaseNumberOfQuestionsToRender() {
     this.setState({
       numberOfQuestionsToRender: this.state.numberOfQuestionsToRender + 2,
     });
+  }
+
+  componentDidMount() {
+    this.findNumberOfQuestionsToRender();
   }
 
   render() {
@@ -57,7 +72,7 @@ class QuestionsAndAnswers extends React.Component {
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
         />
-        <ComponentFooter questions={this.state.questions} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <ComponentFooter questions={this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }
