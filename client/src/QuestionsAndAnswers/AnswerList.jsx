@@ -1,8 +1,11 @@
 import React from 'react';
 import AnswerListEntry from './AnswerListEntry.jsx';
 
-const AnswerList = function ({ answers, onClick, questionId, getClickCount }) {
+const AnswerList = function ({
+ answers, onClick, questionId, getClickCount
+}) {
   const clickCount = getClickCount(questionId);
+  const numberOfAnswers = Object.values(answers).length;
 
   const getNumberOfAnswersToRenderHelper = (count) => {
     if (count === undefined) {
@@ -13,10 +16,9 @@ const AnswerList = function ({ answers, onClick, questionId, getClickCount }) {
     }
     return getNumberOfAnswersToRenderHelper(count - 1) + 2;
   };
+  const answersToRender = getNumberOfAnswersToRenderHelper(clickCount);
 
   const getNumberOfAnswersToRender = () => {
-    const numberOfAnswers = Object.values(answers).length;
-    const answersToRender = getNumberOfAnswersToRenderHelper(clickCount);
     if (numberOfAnswers - answersToRender < 0) {
       return numberOfAnswers;
     }
@@ -24,6 +26,19 @@ const AnswerList = function ({ answers, onClick, questionId, getClickCount }) {
   };
 
   let numberOfAnswersToRender = getNumberOfAnswersToRender();
+
+  if (numberOfAnswers === 0 || numberOfAnswers - answersToRender <= 0) {
+    return (
+      <div>
+        {Object.values(answers).map((answer) => {
+          if (numberOfAnswersToRender >= 0) {
+            numberOfAnswersToRender--;
+            return <AnswerListEntry answer={answer} key={answer.id} />;
+          }
+        })}
+      </div>
+    );
+  }
   return (
     <div>
       {Object.values(answers).map((answer) => {
