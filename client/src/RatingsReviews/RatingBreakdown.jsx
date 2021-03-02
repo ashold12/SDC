@@ -23,7 +23,6 @@ class RatingBreakdown extends React.Component {
   getReviewBar(indexNumber, starNumber) {
     let numberOfVotes = this.state.ratings[starNumber];
     let percentage;
-    debugger;
     if (!this.state.ratings[starNumber]) {
       percentage = 0;
       numberOfVotes = 0;
@@ -35,10 +34,10 @@ class RatingBreakdown extends React.Component {
       backgroundColor: '#4CAF50',
     };
     return (
-      <div className="rr-review-bar-star-count">
+      <div key={indexNumber} className="rr-review-bar-star-count">
         # Stars {indexNumber} With {numberOfVotes} votes.
         <div className="rr-review-bar-container">
-          <div className="rr-review-bar" style={barStyling} id={`rr-bar-${starNumber}`}></div>
+          <div className="rr-review-bar" style={barStyling} id={`rr-bar-${starNumber}`} />
         </div>
       </div>
     );
@@ -86,7 +85,7 @@ class RatingBreakdown extends React.Component {
           style={{ '--rating': starRating }}
           aria-label="Rating of this product is {starRating} out of 5."
         />
-        Number of Reviews:
+        <div className="rr-filters-applied">Filters go here.</div>' Number of Reviews:
         {totalNumberOfReviews}
         <div className="rr-review-bar-container">{ratingBars}</div>
       </div>
