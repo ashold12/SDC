@@ -32,13 +32,13 @@ function AnswerList({
     return (
       <div>
         {renderHelper}
-        <button
-          onClick={() => {
+        <a href="#"
+          onClick={(e) => {e.preventDefault();
             moreAnswersClicked(questionId);
           }}
         >
-          Load More Answers
-        </button>
+          See More Answers
+        </a>
       </div>
     );
   }
@@ -50,13 +50,13 @@ function AnswerList({
           <AnswerListEntry answer={answer} key={answer.id} />
         </div>
       ))}
-      <button
-        onClick={() => {
+      <a href="#"
+        onClick={(e) => {e.preventDefault()
           collapseAnswers(questionId);
         }}
       >
         Collapse Answers
-      </button>
+      </a>
     </div>
   );
 }
