@@ -5,7 +5,7 @@ const QuestionList = function ({
  questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers
 }) {
   return (
-    <div>
+    <div className="qa-questionList-container">
       {questions.results.map((question) => {
         numberOfQuestionsToRender--;
         if (numberOfQuestionsToRender >= 0) {
