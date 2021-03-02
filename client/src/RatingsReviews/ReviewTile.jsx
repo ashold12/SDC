@@ -208,7 +208,7 @@ class ReviewTile extends React.Component {
     return (
       <div className="rr-review-tile-container">
         <div
-          className="Stars"
+          className="Stars rr-review-tile-stars"
           style={{ '--rating': this.state.starRating }}
           aria-label="Rating of this product is {this.state.starRating} out of 5."
         />
