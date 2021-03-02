@@ -25,6 +25,7 @@ class App extends React.Component {
   getProducts() {
     axios.get('api/products?count=*')
       .then((data) => { // data.data is an array of all products, where each product is an object
+        console.log(data.data)
         this.setState({
           allProducts: data.data
         });
