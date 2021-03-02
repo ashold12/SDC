@@ -2,7 +2,7 @@ import React from 'react';
 import AnswerListEntry from './AnswerListEntry.jsx';
 
 const AnswerList = function ({
- answers, onClick, questionId, getClickCount
+ answers, trackClicks, questionId, getClickCount, collapseAnswers
 }) {
   const clickCount = getClickCount(questionId);
   const numberOfAnswers = Object.values(answers).length;
@@ -26,28 +26,28 @@ const AnswerList = function ({
   };
 
   let numberOfAnswersToRender = getNumberOfAnswersToRender();
+  const renderHelper = Object.values(answers).map((answer) => {
+    if (numberOfAnswersToRender > 0) {
+      numberOfAnswersToRender--;
+      return <AnswerListEntry answer={answer} key={answer.id} />;
+    }
+  });
 
-  if (numberOfAnswers === 0 || numberOfAnswers === 1 || numberOfAnswers - answersToRender <= 0) {
+  if (numberOfAnswers === 0 || numberOfAnswers === 1) {
+    return <div>{renderHelper}</div>;
+  }
+  if (numberOfAnswers - answersToRender <= 0) {
     return (
       <div>
-        {Object.values(answers).map((answer) => {
-          if (numberOfAnswersToRender > 0) {
-            numberOfAnswersToRender--;
-            return <AnswerListEntry answer={answer} key={answer.id} />;
-          }
-        })}
+        {renderHelper}
+        <button onClick={() => collapseAnswers(questionId)}>Collapse Answers</button>
       </div>
     );
   }
   return (
     <div>
-      {Object.values(answers).map((answer) => {
-        if (numberOfAnswersToRender > 0) {
-          numberOfAnswersToRender--;
-          return <AnswerListEntry answer={answer} key={answer.id} />;
-        }
-      })}
-      <button onClick={() => onClick(questionId)}>Load More Answers</button>
+      {renderHelper}
+      <button onClick={() => trackClicks(questionId)}>Load More Answers</button>
     </div>
   );
 };

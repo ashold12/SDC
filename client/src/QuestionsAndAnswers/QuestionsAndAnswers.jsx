@@ -17,6 +17,7 @@ class QuestionsAndAnswers extends React.Component {
       this);
     this.returnNumberOfLoadMoreAnswerButtonClicks = this.returnNumberOfLoadMoreAnswerButtonClicks.bind(
       this);
+    this.collapseAnswers = this.collapseAnswers.bind(this);
   }
 
   // HANDLERS
@@ -37,14 +38,23 @@ class QuestionsAndAnswers extends React.Component {
     return this.state[id] ? this.state[id] : undefined;
   }
 
+  collapseAnswers (id) {
+    this.setState({
+      [id]: undefined
+    })
+  }
+
+
+
   render() {
     return (
       <div>
         <SearchQuestions questions={this.state.questions} />
         <QuestionList
           questions={this.state.questions}
-          onClick={this.tracksNumberOfLoadMoreAnswersButtonClicks}
+          trackClicks={this.tracksNumberOfLoadMoreAnswersButtonClicks}
           getClickCount={this.returnNumberOfLoadMoreAnswerButtonClicks}
+          collapseAnswers={this.collapseAnswers}
         />
         <ComponentFooter questions={this.state.questions} />
       </div>
