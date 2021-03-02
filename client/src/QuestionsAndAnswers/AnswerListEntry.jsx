@@ -2,10 +2,9 @@ import React from 'react';
 
 const AnswerListEntry = function ({ answer }) {
   return (
-    <h4>
-      A:
+    <div>
       <span className="qa-answer-body"> {answer.body}</span>
-    </h4>
+    </div>
   );
 };
 

@@ -9,44 +9,36 @@ class QuestionsAndAnswers extends React.Component {
     super();
     this.state = {
       questions: data,
-      numberOfQuestionsToRender: 4
+      numberOfQuestionsToRender: 4,
     };
 
     // BINDINGS
 
-    this.tracksNumberOfLoadMoreAnswersButtonClicks = this.tracksNumberOfLoadMoreAnswersButtonClicks.bind(
-      this);
-    this.returnNumberOfLoadMoreAnswerButtonClicks = this.returnNumberOfLoadMoreAnswerButtonClicks.bind(
-      this);
+    this.moreAnswersClicked = this.moreAnswersClicked.bind(this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
     this.increaseNumberOfQuestionsToRender = this.increaseNumberOfQuestionsToRender.bind(this);
+    this.userWantsMoreAnswers = this.userWantsMoreAnswers.bind(this);
   }
 
   // HANDLERS
 
-  tracksNumberOfLoadMoreAnswersButtonClicks(id) {
-    if (this.state[id] === undefined) {
-      this.setState({
-        [id]: 1,
-      });
-    } else {
-      this.setState({
-        [id]: this.state[id] + 1,
-      });
-    }
-  }
-
-  returnNumberOfLoadMoreAnswerButtonClicks(id) {
-    return this.state[id] ? this.state[id] : undefined;
-  }
-
-  collapseAnswers (id) {
+  moreAnswersClicked(id) {
     this.setState({
-      [id]: undefined
-    })
+      [id]: true,
+    });
   }
 
-  //QUESTIONLIST HANDLERS
+  collapseAnswers(id) {
+    this.setState({
+      [id]: false,
+    });
+  }
+
+  userWantsMoreAnswers(id) {
+    return this.state[id];
+  }
+
+  //QUESTION LIST HANDLERS
 
   increaseNumberOfQuestionsToRender() {
     this.setState({
@@ -60,12 +52,12 @@ class QuestionsAndAnswers extends React.Component {
         <SearchQuestions questions={this.state.questions} />
         <QuestionList
           questions={this.state.questions}
-          trackClicks={this.tracksNumberOfLoadMoreAnswersButtonClicks}
-          getClickCount={this.returnNumberOfLoadMoreAnswerButtonClicks}
+          moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
-          numberOfQuestionsToRender ={this.state.numberOfQuestionsToRender}
+          numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
+          userWantsMoreAnswers={this.userWantsMoreAnswers}
         />
-        <ComponentFooter questions={this.state.questions} incrementQuestions={this.increaseNumberOfQuestionsToRender}/>
+        <ComponentFooter questions={this.state.questions} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }

@@ -1,17 +1,17 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
 
-const QuestionListEntry = function ({ question, trackClicks, getClickCount, collapseAnswers }) {
+const QuestionListEntry = function ({ question, collapseAnswers, moreAnswersClicked, userWantsMoreAnswers }) {
   return (
     <div>
       <h4>Q: {question.question_body}</h4>
       <div>
         <AnswerList
           answers={question.answers}
-          trackClicks={trackClicks}
           questionId={question.question_id}
-          getClickCount={getClickCount}
           collapseAnswers={collapseAnswers}
+          moreAnswersClicked={moreAnswersClicked}
+          userWantsMoreAnswers={userWantsMoreAnswers}
         />
       </div>
     </div>
