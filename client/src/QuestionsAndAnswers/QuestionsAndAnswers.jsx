@@ -9,42 +9,57 @@ class QuestionsAndAnswers extends React.Component {
     super();
     this.state = {
       questions: data,
+      numberOfQuestionsToRender: 4,
     };
 
     // BINDINGS
 
-    this.tracksNumberOfLoadMoreAnswersButtonClicks = this.tracksNumberOfLoadMoreAnswersButtonClicks.bind(
-      this);
-    this.returnNumberOfLoadMoreAnswerButtonClicks = this.returnNumberOfLoadMoreAnswerButtonClicks.bind(
-      this);
+    this.moreAnswersClicked = this.moreAnswersClicked.bind(this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
+    this.increaseNumberOfQuestionsToRender = this.increaseNumberOfQuestionsToRender.bind(this);
+    this.userWantsMoreAnswers = this.userWantsMoreAnswers.bind(this);
+    this.findNumberOfQuestionsToRender = this.findNumberOfQuestionsToRender.bind(this);
   }
 
   // HANDLERS
 
-  tracksNumberOfLoadMoreAnswersButtonClicks(id) {
-    if (this.state[id] === undefined) {
+  moreAnswersClicked(id) {
+    this.setState({
+      [id]: true,
+    });
+  }
+
+  collapseAnswers(id) {
+    this.setState({
+      [id]: false,
+    });
+  }
+
+  userWantsMoreAnswers(id) {
+    return this.state[id];
+  }
+
+  //QUESTION LIST HANDLERS
+
+  findNumberOfQuestionsToRender() {
+    let numberOfQuestions = this.state.questions.results.length;
+
+    if (numberOfQuestions < 4) {
       this.setState({
-        [id]: 1,
-      });
-    } else {
-      this.setState({
-        [id]: this.state[id] + 1,
-      });
+        numberOfQuestionsToRender: numberOfQuestions,
+      })
     }
   }
 
-  returnNumberOfLoadMoreAnswerButtonClicks(id) {
-    return this.state[id] ? this.state[id] : undefined;
-  }
-
-  collapseAnswers (id) {
+  increaseNumberOfQuestionsToRender() {
     this.setState({
-      [id]: undefined
-    })
+      numberOfQuestionsToRender: this.state.numberOfQuestionsToRender + 2,
+    });
   }
 
-
+  componentDidMount() {
+    this.findNumberOfQuestionsToRender();
+  }
 
   render() {
     return (
@@ -52,11 +67,12 @@ class QuestionsAndAnswers extends React.Component {
         <SearchQuestions questions={this.state.questions} />
         <QuestionList
           questions={this.state.questions}
-          trackClicks={this.tracksNumberOfLoadMoreAnswersButtonClicks}
-          getClickCount={this.returnNumberOfLoadMoreAnswerButtonClicks}
+          moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
+          numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
+          userWantsMoreAnswers={this.userWantsMoreAnswers}
         />
-        <ComponentFooter questions={this.state.questions} />
+        <ComponentFooter questions={this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }

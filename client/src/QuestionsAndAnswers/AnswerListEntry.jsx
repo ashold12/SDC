@@ -1,8 +1,11 @@
 import React from 'react';
 
-const AnswerListEntry = function ( {answer}) {
-
-  return <div>{answer.body}</div>;
-}
+const AnswerListEntry = function ({ answer }) {
+  return (
+    <div>
+      <span className="qa-answer-body"> {answer.body}</span>
+    </div>
+  );
+};
 
 export default AnswerListEntry;
