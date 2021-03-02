@@ -31,7 +31,7 @@ const AnswerList = function ({
     return (
       <div>
         {Object.values(answers).map((answer) => {
-          if (numberOfAnswersToRender >= 0) {
+          if (numberOfAnswersToRender > 0) {
             numberOfAnswersToRender--;
             return <AnswerListEntry answer={answer} key={answer.id} />;
           }
@@ -42,7 +42,7 @@ const AnswerList = function ({
   return (
     <div>
       {Object.values(answers).map((answer) => {
-        if (numberOfAnswersToRender >= 0) {
+        if (numberOfAnswersToRender > 0) {
           numberOfAnswersToRender--;
           return <AnswerListEntry answer={answer} key={answer.id} />;
         }
