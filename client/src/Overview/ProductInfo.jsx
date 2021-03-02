@@ -1,12 +1,14 @@
 import React from 'react';
+import ProuductName from './ProductName.jsx';
+import ProductPrice from './ProductPrice.jsx';
 
-const ProductInfo = (props) => {
+const ProductInfo = ({selectedProductStyles, selectedStyle, selectedProduct}) => {
   return (
     <div className='o-productInfo'>
       * * * * * Read all reviews
       <div>CATEGORY</div>
-      <div>Product Title</div>
-      <div>Price</div>
+      <ProuductName selectedProduct={selectedProduct} />
+      <ProductPrice selectedStyle={selectedStyle}/>
     </div>
   );
 };
