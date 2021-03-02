@@ -10,8 +10,8 @@ class RelatedItemsAndComparison extends Component {
 
   render() {
     return (
-      <div className='outfit-and-comparison-container'>
-        <div className='related-products-outfits-main-container' name='RelatedProductsContainer'>
+      <div className="outfit-and-comparison-container">
+        <div className='related-products-outfits-main-container' name="RelatedProductsContainer">
           <div>RELATED PRODUCTS</div>
           <div>PRODUCT IMAGE HERE</div>
         </div>

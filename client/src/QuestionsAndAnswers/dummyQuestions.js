@@ -3,7 +3,7 @@ const dummyQuestions = {
   results: [
     {
       question_id: 111347,
-      question_body: 'Debitis dicta unde non quo laborum at sequi dolor.',
+      question_body: 'Debitis dicta unde non quo laborum at sequi dolor?',
       question_date: '2021-02-01T00:00:00.000Z',
       asker_name: 'Kristin.Schaden51',
       question_helpfulness: 27,
@@ -64,7 +64,7 @@ const dummyQuestions = {
     },
     {
       question_id: 111349,
-      question_body: 'Blanditiis corporis fugit voluptas autem possimus.',
+      question_body: 'Blanditiis corporis fugit voluptas autem possimus?',
       question_date: '2020-05-08T00:00:00.000Z',
       asker_name: 'Bonnie58',
       question_helpfulness: 19,
@@ -73,7 +73,7 @@ const dummyQuestions = {
     },
     {
       question_id: 111346,
-      question_body: 'Aut sunt ut rerum nisi odio et.',
+      question_body: 'Aut sunt ut rerum nisi odio et?',
       question_date: '2021-01-17T00:00:00.000Z',
       asker_name: 'Alena.Schoen36',
       question_helpfulness: 18,
@@ -209,7 +209,7 @@ const dummyQuestions = {
     },
     {
       question_id: 111345,
-      question_body: 'Quas fugiat assumenda voluptas corporis earum cum quia.',
+      question_body: 'Quas fugiat assumenda voluptas corporis earum cum quia?',
       question_date: '2020-05-04T00:00:00.000Z',
       asker_name: 'Treva_Kshlerin3',
       question_helpfulness: 10,
@@ -326,7 +326,7 @@ const dummyQuestions = {
     },
     {
       question_id: 111348,
-      question_body: 'Totam iure vero ab corporis sed qui cum.',
+      question_body: 'Totam iure vero ab corporis sed qui cum?',
       question_date: '2020-07-24T00:00:00.000Z',
       asker_name: 'Christian.Mertz',
       question_helpfulness: 8,
