@@ -16,7 +16,7 @@ class RatingsReviews extends React.Component {
   render() {
     const { product_id, filters } = this.state;
     return (
-      <div>
+      <div className="rr-parent">
         Ratings & Reviews
         <div className="rr-rating-big">
           <div className="rr-rating-breakdown">
