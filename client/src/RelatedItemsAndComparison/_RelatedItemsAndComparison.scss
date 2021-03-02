@@ -1,0 +1,10 @@
+
+.outfit-and-comparison-container {
+  display: grid;
+  grid-template-rows: repeat(2, 40%);
+}
+
+.related-products-outfits-main-container {
+  display: grid;
+  grid-template-rows: 20px 80%
+}

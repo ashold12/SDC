@@ -1,3 +1,5 @@
+@use './RelatedItemsAndComparison/RelatedItemsAndComparison';
+
 $color-blue: #0059ff;
 
 .app {
@@ -5,6 +7,16 @@ $color-blue: #0059ff;
   font-size: 2rem;
   text-align: center;
   /*Setting app to take whole page for our containers*/
+}
+
+/*adding some basic structure to our app, can be changed later */
+.main-app {
+  display: grid;
+  // grid-template-rows: repeat(4, 50%);
+  margin-right: 15%;
+  margin-left: 15%;
+  grid-gap: 50px
+
 }
 /*****************************/
 /*Ratings and Reviews Section*/
