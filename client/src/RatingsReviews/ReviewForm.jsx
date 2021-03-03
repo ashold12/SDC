@@ -1,5 +1,6 @@
 import React from 'react';
 import ClickableStars from './ClickableStars.jsx';
+import CharacteristicsRadioButtonSet from './CharacteristicsRadioButtonSet.jsx';
 import axios from 'axios';
 
 class ReviewForm extends React.Component {
@@ -16,12 +17,20 @@ class ReviewForm extends React.Component {
       email: '',
       photos: [],
       starRating: null,
-      characteristics: [],
       starRatingString: '',
+      characteristics: {},
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
     this.postReview = this.postReview.bind(this);
+  }
+
+  componentDidMount() {
+    const charObj = {};
+    Object.keys(this.metaData.characteristics).forEach((key) => {
+      charObj[key] = null;
+    });
+    this.setState({ characteristics: charObj });
   }
 
   formIsValid() {
@@ -64,6 +73,13 @@ class ReviewForm extends React.Component {
     }
     if (e.target.name === 'rating') {
       this.setStarRatingString(e.target.value);
+    }
+    if (e.target.name.includes('characteristic')) {
+      const characteristic = e.target.name.split('-')[1];
+      // This is complaining but with destructuring it didn't work.
+      const charObj = { ...this.state.characteristics };
+      charObj[characteristic] = e.target.value;
+      this.setState({ characteristics: charObj });
     }
   }
 
@@ -108,17 +124,31 @@ class ReviewForm extends React.Component {
         <input type="file" accept="image/*" name="photoUpload" onChange={this.onChange} />
       );
     }
+
     if (loading) {
       return <div />;
     }
+
+    const characteristicRB = Object.keys(this.metaData.characteristics).map((char) => (
+      <CharacteristicsRadioButtonSet
+        characteristic={char}
+        key={this.metaData.characteristics[char].id}
+        changeHandler={this.onChange}
+      />
+    ));
+
     return (
       <div className="rr-review-modal-container">
         <h1>Write your review!</h1>
-        <h2>About the {this.props.productTitle}</h2>
+        <h2>
+          About the
+          {this.props.productTitle}
+        </h2>
         <form>
           <div className="rr-review-modal-stars">
             <ClickableStars onChange={this.onChange} ratingString={starRatingString} />
           </div>
+          {characteristicRB}
           Do you recommend this product?*
           <input type="radio" onChange={this.onChange} name="recommendedProduct" value="true" />
           Yes
@@ -133,7 +163,7 @@ class ReviewForm extends React.Component {
               value={nickName}
               onChange={this.onChange}
             />
-            <p />
+            <br />
             For privacy reasons do not use your full name or e-mail address.
           </div>
           <div className="rr-reviw-modal-email">
@@ -146,6 +176,9 @@ class ReviewForm extends React.Component {
               onChange={this.onChange}
               value={email}
             />
+            <div className="rr-review-modal-email-info">
+              For authentication reasons, you will not be emailed.
+            </div>
           </div>
           <div className="rr-review-modal-summary">
             Summary:
