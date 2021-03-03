@@ -98,7 +98,7 @@ class ReviewForm extends React.Component {
             <input type="file" name="photoUpload" />
           </div>
         </form>
-        <button type="button">Submit</button>
+        <button type="buttonle">Submit</button>
       </div>
     )
   }
