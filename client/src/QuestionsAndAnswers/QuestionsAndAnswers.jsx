@@ -9,13 +9,9 @@ class QuestionsAndAnswers extends React.Component {
     super();
     this.state = {
       questions: data,
-      sortedFilteredQuestions: data,
       numberOfQuestionsToRender: 4,
       searchBarText: '',
     };
-
-
-
 
     // BINDINGS
 
@@ -25,7 +21,7 @@ class QuestionsAndAnswers extends React.Component {
     this.userWantsMoreAnswers = this.userWantsMoreAnswers.bind(this);
     this.findNumberOfQuestionsToRender = this.findNumberOfQuestionsToRender.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.sortFilteredQuestions = this.sortFilteredQuestions.bind(this);
+    this.sortQuestions = this.sortQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
   }
 
@@ -75,7 +71,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   // FILTERS
-  sortFilteredQuestions() {
+  sortQuestions() {
     this.state.questions.results.sort((a, b) => {
       if (b.question_helpfulness < a.question_helpfulness) {
         return -1;
@@ -92,44 +88,46 @@ class QuestionsAndAnswers extends React.Component {
   //need to loop over the questions and check to see if the word is included in them or if they match the regex above
 
   let { searchBarText } = this.state;
-  let { sortedFilteredQuestions } = this.state;
-  let copy = sortedFilteredQuestions;
-  let foundQuestions = [];
+  let { questions } = this.state;
 
-  for (let i = 0; i < copy.results.length; i++) {
-    let questionText = copy.results[i].question_body;
+  let foundQuestions = [];
+  let copy = { product_id: questions.id, results: foundQuestions }
+
+  for (let i = 0; i < questions.results.length; i++) {
+
+    let questionText = questions.results[i].question_body;
     let search = searchBarText;
 
     if (questionText.includes(search)) {
-      foundQuestions.push(copy.results[i]);
+      foundQuestions.push(questions.results[i]);
     } else {
       continue;
     }
   }
-  copy.results = foundQuestions;
+
   this.setState({
-    searchResults: copy,
+    searchResults: copy
   })
 }
 
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
-    this.sortFilteredQuestions();
+    this.sortQuestions();
   }
 
   render() {
     return (
       <div>
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions questions={this.state.sortedFilteredQuestions} onChange={this.onChange} />
+        <SearchQuestions questions={this.state.questions} onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
         <QuestionList
-          questions={this.state.sortedFilteredQuestions}
+          questions={0 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
         />
-        <ComponentFooter questions={this.state.sortedFilteredQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <ComponentFooter questions={0 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }
