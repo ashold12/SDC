@@ -40,7 +40,7 @@ class App extends React.Component {
         {/* react is up and running */}
         {/*need to pass in what item we're on here*/}
         <Overview />
-        <RelatedItemsAndComparison />
+        <RelatedItemsAndComparison allProducts={this.state.allProducts} />
         <QuestionsAndAnswers />
         <RatingsReviews />
       </div>
