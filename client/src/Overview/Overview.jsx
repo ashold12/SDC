@@ -12,29 +12,30 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      selectedProduct: null,
+      // selectedProduct: null,
       selectedProductStyles: [],
       selectedStyle: null // set the first style as default
     };
 
     this.getProductStyles = this.getProductStyles.bind(this);
-    this.getProduct = this.getProduct.bind(this);
+    // this.getProduct = this.getProduct.bind(this);
     this.selectStyleThumbnail = this.selectStyleThumbnail.bind(this);
   }
 
   componentDidMount() {
     this.getProductStyles();
-    this.getProduct();
+    // this.getProduct();
   }
 
-  getProduct() {
-    axios.get('api/products/17762')
-      .then((product) => {
-        this.setState({
-          selectedProduct: product.data
-        });
-      });
-  }
+  // getProduct() {
+  //   axios.get('api/products/17762')
+  //     .then((product) => {
+  //       // update state in App component with function here
+  //       this.setState({
+  //         selectedProduct: product.data
+  //       });
+  //     });
+  // }
 
   getProductStyles() {
     axios.get('/api/products/17762/styles')
@@ -52,14 +53,15 @@ class Overview extends React.Component {
   }
 
   render() {
-    const { selectedProductStyles, selectedStyle, selectedProduct } = this.state;
+    const { selectedProductStyles, selectedStyle } = this.state;
+    const { selectedProduct } = this.props;
     return (
       <div>
       <div className='o-overView'>
         <ImageGallery />
         <ProductInfo selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
         <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectStyleThumbnail={this.selectStyleThumbnail} selectedStyle={selectedStyle}/>
-        <AddToCart />
+        <AddToCart selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
       </div>
       <ProductOverview selectedProduct={selectedProduct}/>
       </div>

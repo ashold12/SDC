@@ -12,17 +12,20 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      allProducts: []
+      allProducts: [],
+      selectedProduct: null
     };
 
-    this.getProducts = this.getProducts.bind(this);
+    this.getAllProducts = this.getAllProducts.bind(this);
+    this.getProduct = this.getProduct.bind(this);
   }
 
   componentDidMount() {
-    this.getProducts();
+    this.getAllProducts();
+    this.getProduct();
   }
 
-  getProducts() {
+  getAllProducts() {
     axios.get('api/products?count=*')
       .then((data) => { // data.data is an array of all products, where each product is an object
         this.setState({
@@ -34,12 +37,22 @@ class App extends React.Component {
       });
   }
 
+  getProduct() {
+    axios.get('api/products/17762')
+      .then((product) => {
+        this.setState({
+          selectedProduct: product.data
+        });
+      });
+  }
+
   render() {
+    const { selectedProduct } = this.state;
     return (
       <div className="main-app">
         {/* react is up and running */}
         {/*need to pass in what item we're on here*/}
-        <Overview />
+        <Overview selectedProduct={selectedProduct} />
         <RelatedItemsAndComparison allProducts={this.state.allProducts} />
         <QuestionsAndAnswers />
         <RatingsReviews />
