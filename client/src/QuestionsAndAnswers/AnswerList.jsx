@@ -10,6 +10,14 @@ function AnswerList({
 }) {
   let i = 2;
 
+  // sortByHelpfullness(answers) {
+
+  //   let orderedByHelpfullness = [];
+
+
+  // }
+
+
   const renderHelper = Object.values(answers).map((answer) => {
     if (i > 0) {
       i--;
@@ -32,8 +40,10 @@ function AnswerList({
     return (
       <div>
         {renderHelper}
-        <a href="#"
-          onClick={(e) => {e.preventDefault();
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
             moreAnswersClicked(questionId);
           }}
         >
@@ -50,8 +60,10 @@ function AnswerList({
           <AnswerListEntry answer={answer} key={answer.id} />
         </div>
       ))}
-      <a href="#"
-        onClick={(e) => {e.preventDefault()
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
           collapseAnswers(questionId);
         }}
       >
