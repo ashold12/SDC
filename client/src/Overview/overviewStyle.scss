@@ -40,3 +40,20 @@
   grid-row-start: 5;
   grid-row-end: 6;
 }
+
+.o-productOverview {
+  background-color: rgb(148, 33, 33);
+  height: 150px;
+  margin-left: 100px;
+  margin-right: 100px;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 100;
+}
+.o-productOverviewText {
+  background-color: rgb(212, 79, 208);
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+}

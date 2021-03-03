@@ -1,55 +1,64 @@
 import React from 'react';
 import AnswerListEntry from './AnswerListEntry.jsx';
 
-const AnswerList = function ({
- answers, trackClicks, questionId, getClickCount, collapseAnswers
+function AnswerList({
+  answers,
+  questionId,
+  collapseAnswers,
+  moreAnswersClicked,
+  userWantsMoreAnswers,
 }) {
-  const clickCount = getClickCount(questionId);
-  const numberOfAnswers = Object.values(answers).length;
+  let i = 2;
 
-  const getNumberOfAnswersToRenderHelper = (count) => {
-    if (count === undefined) {
-      return 2;
-    }
-    if (count === 1) {
-      return 4;
-    }
-    return getNumberOfAnswersToRenderHelper(count - 1) + 2;
-  };
-  const answersToRender = getNumberOfAnswersToRenderHelper(clickCount);
-
-  const getNumberOfAnswersToRender = () => {
-    if (numberOfAnswers - answersToRender < 0) {
-      return numberOfAnswers;
-    }
-    return answersToRender;
-  };
-
-  let numberOfAnswersToRender = getNumberOfAnswersToRender();
   const renderHelper = Object.values(answers).map((answer) => {
-    if (numberOfAnswersToRender > 0) {
-      numberOfAnswersToRender--;
-      return <AnswerListEntry answer={answer} key={answer.id} />;
+    if (i > 0) {
+      i--;
+      return (
+        <div>
+          <AnswerListEntry answer={answer} key={answer.id} />
+        </div>
+      );
     }
   });
 
-  if (numberOfAnswers === 0 || numberOfAnswers === 1) {
+  if (Object.values(answers).length === 1 || Object.values(answers).length === 0) {
     return <div>{renderHelper}</div>;
   }
-  if (numberOfAnswers - answersToRender <= 0) {
+
+  if (
+    userWantsMoreAnswers(questionId) === false
+    || userWantsMoreAnswers(questionId) === undefined
+  ) {
     return (
       <div>
         {renderHelper}
-        <button onClick={() => collapseAnswers(questionId)}>Collapse Answers</button>
+        <a href="#"
+          onClick={(e) => {e.preventDefault();
+            moreAnswersClicked(questionId);
+          }}
+        >
+          See More Answers
+        </a>
       </div>
     );
   }
+
   return (
     <div>
-      {renderHelper}
-      <button onClick={() => trackClicks(questionId)}>Load More Answers</button>
+      {Object.values(answers).map((answer) => (
+        <div>
+          <AnswerListEntry answer={answer} key={answer.id} />
+        </div>
+      ))}
+      <a href="#"
+        onClick={(e) => {e.preventDefault()
+          collapseAnswers(questionId);
+        }}
+      >
+        Collapse Answers
+      </a>
     </div>
   );
-};
+}
 
 export default AnswerList;

@@ -1,18 +1,25 @@
 import React from 'react';
 import QuestionListEntry from './QuestionListEntry.jsx';
 
-const QuestionList = function ({ questions, trackClicks, getClickCount, collapseAnswers }) {
+const QuestionList = function ({
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers
+}) {
   return (
-    <div>
-      {questions.results.map((question) => (
-        <QuestionListEntry
-          question={question}
-          key={question.question_id}
-          trackClicks={trackClicks}
-          getClickCount={getClickCount}
-          collapseAnswers={collapseAnswers}
-        />
-      ))}
+    <div className="qa-questionList-container">
+      {questions.results.map((question) => {
+        numberOfQuestionsToRender--;
+        if (numberOfQuestionsToRender >= 0) {
+          return (
+            <QuestionListEntry
+              question={question}
+              key={question.question_id}
+              moreAnswersClicked={moreAnswersClicked}
+              collapseAnswers={collapseAnswers}
+              userWantsMoreAnswers={userWantsMoreAnswers}
+            />
+          );
+        }
+      })}
     </div>
   );
 };
