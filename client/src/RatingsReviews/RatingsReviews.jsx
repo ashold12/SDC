@@ -3,6 +3,7 @@ import axios from 'axios';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import ReviewTile from './ReviewTile.jsx';
 import ProductBreakDown from './ProductBreakDown.jsx';
+import ReviewForm from './ReviewForm.jsx';
 
 class RatingsReviews extends React.Component {
   constructor(props) {
@@ -61,6 +62,9 @@ class RatingsReviews extends React.Component {
         </div>
         <div className="rr-product-breakdown-container">
           <ProductBreakDown characteristics={this.state.meta.characteristics} />
+        </div>
+        <div>
+          <ReviewForm productTitle="Some Title" />
         </div>
       </div>
     );
