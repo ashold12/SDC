@@ -11,6 +11,7 @@ const AnswerListEntry = function ({ answer }) {
             <span>
               {' '}
               Helpful?
+              {' '}
               <a
                 href="#"
                 onClick={(e) => {
@@ -19,6 +20,7 @@ const AnswerListEntry = function ({ answer }) {
               >
                 Yes?
               </a>
+              {' '}
               ({answer.helpfulness ? answer.helpfulness : 0})
               {' | '}
               <a

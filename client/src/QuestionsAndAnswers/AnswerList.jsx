@@ -58,14 +58,14 @@ function AnswerList({
       <div className="qa-answer-entry">
         <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} />
         {renderHelper}
-        <a
+        <a className="qa-al-load-more-button"
           href="#"
           onClick={(e) => {
             e.preventDefault();
             moreAnswersClicked(questionId);
           }}
         >
-          See More Answers
+          LOAD MORE ANSWERS
         </a>
       </div>
     );
@@ -87,7 +87,7 @@ function AnswerList({
           collapseAnswers(questionId);
         }}
       >
-        Collapse Answers
+        COLLAPSE ANSWERS
       </a>
     </div>
   );
