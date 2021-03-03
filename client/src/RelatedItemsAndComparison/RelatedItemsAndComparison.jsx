@@ -4,6 +4,7 @@ import axios from 'axios';
 import ItemCard from './ItemCard.jsx';
 import RelatedProducts from './RelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
+// import query from './relatedOutfitQuery.js'
 
 class RelatedItemsAndComparison extends Component {
   constructor(props) {
@@ -11,24 +12,37 @@ class RelatedItemsAndComparison extends Component {
 
     this.state = {
       relatedProducts: [],
-      currentProductTemp: 17219,
+      currentProductTemp: 17762,
+      productCards: [],
     };
+
+    this.getRelated = this.getRelated.bind(this);
+    this.getStyles = this.getStyles.bind(this);
   }
 
   componentDidMount() {
+    this.getRelated(this.state.currentProductTemp);
+  }
+
+  getRelated(productID) {
     axios
-      .get(`/api/products/${this.state.currentProductTemp}/related`)
-      .then((related) => this.setState({ relatedProducts: related.data }))
-      .then(() => console.log(this.state.relatedProducts))
+      .get(`/api/products/${productID}/related`)
+      .then((related) => this.getStyles(related.data))
+      .then((results) => console.log(results))
       .catch((err) => console.log(err));
+  }
+
+  getStyles(relatedProductIDs) {
+    const stylesPromise = relatedProductIDs.map((id) => axios.get(`api/products/${id}/styles`));
+    return axios.all(stylesPromise)
+      .then((styles) => console.log(styles));
   }
 
   render() {
     return (
       <div className="rpo-main-container">
-        <RelatedProducts />
-        <YourOutfit />
-        <ItemCard />
+        <RelatedProducts allProducts={this.props.allProducts} />
+        {/* <YourOutfit /> */}
       </div>
     );
   }

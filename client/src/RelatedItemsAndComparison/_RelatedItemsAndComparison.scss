@@ -1,21 +1,36 @@
 
-.rpo-main-container {
+// .rpo-main-container {
+//   display: grid;
+//   grid-template-rows: repeat(2, 40%);
+//   width: 100%;
+//   height: 1000px;
+//   grid-gap: 40px;
+//   background-color: deeppink;
+// }
+
+.rpo-related-main-container {
   display: grid;
-  grid-template-rows: repeat(2, 40%);
-  grid-gap: 40px;
+  grid-template-rows: 20px 80%;
+  grid-gap: 20px;
+  // min-height: 400px;
+  background-color: darksalmon;
+}
+
+.rpo-card-holder {
+  display: grid;
+  grid-template-columns: repeat(4, 22%);
+  justify-content: center;
+  grid-gap: 2%;
+  margin: 3px;
 }
 
 .rpo-outfit-main-container {
   display: grid;
   grid-template-rows: 20px 80%;
   grid-gap: 20px;
+  background-color: darksalmon;
 }
 
-.rpo-related-main-container {
-  display: grid;
-  grid-template-rows: 20px 80%;
-  grid-gap: 20px;
-}
 
 /***********/
 /*Item Card*/
@@ -23,16 +38,20 @@
 
 .rpo-item-card {
   display: grid;
-  grid-template-rows: 80% 20%;
+  grid-template-rows: 70% 30%;
   background-color: brown;
   // width: 100%;
-  // height: 100%;
+  max-width: 180px;
+  // margin: auto;
+  height: 300px;
 }
 
-.rpo-item-card-img-div {
+.rpo-item-card-info {
+  display: grid;
+  grid-template-rows: repeat(4, 20%);
+  grid-gap: 5px;
+}
+.rpo-item-card-img {
   background-color: darkorchid;
-}
-
-.rpo-item-card-info-div {
-  background-color: burlywood;
+  padding: 0px;
 }

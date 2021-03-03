@@ -4,8 +4,13 @@ import React from 'react';
 function ItemCard() {
   return (
     <div className="rpo-item-card">
-      <div className="rpo-item-card-img-div">Image</div>
-      <div className="rpo-item-card-info-div">Info</div>
+      <div className="rpo-item-card-img">Image</div>
+      <div className="rpo-item-card-info">
+        <div>Category</div>
+        <div>Expanded Product Name</div>
+        <div>Price</div>
+        <div>Stars</div>
+      </div>
     </div>
   );
 }

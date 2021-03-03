@@ -3,7 +3,7 @@ import React from 'react';
 function YourOutfit() {
   return (
     <div
-      className="rpo-outfit-main-container"
+      className="rpo-container"
       name="YourOutfitContainer"
     >
       <div>YOUR OUTFIT</div>
