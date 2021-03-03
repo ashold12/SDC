@@ -83,8 +83,34 @@
 
 //SearchBar
 
+.qa-submit-form {
+  display: flex;
+  flex-direction: row;
+}
+
 .qa-searchbar {
   display: block;
-  width: 60vw;
+  width: 55vw;
   height: 5vh;
+  border-right: none;
 }
+
+.qa-searcbar-mag {
+  background: white url(https://developer.mozilla.org/static/media/search.db31d27c.svg) 0 0
+    no-repeat;
+  display: block;
+  width: 5vw;
+  height: 5vh;
+  border-left: none;
+  left: -150px;
+}
+
+.qa-search-exactMatch {
+  color: red;
+}
+
+// .qa-searchbar-container {
+//   display: block;
+//   padding-bottom: 5px;
+//   padding-top: 5px;
+// }
