@@ -13,12 +13,12 @@ class ProductBreakDown extends React.Component {
   getCharacteristicsBars() {
     const bar = [];
     const characteristicsToScale = {
-      Size: ['too small', 'too big'],
-      Width: ['too narrow', 'too big'],
-      Quality: ['poor', 'great'],
-      Comfort: ['not comfortable', 'extremely comfortable'],
-      Length: ['too short', 'too long'],
-      Fit: ['too tight', 'too loose'],
+      Size: ['too small', 'too wide'],
+      Width: ['too narrow', 'too wide'],
+      Quality: ['poor', 'perfect'],
+      Comfort: ['uncomfortable', 'perfect'],
+      Length: ['runs short', 'runs long'],
+      Fit: ['runs tight', 'runs long'],
     };
     const characteristics = this.props.characteristics
     const names = Object.keys(characteristics);
