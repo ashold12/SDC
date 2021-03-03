@@ -64,7 +64,7 @@ class QuestionsAndAnswers extends React.Component {
 
   // SEARCH BAR HANDLERS
 
-  onChange(e) {
+  onChange(e, callback) {
     this.setState({
       [e.target.name]: e.target.value,
     });
