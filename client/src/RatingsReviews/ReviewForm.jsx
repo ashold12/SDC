@@ -19,6 +19,7 @@ class ReviewForm extends React.Component {
       starRating: null,
       starRatingString: '',
       characteristics: {},
+      completedReview: false,
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
@@ -33,12 +34,9 @@ class ReviewForm extends React.Component {
     this.setState({ characteristics: charObj });
   }
 
-  formIsValid() {
-    // Form validation here.
-  }
-
   postReview() {
     // submit the review.
+    console.log(this.formIsValid());
   }
 
   onChange(e) {
@@ -85,7 +83,46 @@ class ReviewForm extends React.Component {
 
   setStarRatingString(value) {
     const possibleStrings = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
-    this.setState({ starRatingString: possibleStrings[value - 1] });
+    this.setState({ starRatingString: possibleStrings[value - 1], starRating: value });
+  }
+
+  formIsValid() {
+    const {
+      recommendedProduct,
+      reviewBody,
+      nickName,
+      email,
+      starRating,
+      characteristics,
+      reviewBodyCounter,
+    } = this.state;
+    if (!recommendedProduct) {
+      console.log('rec prod');
+      return false;
+    }
+    if (!reviewBody || reviewBodyCounter !== 0) {
+      console.log('review body counter issue.');
+      return false;
+    }
+    if (!nickName) {
+      console.log('nickname');
+      return false;
+    }
+    if (!this.isValidEmailAddress(email)) {
+      console.log('email addy');
+      return false;
+    }
+    if (!starRating) {
+      console.log('starrating');
+      return false;
+    }
+    Object.keys(characteristics).forEach((key) => {
+      if (!characteristics[key]) {
+        console.log('character');
+        return false;
+      }
+    });
+    return true;
   }
 
   isValidEmailAddress(email) {
@@ -209,7 +246,9 @@ class ReviewForm extends React.Component {
           <div className="rr-modal-photo-thumbnails-container">{photosJSX}</div>
           <div className="rr-modal-photo-upload">{submitPhotoButton}</div>
         </form>
-        <button type="button">Submit</button>
+        <button name="submitButton" onClick={this.postReview} type="button">
+          Submit
+        </button>
       </div>
     );
   }
