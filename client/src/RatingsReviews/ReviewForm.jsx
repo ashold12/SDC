@@ -1,8 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 
 class ReviewForm extends React.Component {
   constructor(props) {
     super(props);
+    this.metaData = props.metaData;
     this.state = {
       loading: false,
       recommendedProduct: null,
@@ -11,26 +13,38 @@ class ReviewForm extends React.Component {
       reviewBodyCounter: 50,
       nickName: '',
       email: '',
+      photos: [],
+      starRating: null,
+      characteristics: [],
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
+    this.postReview = this.postReview.bind(this);
   }
 
+  formIsValid() {
+    // Form validation here.
+  }
+
+  postReview() {
+    // submit the review.
+  }
 
   onChange(e) {
     let { reviewBodyCounter } = this.state;
     if (e.target.name === 'recommendedProduct') {
-      const didRecommend = (e.target.value === 'true');
+      const didRecommend = e.target.value === 'true';
       this.setState({ recommendedProduct: didRecommend });
     }
     if (e.target.name === 'textSummary') {
       this.setState({ summaryField: e.target.value });
     }
     if (e.target.name === 'reviewBody') {
-      reviewBodyCounter -= 1;
-      if (reviewBodyCounter <= 0) {
+      reviewBodyCounter = e.target.value.length - 50;
+      if (reviewBodyCounter >= 0) {
         reviewBodyCounter = 0;
       }
+
       this.setState({ reviewBody: e.target.value, reviewBodyCounter });
     }
     if (e.target.name === 'nickName') {
@@ -38,6 +52,13 @@ class ReviewForm extends React.Component {
     }
     if (e.target.name === 'email') {
       this.setState({ email: e.target.value });
+    }
+    if (e.target.name === 'photoUpload') {
+      const { photos } = this.state;
+      const photoUrl = URL.createObjectURL(e.target.files[0]);
+      e.target.value = '';
+      photos.push(photoUrl);
+      this.setState({ photos });
     }
   }
 
@@ -53,54 +74,100 @@ class ReviewForm extends React.Component {
       reviewBody,
       reviewBodyCounter,
       email,
-      nickName
+      nickName,
+      photos,
     } = this.state;
     const summaryPlaceHolder = 'Example: Best purchase ever!';
     const reviewBodyPlaceHolder = 'Why did you like the product or not?';
-    let reviewBodyCounterText = `Minimum required characters left: ${reviewBodyCounter}`;
+    let reviewBodyCounterText = `Minimum required characters left: ${Math.abs(reviewBodyCounter)}`;
     if (reviewBodyCounter === 0) {
       reviewBodyCounterText = 'Minimum Reached';
+    }
+    console.log('****', this.metaData);
+
+    const photosJSX = photos.map((photo, ind) => (
+      <img
+        key={photo}
+        className="rr-modal-form-thumbnail"
+        src={photo}
+        alt="User submitted of product"
+      />
+    ));
+    let submitPhotoButton = <div />;
+    if (photos.length < 5) {
+      submitPhotoButton = (
+        <input type="file" accept="image/*" name="photoUpload" onChange={this.onChange} />
+      );
     }
     if (loading) {
       return <div />;
     }
     return (
-      <div className='rr-review-modal-container' >
+      <div className="rr-review-modal-container">
         <h1>Write your review!</h1>
         <h2>About the {this.props.productTitle}</h2>
         <form>
-          <div className='rr-review-modal-stars'>Stars go here.</div>
+          <div className="rr-review-modal-stars">Stars go here.</div>
           Do you recommend this product?*
           <input type="radio" onChange={this.onChange} name="recommendedProduct" value="true" />
           Yes
           <input type="radio" onChange={this.onChange} name="recommendedProduct" value="false" />
           No
-          <div className='rr-review-modal-nickname'>
-            Nickname:* <input type="text" maxLength="60" name="nickName" value={nickName} onChange={this.onChange} />
+          <div className="rr-review-modal-nickname">
+            Nickname:*{' '}
+            <input
+              type="text"
+              maxLength="60"
+              name="nickName"
+              value={nickName}
+              onChange={this.onChange}
+            />
             <p />
             For privacy reasons do not use your full name or e-mail address.
           </div>
-          <div className='rr-reviw-modal-email'>
-            E-Mail*: <input type='email' maxLength="60" name="email" value="" onChange={this.onChange} value={email} />
+          <div className="rr-reviw-modal-email">
+            E-Mail*:{' '}
+            <input
+              type="email"
+              maxLength="60"
+              name="email"
+              value=""
+              onChange={this.onChange}
+              value={email}
+            />
           </div>
-          <div className='rr-review-modal-summary'>
+          <div className="rr-review-modal-summary">
             Summary:
-            <input type="text" size="60" maxLength="60" placeholder={summaryPlaceHolder} onChange={this.onChange} name="textSummary" value={summaryField} />
+            <input
+              type="text"
+              size="60"
+              maxLength="60"
+              placeholder={summaryPlaceHolder}
+              onChange={this.onChange}
+              name="textSummary"
+              value={summaryField}
+            />
           </div>
-          <div className='rr-review-modal-reviewbody'>
+          <div className="rr-review-modal-reviewbody">
             Review:
-            <textarea type="textarea" cols="40" rows="30" maxLength="1000" placeholder={reviewBodyPlaceHolder} onChange={this.onChange} name="reviewBody" value={reviewBody} />
+            <textarea
+              type="textarea"
+              cols="40"
+              rows="30"
+              maxLength="1000"
+              placeholder={reviewBodyPlaceHolder}
+              onChange={this.onChange}
+              name="reviewBody"
+              value={reviewBody}
+            />
             {reviewBodyCounterText}
           </div>
-          <div className='rr-modal-photo-upload'>
-            Photo Upload:
-{' '}
-            <input type="file" name="photoUpload" />
-          </div>
+          <div className="rr-modal-photo-thumbnails-container">{photosJSX}</div>
+          <div className="rr-modal-photo-upload">{submitPhotoButton}</div>
         </form>
-        <button type="buttonle">Submit</button>
+        <button type="button">Submit</button>
       </div>
-    )
+    );
   }
 }
 export default ReviewForm;
