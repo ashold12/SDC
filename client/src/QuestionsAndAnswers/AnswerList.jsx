@@ -10,9 +10,17 @@ function AnswerList({
 }) {
   let i = 2;
 
+  let orderedAnswers = Object.values(answers).sort((a, b) => {
+    if (a.helpfulness < b.helpfulness) {
+      return -1;
+    } else if (b.helpfulness < a.helpfulness){
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
-
-  const renderHelper = Object.values(answers).map((answer) => {
+  const renderHelper = orderedAnswers.map((answer) => {
     if (i > 0) {
       i--;
       return (
@@ -76,7 +84,7 @@ function AnswerList({
 
   return (
     <div>
-      {Object.values(answers).map((answer) => (
+      {orderedAnswers.map((answer) => (
         <div className="qa-answer-entry">
           <AnswerListEntry answer={answer} key={answer.id} />
           <div>
