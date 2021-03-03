@@ -1,7 +1,5 @@
-
 @use './Overview/overviewStyle';
 @use './RelatedItemsAndComparison/RelatedItemsAndComparison';
-
 
 $color-blue: #0059ff;
 
@@ -18,8 +16,7 @@ $color-blue: #0059ff;
   // grid-template-rows: repeat(4, 50%);
   margin-right: 15%;
   margin-left: 15%;
-  grid-gap: 50px
-
+  grid-gap: 50px;
 }
 /*****************************/
 /*Ratings and Reviews Section*/

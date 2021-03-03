@@ -40,7 +40,7 @@ class Overview extends React.Component {
       .then((product) => {
         this.setState({
           selectedProductStyles: product.data.results,
-          selectedStyle: product.data.results[0]
+          selectedStyle: product.data.results[0] // sets first style to default style for now
         });
       });
   }
@@ -52,10 +52,10 @@ class Overview extends React.Component {
       <div className='o-overView'>
         <ImageGallery />
         <ProductInfo selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
-        <StyleSelector />
+        <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle}/>
         <AddToCart />
       </div>
-      <ProductOverview />
+      <ProductOverview selectedProduct={selectedProduct}/>
       </div>
     );
   }

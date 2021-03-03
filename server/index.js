@@ -30,6 +30,11 @@ app.all('/api/*', (req, res) => {
     });
 });
 
+// need to write something to send product and the styles together
+app.get('/products/:id', (req, res) => {
+  res.send("this route works")
+})
+
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
 });

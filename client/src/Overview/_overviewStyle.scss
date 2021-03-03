@@ -57,3 +57,21 @@
   grid-column-end: 1;
   grid-row-start: 1;
 }
+
+#o-productName {
+  font-size: 2em;
+}
+
+.o-selectStyleThumbnail {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  grid-auto-rows: 35px;
+}
+
+.o-items {
+  display: grid;
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+}

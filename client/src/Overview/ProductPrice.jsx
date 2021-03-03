@@ -6,7 +6,7 @@ const ProductPrice = ({ selectedStyle }) => {
     if (selectedStyle.sale_price) {
       price = selectedStyle.sale_price;
     } else {
-      price = selectedStyle.original_price;
+      price = '$' + selectedStyle.original_price;
     }
   }
 
