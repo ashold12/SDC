@@ -11,14 +11,16 @@ function AnswerList({
   let i = 2;
 
   let orderedAnswers = Object.values(answers).sort((a, b) => {
-    if (a.helpfulness < b.helpfulness) {
+    if (b.helpfulness < a.helpfulness) {
       return -1;
-    } else if (b.helpfulness < a.helpfulness){
+    } else if (a.helpfulness < b.helpfulness){
       return 1;
     } else {
       return 0;
     }
   });
+
+  console.log(orderedAnswers);
 
   const renderHelper = orderedAnswers.map((answer) => {
     if (i > 0) {

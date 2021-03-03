@@ -6,9 +6,9 @@ const QuestionList = function ({
 }) {
 
   let orderedQuestions = questions.results.sort((a, b) => {
-    if (a.question_helpfulness < b.question_helpfulness) {
+    if (b.question_helpfulness < a.question_helpfulness) {
       return -1;
-    } else if (b.question_helpfulness < a.question_helpfulness){
+    } else if (a.question_helpfulness < b.question_helpfulness){
       return 1;
     } else {
       return 0;
