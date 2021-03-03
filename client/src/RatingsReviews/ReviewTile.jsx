@@ -13,20 +13,17 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     // Single test review testing block.
-    let [testReview, testReview2] = dummyReviews.results;
+    //let [testReview, testReview2] = dummyReviews.results;
     // Calculate star rating.
-    if (testReview.rating > 0) {
-      testReview.starRating = parseFloat((Math.round(testReview.rating * 4) / 4).toFixed(2));
+    if (props.review.rating > 0) {
+      props.review.starRating = parseFloat((Math.round(props.review.rating * 4) / 4).toFixed(2));
     }
     this.state = {
-      ...testReview,
+      ...props.review,
       showModal: false,
       modalURL: '',
       helpfulClicked: false,
     };
-    this.state.body =
-      this.state.body +
-      'Some super long winded review that no one is ever going to read because it is stupid and who cares about all this bs seriously its like who cares there is so much other stuff to do and these reviews are useless and yet they continue to be written forever and ever and it just goes on and on so lets just make the best of the review and fill in this text and make it like super long.';
     this.showMoreReview = this.showMoreReview.bind(this);
     this.showPhotoModal = this.showPhotoModal.bind(this);
     this.hidePhotoModal = this.hidePhotoModal.bind(this);

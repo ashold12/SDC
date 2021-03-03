@@ -1,17 +1,19 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
 
-const QuestionListEntry = function ({ question, trackClicks, getClickCount, collapseAnswers }) {
+const QuestionListEntry = function ({ question, collapseAnswers, moreAnswersClicked, userWantsMoreAnswers }) {
   return (
     <div>
-      <div>{question.question_body}</div>
+      <div>
+      <h4 className="qa-question-links">Q: {question.question_body} <span> Helpful? <a href="#" onClick={(e)=> {e.preventDefault()}}>Yes?</a>(#here){' | '}<a href="#" onClick={(e)=> {e.preventDefault()}}> Add Answer</a></span></h4>
+      </div>
       <div>
         <AnswerList
           answers={question.answers}
-          trackClicks={trackClicks}
           questionId={question.question_id}
-          getClickCount={getClickCount}
           collapseAnswers={collapseAnswers}
+          moreAnswersClicked={moreAnswersClicked}
+          userWantsMoreAnswers={userWantsMoreAnswers}
         />
       </div>
     </div>
