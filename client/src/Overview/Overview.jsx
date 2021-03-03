@@ -19,6 +19,7 @@ class Overview extends React.Component {
 
     this.getProductStyles = this.getProductStyles.bind(this);
     this.getProduct = this.getProduct.bind(this);
+    this.selectStyleThumbnail = this.selectStyleThumbnail.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +41,14 @@ class Overview extends React.Component {
       .then((product) => {
         this.setState({
           selectedProductStyles: product.data.results,
-          selectedStyle: product.data.results[0]
+          selectedStyle: product.data.results[0] // sets first style to default style for now
         });
       });
+  }
+
+  selectStyleThumbnail(style) {
+    this.setState({selectedStyle: style})
+
   }
 
   render() {
@@ -52,10 +58,10 @@ class Overview extends React.Component {
       <div className='o-overView'>
         <ImageGallery />
         <ProductInfo selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
-        <StyleSelector />
+        <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectStyleThumbnail={this.selectStyleThumbnail} selectedStyle={selectedStyle}/>
         <AddToCart />
       </div>
-      <ProductOverview />
+      <ProductOverview selectedProduct={selectedProduct}/>
       </div>
     );
   }

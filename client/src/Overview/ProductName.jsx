@@ -5,7 +5,7 @@ const ProuductName = ({ selectedProduct }) => {
   if (selectedProduct) {
     name = selectedProduct.name;
   }
-  return <div>{name}</div>;
+  return <div id='o-productName'>{name}</div>;
 };
 
 export default ProuductName;
