@@ -7,13 +7,15 @@ class ReviewForm extends React.Component {
       loading: false,
       recommendedProduct: null,
       summaryField: '',
-      reviewBody: ''
+      reviewBody: '',
+      reviewBodyCounter: 50,
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(e) {
+    let { reviewBodyCounter } = this.state;
     if (e.target.name === 'recommendedProduct') {
       const didRecommend = (e.target.value === 'true');
       this.setState({ recommendedProduct: didRecommend });
@@ -22,14 +24,22 @@ class ReviewForm extends React.Component {
       this.setState({ summaryField: e.target.value });
     }
     if (e.target.name === 'reviewBody') {
-      this.setState({ reviewBody: e.target.value });
+      reviewBodyCounter -= 1;
+      if (reviewBodyCounter <= 0) {
+        reviewBodyCounter = 0;
+      }
+      this.setState({ reviewBody: e.target.value, reviewBodyCounter });
     }
   }
 
   render() {
-    const { loading, summaryField, reviewBody } = this.state;
+    const { loading, summaryField, reviewBody, reviewBodyCounter } = this.state;
     const summaryPlaceHolder = 'Example: Best purchase ever!';
     const reviewBodyPlaceHolder = 'Why did you like the product or not?';
+    let reviewBodyCounterText = `Minimum required characters left: ${reviewBodyCounter}`;
+    if (reviewBodyCounter === 0) {
+      reviewBodyCounterText = 'Minimum Reached';
+    }
     if (loading) {
       return <div />;
     }
@@ -50,7 +60,8 @@ class ReviewForm extends React.Component {
           </div>
           <div className='rr-review-modal-reviewbody'>
             Review:
-            <textarea type="textarea" cols="40" rows="30" placeholder={reviewBodyPlaceHolder} onChange={this.onChange} name="reviewBody" value={reviewBody} />
+            <textarea type="textarea" cols="40" rows="30" maxLength="1000" placeholder={reviewBodyPlaceHolder} onChange={this.onChange} name="reviewBody" value={reviewBody} />
+            {reviewBodyCounterText}
           </div>
         </form>
       </div>
