@@ -19,7 +19,7 @@ const AnswerListEntry = function ({ answer }) {
               >
                 Yes?
               </a>
-              (#here)
+              ({answer.helpfulness ? answer.helpfulness : 0})
               {' | '}
               <a
                 href="#"

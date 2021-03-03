@@ -9,7 +9,7 @@ function AnswerList({
   moreAnswersClicked,
   userWantsMoreAnswers,
 }) {
-  let i = 1;
+
 
   let orderedAnswers = Object.values(answers).sort((a, b) => {
     if (b.helpfulness < a.helpfulness) {
@@ -24,7 +24,10 @@ function AnswerList({
   let mostHelpful = orderedAnswers[0];
   orderedAnswers.shift();
 
+  let i = 1;
+
   const renderHelper = orderedAnswers.map((answer) => {
+
     if (i > 0) {
       i--;
       return (
@@ -35,11 +38,14 @@ function AnswerList({
     }
   });
 
-  if (Object.values(answers).length === 1 || Object.values(answers).length === 0) {
+  if (Object.values(answers).length === 0) {
+    return <div />;
+  }
+
+  if (Object.values(answers).length === 1) {
     return (
     <div>
       <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} />
-    <div className="qa-answer-entry">{renderHelper}</div>
     </div>
     )
   }
