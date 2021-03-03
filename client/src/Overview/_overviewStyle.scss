@@ -6,7 +6,8 @@
   grid-template-rows: 20% 20% 20% 20% 20%;
 }
 .o-imageGallery {
-  background-color: rgb(78, 89, 243);
+  // background-color: rgb(78, 89, 243);
+  border: 1px solid black;
   display: grid;
   grid-column-start: 1;
   grid-column-end: 7;
@@ -15,7 +16,8 @@
 }
 
 .o-productInfo {
-  background-color: rgb(224, 210, 226);
+  // background-color: rgb(224, 210, 226);
+  border: 1px solid black;
   display: grid;
   grid-column-start: 7;
   grid-column-end: 11;
@@ -24,7 +26,8 @@
 }
 
 .o-styleSelector {
-  background-color: rgb(229, 233, 168);
+  // background-color: rgb(229, 233, 168);
+  border: 1px solid black;
   display: grid;
   grid-column-start: 7;
   grid-column-end: 11;
@@ -33,7 +36,8 @@
 }
 
 .o-addToCart {
-  background-color: rgb(168, 233, 171);
+  // background-color: rgb(168, 233, 171);
+  border: 1px solid black;
   display: grid;
   grid-column-start: 7;
   grid-column-end: 11;
@@ -65,7 +69,7 @@
 .o-selectStyleThumbnail {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
+  gap: 10px;
   grid-auto-rows: 35px;
 }
 

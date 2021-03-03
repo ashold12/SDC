@@ -19,6 +19,7 @@ class Overview extends React.Component {
 
     this.getProductStyles = this.getProductStyles.bind(this);
     this.getProduct = this.getProduct.bind(this);
+    this.selectStyleThumbnail = this.selectStyleThumbnail.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +46,11 @@ class Overview extends React.Component {
       });
   }
 
+  selectStyleThumbnail(style) {
+    this.setState({selectedStyle: style})
+
+  }
+
   render() {
     const { selectedProductStyles, selectedStyle, selectedProduct } = this.state;
     return (
@@ -52,7 +58,7 @@ class Overview extends React.Component {
       <div className='o-overView'>
         <ImageGallery />
         <ProductInfo selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
-        <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle}/>
+        <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectStyleThumbnail={this.selectStyleThumbnail} selectedStyle={selectedStyle}/>
         <AddToCart />
       </div>
       <ProductOverview selectedProduct={selectedProduct}/>

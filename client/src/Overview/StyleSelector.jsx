@@ -1,14 +1,27 @@
 import React from 'react';
+import {BiCheckCircle} from 'react-icons/bi'
 
-const StyleSelector = ({selectedProductStyles}) => {
+const StyleSelector = ({selectedStyle, selectedProductStyles, selectStyleThumbnail}) => {
   // need to use an onclick handler
     // should this.setState({selectedStyle: eventTarget}) when clicked
+  let name = "loading";
+  if (selectedStyle) {
+    name = selectedStyle.name
+  }
+
   return (
     <div className='o-styleSelector'>
-      Style > selected style
+      Style > {name}
       <div className="o-selectStyleThumbnail">
         {selectedProductStyles.map((style) => {
-        return <img className="o-items" src={style.photos[0].thumbnail_url}></img>
+          if (selectedStyle.style_id === style.style_id) {
+            return (<div>
+              <BiCheckCircle/>
+              <img className="o-items" src={style.photos[0].thumbnail_url} onClick={()=>{selectStyleThumbnail(style)}}></img>
+            </div>)
+          } else {
+            return <img className="o-items" src={style.photos[0].thumbnail_url} onClick={()=>{selectStyleThumbnail(style)}}></img>
+          }
       })}
       </div>
     </div>
