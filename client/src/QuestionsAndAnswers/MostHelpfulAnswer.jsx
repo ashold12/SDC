@@ -1,10 +1,10 @@
 import React from 'react';
 
-const AnswerListEntry = function ({ answer }) {
+const MostHelpfulAnswer = function ({ answer }) {
   return (
     <div>
-      <span className="qa-answer-body"> {answer.body}</span>
-      <div className="qa-answer-footer">
+      <span  className="qa-helpful-body"> <span id="qa-answerlist-title">A:</span> {answer.body}</span>
+      <div className="qa-mosthelpful">
             by
             {` ${  answer.answerer_name}`}
 ,{` ${answer.date.slice(0, 10)} | `}
@@ -31,8 +31,9 @@ const AnswerListEntry = function ({ answer }) {
               </a>
             </span>
           </div>
-    </div>
+      </div>
+
   );
 };
 
-export default AnswerListEntry;
+export default MostHelpfulAnswer;

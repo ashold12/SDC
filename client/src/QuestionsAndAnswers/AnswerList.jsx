@@ -1,5 +1,6 @@
 import React from 'react';
 import AnswerListEntry from './AnswerListEntry.jsx';
+import MostHelpfulAnswer from './MostHelpfulAnswer.jsx';
 
 function AnswerList({
   answers,
@@ -8,7 +9,7 @@ function AnswerList({
   moreAnswersClicked,
   userWantsMoreAnswers,
 }) {
-  let i = 2;
+  let i = 1;
 
   let orderedAnswers = Object.values(answers).sort((a, b) => {
     if (b.helpfulness < a.helpfulness) {
@@ -20,7 +21,8 @@ function AnswerList({
     }
   });
 
-  console.log(orderedAnswers);
+  let mostHelpful = orderedAnswers[0];
+  orderedAnswers.shift();
 
   const renderHelper = orderedAnswers.map((answer) => {
     if (i > 0) {
@@ -28,40 +30,18 @@ function AnswerList({
       return (
         <div className="qa-answer-entry">
           <AnswerListEntry answer={answer} key={answer.id} />
-          <div>
-            by
-            {` ${  answer.answerer_name}`}
-,{` ${answer.date.slice(0, 10)} | `}
-            <span>
-              {' '}
-              Helpful?
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Yes?
-              </a>
-              (#here)
-              {' | '}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Report
-              </a>
-            </span>
-          </div>
         </div>
       );
     }
   });
 
   if (Object.values(answers).length === 1 || Object.values(answers).length === 0) {
-    return <div className="qa-answer-entry">{renderHelper}</div>;
+    return (
+    <div>
+      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} />
+    <div className="qa-answer-entry">{renderHelper}</div>
+    </div>
+    )
   }
 
   if (
@@ -70,6 +50,7 @@ function AnswerList({
   ) {
     return (
       <div className="qa-answer-entry">
+        <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} />
         {renderHelper}
         <a
           href="#"
@@ -86,36 +67,11 @@ function AnswerList({
 
   return (
     <div>
+      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} />
       {orderedAnswers.map((answer) => (
         <div className="qa-answer-entry">
+
           <AnswerListEntry answer={answer} key={answer.id} />
-          <div>
-            by
-            {` ${  answer.answerer_name  } `}
-,{` ${answer.date.slice(0, 10)} | `}
-            <span>
-              {' '}
-              Helpful?
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Yes?
-              </a>
-              (#here)
-              {' | '}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Report
-              </a>
-            </span>
-          </div>
         </div>
       ))}
       <a
