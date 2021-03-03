@@ -10,27 +10,48 @@ function AnswerList({
 }) {
   let i = 2;
 
-  // sortByHelpfullness(answers) {
-
-  //   let orderedByHelpfullness = [];
-
-
-  // }
 
 
   const renderHelper = Object.values(answers).map((answer) => {
     if (i > 0) {
       i--;
       return (
-        <div>
+        <div className="qa-answer-entry">
           <AnswerListEntry answer={answer} key={answer.id} />
+          <div>
+            by
+            {` ${  answer.answerer_name}`}
+,{` ${answer.date.slice(0, 10)} | `}
+            <span>
+              {' '}
+              Helpful?
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Yes?
+              </a>
+              (#here)
+              {' | '}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Report
+              </a>
+            </span>
+          </div>
         </div>
       );
     }
   });
 
   if (Object.values(answers).length === 1 || Object.values(answers).length === 0) {
-    return <div>{renderHelper}</div>;
+    return <div className="qa-answer-entry">{renderHelper}</div>;
   }
 
   if (
@@ -38,7 +59,7 @@ function AnswerList({
     || userWantsMoreAnswers(questionId) === undefined
   ) {
     return (
-      <div>
+      <div className="qa-answer-entry">
         {renderHelper}
         <a
           href="#"
@@ -56,8 +77,35 @@ function AnswerList({
   return (
     <div>
       {Object.values(answers).map((answer) => (
-        <div>
+        <div className="qa-answer-entry">
           <AnswerListEntry answer={answer} key={answer.id} />
+          <div>
+            by
+            {` ${  answer.answerer_name  } `}
+,{` ${answer.date.slice(0, 10)} | `}
+            <span>
+              {' '}
+              Helpful?
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Yes?
+              </a>
+              (#here)
+              {' | '}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Report
+              </a>
+            </span>
+          </div>
         </div>
       ))}
       <a
