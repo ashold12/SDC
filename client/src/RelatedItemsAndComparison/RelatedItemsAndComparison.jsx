@@ -11,13 +11,13 @@ class RelatedItemsAndComparison extends Component {
     super(props);
 
     this.state = {
-      relatedProducts: [],
+      relatedStyles: [],
       currentProductTemp: 17762,
       productCards: [],
     };
 
     this.getRelated = this.getRelated.bind(this);
-    this.getStyles = this.getStyles.bind(this);
+    this.getStyles = this.getRelatedStyles.bind(this);
   }
 
   componentDidMount() {
@@ -27,15 +27,20 @@ class RelatedItemsAndComparison extends Component {
   getRelated(productID) {
     axios
       .get(`/api/products/${productID}/related`)
-      .then((related) => this.getStyles(related.data))
-      .then((results) => console.log(results))
+      .then((related) => this.getRelatedStyles(related.data))
+      .then((results) => this.setState({ relatedStyles: results }))
+      .then(() => console.log(this.state.relatedStyles))
       .catch((err) => console.log(err));
   }
 
-  getStyles(relatedProductIDs) {
+  getRelatedStyles(relatedProductIDs) {
     const stylesPromise = relatedProductIDs.map((id) => axios.get(`api/products/${id}/styles`));
     return axios.all(stylesPromise)
-      .then((styles) => console.log(styles));
+      .then((styles) => styles.map((style) => style.data));
+  }
+
+  setCards() {
+
   }
 
   render() {
