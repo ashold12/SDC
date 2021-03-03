@@ -175,5 +175,60 @@
   width: 20%;
   height: auto;
 }
+.rr-star-modal-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  /* the hidden clearer */
+}
+.rr-star-modal-group * {
+  font-size: 1rem;
+}
+.rr-star-modal-group > input {
+  display: none;
+}
+.rr-star-modal-group > input + label {
+  /* only enough room for the star */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 9999px;
+  width: 1em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rr-star-modal-group > input + label:before {
+  display: inline-block;
+  text-indent: -9999px;
+  content: '☆';
+  color: #888;
+}
+.rr-star-modal-group > input:checked ~ label:before,
+.rr-star-modal-group > input + label:hover ~ label:before,
+.rr-star-modal-group > input + label:hover:before {
+  content: '★';
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+.rr-star-modal-group > .rr-star-modal-clear + label {
+  text-indent: -9999px;
+  width: 0.5em;
+  margin-left: -0.5em;
+}
+.rr-star-modal-group > .rr-star-modal-clear + label:before {
+  width: 0.5em;
+}
+.rr-star-modal-group:hover > input + label:before {
+  content: '☆';
+  color: #888;
+  text-shadow: none;
+}
+.rr-star-modal-group:hover > input + label:hover ~ label:before,
+.rr-star-modal-group:hover > input + label:hover:before {
+  content: '★';
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
 /* End rating and reviews submit reviews modal */
 /*End Ratings and Reviews*/

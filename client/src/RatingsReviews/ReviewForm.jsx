@@ -1,4 +1,5 @@
 import React from 'react';
+import ClickableStars from './ClickableStars.jsx';
 import axios from 'axios';
 
 class ReviewForm extends React.Component {
@@ -16,6 +17,7 @@ class ReviewForm extends React.Component {
       photos: [],
       starRating: null,
       characteristics: [],
+      starRatingString: '',
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
@@ -60,6 +62,14 @@ class ReviewForm extends React.Component {
       photos.push(photoUrl);
       this.setState({ photos });
     }
+    if (e.target.name === 'rating') {
+      this.setStarRatingString(e.target.value);
+    }
+  }
+
+  setStarRatingString(value) {
+    const possibleStrings = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
+    this.setState({ starRatingString: possibleStrings[value - 1] });
   }
 
   isValidEmailAddress(email) {
@@ -76,6 +86,7 @@ class ReviewForm extends React.Component {
       email,
       nickName,
       photos,
+      starRatingString,
     } = this.state;
     const summaryPlaceHolder = 'Example: Best purchase ever!';
     const reviewBodyPlaceHolder = 'Why did you like the product or not?';
@@ -83,9 +94,7 @@ class ReviewForm extends React.Component {
     if (reviewBodyCounter === 0) {
       reviewBodyCounterText = 'Minimum Reached';
     }
-    console.log('****', this.metaData);
-
-    const photosJSX = photos.map((photo, ind) => (
+    const photosJSX = photos.map((photo) => (
       <img
         key={photo}
         className="rr-modal-form-thumbnail"
@@ -107,7 +116,9 @@ class ReviewForm extends React.Component {
         <h1>Write your review!</h1>
         <h2>About the {this.props.productTitle}</h2>
         <form>
-          <div className="rr-review-modal-stars">Stars go here.</div>
+          <div className="rr-review-modal-stars">
+            <ClickableStars onChange={this.onChange} ratingString={starRatingString} />
+          </div>
           Do you recommend this product?*
           <input type="radio" onChange={this.onChange} name="recommendedProduct" value="true" />
           Yes
