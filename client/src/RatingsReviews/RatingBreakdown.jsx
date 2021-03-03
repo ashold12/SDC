@@ -4,6 +4,9 @@ import axios from 'axios';
 class RatingBreakdown extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loaded: false,
+    }
     this.setInitialState = this.setInitialState.bind(this);
   }
 
@@ -57,17 +60,18 @@ class RatingBreakdown extends React.Component {
     const toNearestDecimal = (totalRatingScore / totalNumberOfRatings).toFixed(1);
     // Calculate the recommended amount and the number of reviewers.
     const usersRecommendedPercentage =
-      (parseInt(data.recommended.true, 10) / totalNumberOfRatings) * 100;
+      ((parseInt(data.recommended.true, 10) / totalNumberOfRatings) * 100).toFixed(0);
     this.setState({
       ...data,
       starRating: toNearestDecimal,
       totalNumberOfReviews: totalNumberOfRatings,
       usersRecommendedPercentage: usersRecommendedPercentage,
+      loaded: true,
     });
   }
 
   render() {
-    if (!this.state) {
+    if (this.state.loaded === false) {
       return <div />;
     }
     const { starRating, totalNumberOfReviews } = this.state;
@@ -86,8 +90,8 @@ class RatingBreakdown extends React.Component {
           style={{ '--rating': starRating }}
           aria-label="Rating of this product is {starRating} out of 5."
         />
-        <div className="rr-filters-applied">Filters go here.</div>' Number of Reviews:
-        {totalNumberOfReviews}
+        <div className="rr-filters-applied">Filters go here.</div>Number of Reviews:
+        {' '}{totalNumberOfReviews}
         <div className="rr-review-bar-container">{ratingBars}</div>
       </div>
     );
