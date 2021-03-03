@@ -1,6 +1,7 @@
 @use './Overview/overviewStyle';
 @use './RelatedItemsAndComparison/RelatedItemsAndComparison';
 @use './RatingsReviews/ReviewStyle';
+@use './QuestionsAndAnswers/style.scss';
 
 $color-blue: #0059ff;
 
@@ -18,4 +19,32 @@ $color-blue: #0059ff;
   margin-right: 15%;
   margin-left: 15%;
   grid-gap: 50px;
+}
+/*****************************/
+/*Ratings and Reviews Section*/
+/*****************************/
+
+/* Modal Settings */
+.rr-modal-image {
+  width: 100%;
+  height: auto;
+}
+
+.rr-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 80%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.rr-modal-main {
+  position: fixed;
+  background: white;
+  width: 70%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

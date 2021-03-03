@@ -4,7 +4,7 @@ import ImageGallery from './ImageGallery.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
-import ProductOverview from './ProductOverview.jsx'
+import ProductOverview from './ProductOverview.jsx';
 
 // this is the outer holder component
 class Overview extends React.Component {
@@ -12,36 +12,56 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      selectedProduct: null
+      selectedProduct: null,
+      selectedProductStyles: [],
+      selectedStyle: null // set the first style as default
     };
 
-    // this.getSelectedImage = this.getSelectedImage.bind(this);
-
+    this.getProductStyles = this.getProductStyles.bind(this);
+    this.getProduct = this.getProduct.bind(this);
+    this.selectStyleThumbnail = this.selectStyleThumbnail.bind(this);
   }
 
   componentDidMount() {
-    // this.getSelectedImage();
-    // this.state.selectedProduct.data.results[0].photos[0].url should be the url for the image
-
+    this.getProductStyles();
+    this.getProduct();
   }
 
-  getSelectedImage() {
+  getProduct() {
+    axios.get('api/products/17762')
+      .then((product) => {
+        this.setState({
+          selectedProduct: product.data
+        });
+      });
+  }
+
+  getProductStyles() {
     axios.get('/api/products/17762/styles')
       .then((product) => {
-        console.log(product)
-      })
+        this.setState({
+          selectedProductStyles: product.data.results,
+          selectedStyle: product.data.results[0] // sets first style to default style for now
+        });
+      });
+  }
+
+  selectStyleThumbnail(style) {
+    this.setState({selectedStyle: style})
 
   }
 
   render() {
+    const { selectedProductStyles, selectedStyle, selectedProduct } = this.state;
     return (
+      <div>
       <div className='o-overView'>
         <ImageGallery />
-        <ProductInfo />
-        <ProductOverview />
-        <StyleSelector />
+        <ProductInfo selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
+        <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectStyleThumbnail={this.selectStyleThumbnail} selectedStyle={selectedStyle}/>
         <AddToCart />
-        <div></div>
+      </div>
+      <ProductOverview selectedProduct={selectedProduct}/>
       </div>
     );
   }
