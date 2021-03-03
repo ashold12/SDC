@@ -29,7 +29,7 @@ class ReviewForm extends React.Component {
   render() {
     const { loading, summaryField, reviewBody } = this.state;
     const summaryPlaceHolder = 'Example: Best purchase ever!';
-    const reviewBodyPlaceHolder = 'Why did you like the product or not?'
+    const reviewBodyPlaceHolder = 'Why did you like the product or not?';
     if (loading) {
       return <div />;
     }
