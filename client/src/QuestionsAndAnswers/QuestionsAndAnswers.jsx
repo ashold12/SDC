@@ -64,6 +64,7 @@ class QuestionsAndAnswers extends React.Component {
   render() {
     return (
       <div>
+        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions questions={this.state.questions} />
         <QuestionList
           questions={this.state.questions}

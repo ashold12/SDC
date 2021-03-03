@@ -9,12 +9,47 @@
   font-weight: normal;
 }
 
+.qa-answer-entry {
+  display: block;
+  width: 60vw;
+  height: auto;
+  padding: 5px;
+
+  font-size: 9;
+  font-weight: lighter;
+}
+
+//Qustion And Answer
+
+.qa-qna-title {
+  font-size: 15;
+  font-weight: bold;
+  display: block;
+}
+
 //Question List
 
 .qa-questionList-container {
   display: block;
   height: 60vh;
-  width: 100vw;
+  width: 60vw;
   overflow-y: scroll;
   scroll-behavior: smooth;
+}
+
+//Question List Entry
+
+.qa-question-links span {
+  font-size: 11;
+  font-weight: normal;
+  float: right;
+  padding-right: 20px;
+}
+
+//SearchBar
+
+.qa-searchbar {
+  display: block;
+  width: 60vw;
+  height: 5vh;
 }
