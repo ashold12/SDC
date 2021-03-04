@@ -41,7 +41,8 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    if (this.state.loadedReviews === false || this.state.loadedMeta === false) {
+    const { loadedMeta, loadedReviews } = this.state;
+    if (loadedReviews === false || loadedMeta === false) {
       return <div />;
     }
     // Get two reviews.
@@ -49,7 +50,7 @@ class RatingsReviews extends React.Component {
     for (let i = 0; i < 2; i += 1) {
       tiles.push(<ReviewTile item={product_id} key={i} review={this.state.reviews[i]} />);
     }
-    const { product_id, filters } = this.state;
+    const { product_id, filters, meta } = this.state;
     return (
       <div>
         <div className="rr-parent" id="overview-link">
@@ -64,7 +65,7 @@ class RatingsReviews extends React.Component {
           <ProductBreakDown characteristics={this.state.meta.characteristics} />
         </div>
         <div>
-          <ReviewForm productTitle="Some Title" />
+          <ReviewForm productTitle="Some Title" metaData={meta} />
         </div>
       </div>
     );
