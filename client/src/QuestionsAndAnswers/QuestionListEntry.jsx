@@ -5,7 +5,7 @@ const QuestionListEntry = function ({ question, collapseAnswers, moreAnswersClic
   return (
     <div id="questionListEntry">
       <div>
-      <h4 className="qa-question-links">Q: {question.question_body} <span> Helpful? {' '}<a href="#" onClick={(e)=> {e.preventDefault()}}>Yes?</a>{' '}({question.question_helpfulness ? question.question_helpfulness : 0}){'   |   '}<a href="#" onClick={(e)=> {e.preventDefault()}}> Add Answer</a></span></h4>
+      <h4 className="qa-question-links">Q: <span className="qa-question-text-only">{question.question_body}</span><span> Helpful? {' '}<a href="#" onClick={(e)=> {e.preventDefault()}}>Yes?</a>{' '}({question.question_helpfulness ? question.question_helpfulness : 0}){'   |   '}<a href="#" onClick={(e)=> {e.preventDefault()}}> Add Answer</a></span></h4>
       </div>
       <div>
         <AnswerList

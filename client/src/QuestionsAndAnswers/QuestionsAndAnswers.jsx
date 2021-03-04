@@ -87,8 +87,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   searchQuestions() {
-
-    //Part 1: Search and Filter State
+    // Part 1: Search and Filter State
     let { searchBarText } = this.state;
     let { questions } = this.state;
     let search = searchBarText;
@@ -110,20 +109,19 @@ class QuestionsAndAnswers extends React.Component {
       searchResults: copy,
     });
 
-    //Part 2: Search and replace HTML
+    // Part 2: Search and replace HTML
 
-    let htmlQuestions = document.getElementsByClassName("qa-question-links");
-    console.log(htmlQuestions);
+    const htmlQuestions = document.getElementsByClassName("qa-question-text-only");
 
     for (let element of htmlQuestions) {
       //Remove <mark> tags if they exist
-      let removeMarks = '<mark>|</mark>';
-      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, "i"), (same) => {
+      let removeMarks = '<mark className="qa-questions-searched">|</mark>';
+      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, "gi"), () => {
         return ``
        });
       //Add <mark> tags
-      element.innerHTML = element.innerHTML.replace(new RegExp (search, "i"), (same) => {
-         return `<mark>${same}</mark>`
+      element.innerHTML = element.innerHTML.replace(new RegExp (search, "gi"), (same) => {
+         return `<mark className="qa-questions-searched">${same}</mark>`
         });
     }
 
