@@ -860,8 +860,6 @@ const dummyQuestions = {
         },
       },
     },
-
-
   ],
 };
 

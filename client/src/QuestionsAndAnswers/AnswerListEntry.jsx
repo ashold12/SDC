@@ -1,13 +1,13 @@
 import React from 'react';
 
-const AnswerListEntry = function ({ answer }) {
+const AnswerListEntry = function ({ answer, date }) {
   return (
     <div>
       <span className="qa-answer-body"> {answer.body}</span>
       <div className="qa-answer-footer">
             by
             {` ${  answer.answerer_name}`}
-,{` ${answer.date.slice(0, 10)} | `}
+,{` ${date(answer.date)} | `}
             <span>
               {' '}
               Helpful?

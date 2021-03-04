@@ -10,7 +10,7 @@ class QuestionsAndAnswers extends React.Component {
     this.state = {
       questions: data,
       numberOfQuestionsToRender: 4,
-      searchBarText: 'N',
+      searchBarText: '',
     };
 
     // BINDINGS
@@ -23,6 +23,7 @@ class QuestionsAndAnswers extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.sortQuestions = this.sortQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
+    this.getFormattedDate = this.getFormattedDate.bind(this);
   }
 
   // HANDLERS
@@ -110,22 +111,65 @@ class QuestionsAndAnswers extends React.Component {
   })
 }
 
+  // DATES
+
+  getFormattedDate(unformatedDate) {
+    const date = new Date(unformatedDate);
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    let day = date.getDate().toString();
+    if (day.length < 2) {
+      day = `0${day}`;
+    }
+    const formattedDate = `${months[date.getMonth()]} ${day}, ${date.getFullYear()}`;
+    return formattedDate;
+  }
+
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
     this.sortQuestions();
   }
 
   render() {
+    if (this.state.questions.results.length === 0) {
+      return (
+
+        <div>
+        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
+        <SearchQuestions questions={this.state.questions} searchQuestions={this.searchQuestions}onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+      </div>
+
+      )
+    }
     return (
       <div>
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions questions={this.state.questions} searchQuestions={this.searchQuestions}onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
+        <SearchQuestions
+        questions={this.state.questions}
+        date={this.getFormattedDate}
+        searchQuestions={this.searchQuestions}
+        onChange={this.onChange}
+        searchBarText={this.state.searchBarText || ''}/>
         <QuestionList
           questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
+          date={this.getFormattedDate}
         />
         <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
