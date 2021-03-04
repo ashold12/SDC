@@ -3,13 +3,11 @@ import QuestionList from './QuestionList.jsx';
 import SearchQuestions from './SearchQuestions.jsx';
 import ComponentFooter from './ComponentFooter.jsx';
 import data from './dummyQuestions.js';
-import axios from 'axios';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: data,
       numberOfQuestionsToRender: 4,
       searchBarText: '',
     };
@@ -51,11 +49,20 @@ class QuestionsAndAnswers extends React.Component {
   // QUESTION LIST HANDLERS
 
   findNumberOfQuestionsToRender() {
-    const numberOfQuestions = this.state.questions.results.length;
+    let numberOfQuestions = this.props.selectedProductsQuestions.results
+      ? this.props.selectedProductsQuestions.results.length
+      : undefined;
+
+    if (numberOfQuestions === undefined) {
+      this.setState({
+        noProduct: true,
+      });
+    }
 
     if (numberOfQuestions < 4) {
       this.setState({
         numberOfQuestionsToRender: numberOfQuestions,
+        noProduct: false,
       });
     }
   }
@@ -79,7 +86,10 @@ class QuestionsAndAnswers extends React.Component {
 
   // FILTERS
   sortQuestions() {
-    const { questions } = this.state;
+    const questions = this.props.selectedProductsQuestions;
+    if (questions.results === undefined) {
+      return console.error('Nothing to Sort');
+    }
     questions.results.sort((a, b) => {
       if (b.question_helpfulness < a.question_helpfulness) {
         return -1;
@@ -94,7 +104,12 @@ class QuestionsAndAnswers extends React.Component {
   searchQuestions() {
     // Part 1: Search and Filter State
     const { searchBarText } = this.state;
-    const { questions } = this.state;
+    const questions = this.props.selectedProductsQuestions;
+
+    if (questions.results === undefined) {
+      return console.error('Nothing to Search');
+    }
+
     const search = searchBarText;
     const foundQuestions = [];
     const copy = {};
@@ -129,8 +144,6 @@ class QuestionsAndAnswers extends React.Component {
         return `<mark className="qa-questions-searched">${same}</mark>`;
         });
     }
-
-
   }
 
   // DATES
@@ -166,13 +179,31 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   render() {
-    if (this.state.questions.results.length === 0) {
+    if (this.state.noProduct === true) {
       return (
 
         <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions questions={this.state.questions} searchQuestions={this.searchQuestions}onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
-        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <SearchQuestions onChange={this.onChange}/>
+          <div className="qa-questionList-container">
+            <h3 className="qa-no-results">NO PRODUCT HAS BEEN SELECTED</h3>
+          </div>
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+      </div>
+
+      )
+
+    }
+    else if (this.state.numberOfQuestionsToRender === 0) {
+      return (
+
+        <div className="qa-main-container">
+        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
+        <SearchQuestions onChange={this.onChange}/>
+          <div className="qa-questionList-container">
+            <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
+          </div>
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
 
       )
@@ -180,21 +211,16 @@ class QuestionsAndAnswers extends React.Component {
     return (
       <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions
-        questions={this.state.questions}
-        date={this.getFormattedDate}
-        searchQuestions={this.searchQuestions}
-        onChange={this.onChange}
-        searchBarText={this.state.searchBarText || ''}/>
+        <SearchQuestions onChange={this.onChange} />
         <QuestionList
-          questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions}
+          questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
           date={this.getFormattedDate}
         />
-        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }

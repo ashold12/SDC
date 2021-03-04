@@ -70,10 +70,11 @@ class App extends React.Component {
         {/*need to pass in what item we're on here*/}
         <Overview selectedProduct={selectedProduct} />
         <RelatedItemsAndComparison allProducts={this.state.allProducts} />
-        <QuestionsAndAnswers
+        {this.state.questions.results && <QuestionsAndAnswers
           selectedProduct={this.state.selectedProduct}
-          slectedProductsQuestions={this.state.questions}
-        />
+          selectedProductsQuestions={this.state.questions}
+
+        />}
         <RatingsReviews />
       </div>
     );

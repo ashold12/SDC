@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchQuestions = function ({ questions, onChange, searchQuestions }) {
+const SearchQuestions = function ({ onChange }) {
 
   return (
     <form className="qa-submit-form" onSubmit={(e) => {

@@ -4,6 +4,12 @@ import QuestionListEntry from './QuestionListEntry.jsx';
 const QuestionList = function ({
  questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date
 }) {
+
+  if (numberOfQuestionsToRender === 0) {
+    <div className="qa-questionList-container">
+     <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
+    </div>
+  }
   return (
     <div className="qa-questionList-container">
       {questions.results.map((question) => {
