@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReadAllReviews = (props) => {
+const ReadAllReviews = (props) => { // insert the stars here as well
   return (
     <div>
       * * * * * <span><a href='#overview-link'>Read all reviews</a></span>
