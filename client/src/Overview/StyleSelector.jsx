@@ -16,9 +16,10 @@ const StyleSelector = ({ selectedStyle, selectedProductStyles, selectStyleThumbn
         {selectedProductStyles.map((style) => {
           if (selectedStyle.style_id === style.style_id) {
             return (
-              <div>
+              <div key={style.style_id}>
                 <BiCheckCircle />
                 <img
+                  key={style.style_id}
                   className="o-items"
                   src={style.photos[0].thumbnail_url}
                   onClick={() => {
@@ -30,6 +31,7 @@ const StyleSelector = ({ selectedStyle, selectedProductStyles, selectStyleThumbn
           } else {
             return (
               <img
+                key={style.style_id}
                 className="o-items"
                 src={style.photos[0].thumbnail_url}
                 onClick={() => {
