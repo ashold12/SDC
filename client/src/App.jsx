@@ -6,7 +6,6 @@ import Overview from './Overview/Overview.jsx';
 import RelatedItemsAndComparison from './RelatedItemsAndComparison/RelatedItemsAndComparison.jsx';
 import axios from 'axios';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
