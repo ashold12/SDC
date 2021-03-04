@@ -14,9 +14,10 @@ class RatingsReviews extends React.Component {
       loadedMeta: false,
       product_id: this.tempReview,
       filters: [],
-      showReviewModal: true,
+      showReviewModal: false,
     };
     this.showReviewModal = this.showReviewModal.bind(this);
+    this.closeReviewModal = this.closeReviewModal.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +45,10 @@ class RatingsReviews extends React.Component {
 
   showReviewModal() {
     this.setState({ showReviewModal: true });
+  }
+
+  closeReviewModal() {
+    this.setState({ showReviewModal: false });
   }
 
   render() {
@@ -76,6 +81,7 @@ class RatingsReviews extends React.Component {
             productTitle={this.props.productData['name']}
             metaData={meta}
             showModal={showReviewModal}
+            closeModal={this.closeReviewModal}
           />
           <button type="button" onClick={this.showReviewModal}>
             show modal

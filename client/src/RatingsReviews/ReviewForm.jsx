@@ -116,10 +116,10 @@ class ReviewForm extends React.Component {
       axios
         .post('/api/reviews/', reviewData)
         .then((data) => {
-          //Close the form
+          this.props.closeModal();
         })
         .catch((e) => {
-          //Close the form.
+          this.props.closeModal();
         });
     }
   }
@@ -288,6 +288,7 @@ class ReviewForm extends React.Component {
           <button name="submitButton" onClick={this.postReview} type="button">
             Submit
           </button>
+          <button onClick={this.props.closeModal}>Close</button>
           {formError}
         </section>
       </div>
