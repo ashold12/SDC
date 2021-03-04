@@ -112,15 +112,14 @@ class ReviewForm extends React.Component {
         photos,
         characteristics: processedObj,
       };
-      debugger;
       this.setState({ formError: '' });
       axios
         .post('/api/reviews/', reviewData)
         .then((data) => {
-          debugger;
+          //Close the form
         })
         .catch((e) => {
-          debugger;
+          //Close the form.
         });
     }
   }
