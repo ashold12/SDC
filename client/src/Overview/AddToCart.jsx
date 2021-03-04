@@ -29,11 +29,11 @@ class AddToCart extends React.Component {
             this.setState({
               selectedSku: key,
               selectedSizeItem: this.props.selectedStyle.skus[key],
-              selectedQuantity: 1
+              selectedQuantity: 1,
             });
           }
         }
-      },
+      }
     );
   }
 
@@ -47,13 +47,18 @@ class AddToCart extends React.Component {
   handleAddToCart(event) {
     // on submit is handled on the form itself, not the button so you can access the other values
     event.preventDefault();
-    console.log("hi")
+    console.log('hi');
     debugger;
 
-    if (this.state.selectedSize === null || this.state.selectedSize === "select size") {
+    if (this.state.selectedSize === null || this.state.selectedSize === 'select size') {
       // open the select size dropdown and display "please select size"
-    } else if ((this.state.selectedSize !== null || this.state.selectedSize !== "select size") && this.state.selectedQuantity !== null) {
-      alert(`You added ${this.state.selectedQuantity} ${this.props.selectedStyle.name} ${this.props.selectedProduct.name} to your cart`)
+    } else if (
+      (this.state.selectedSize !== null || this.state.selectedSize !== 'select size') &&
+      this.state.selectedQuantity !== null
+    ) {
+      alert(
+        `You added ${this.state.selectedQuantity} ${this.props.selectedStyle.name} ${this.props.selectedProduct.name} to your cart`
+      );
     }
   }
 
@@ -97,16 +102,6 @@ class AddToCart extends React.Component {
     // case when state is loaded
     if (allSizes.length !== 0) {
       return (
-<<<<<<< HEAD
-        <div className="o-addToCart">
-          <select>
-            <option>select size</option>
-          </select>
-          <select>
-            <option>1</option>
-          </select>
-          <button type="submit">
-=======
         <form className="o-addToCart" onSubmit={this.handleAddToCart}>
           <select onChange={this.handleSelectedSize}>
             {!outOfStock && <option>select size</option>}
@@ -115,7 +110,11 @@ class AddToCart extends React.Component {
                 inventory.push(size);
                 return <option id="o-hide">OUT OF STOCK</option>;
               }
-              return <option name={size.size} key={size.size}>{size.size}</option>;
+              return (
+                <option name={size.size} key={size.size}>
+                  {size.size}
+                </option>
+              );
             })}
             {outOfStock && <option>OUT OF STOCK</option>}
           </select>
@@ -125,25 +124,22 @@ class AddToCart extends React.Component {
               <option name="quantity">{quantity}</option>
             ))}
           </select>
-          {outOfStock && <button id="o-hide" type="submit">
->>>>>>> d0a5ec2022a5f8b9b68dfe555189ae6afd753250
-            ADD TO BAG
-            <span>
-              <AiOutlinePlus />
-            </span>
-<<<<<<< HEAD
-          </button>
-        </div>
-      );
-    }
-=======
-          </button>}
-          {!outOfStock && <button type="submit">
-            ADD TO BAG
-            <span>
-              <AiOutlinePlus />
-            </span>
-          </button>}
+          {outOfStock && (
+            <button id="o-hide" type="submit">
+              ADD TO BAG
+              <span>
+                <AiOutlinePlus />
+              </span>
+            </button>
+          )}
+          {!outOfStock && (
+            <button type="submit">
+              ADD TO BAG
+              <span>
+                <AiOutlinePlus />
+              </span>
+            </button>
+          )}
         </form>
       );
     } // case when state is still loading up
@@ -163,7 +159,6 @@ class AddToCart extends React.Component {
         </button>
       </div>
     );
->>>>>>> d0a5ec2022a5f8b9b68dfe555189ae6afd753250
   }
 }
 
