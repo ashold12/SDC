@@ -10,7 +10,7 @@ class QuestionsAndAnswers extends React.Component {
     this.state = {
       questions: data,
       numberOfQuestionsToRender: 4,
-      searchBarText: '',
+      searchBarText: 'N',
     };
 
     // BINDINGS
@@ -68,6 +68,7 @@ class QuestionsAndAnswers extends React.Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
+    this.searchQuestions();
   }
 
   // FILTERS
@@ -84,8 +85,6 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   searchQuestions() {
-
-  //need to loop over the questions and check to see if the word is included in them or if they match the regex above
 
   let { searchBarText } = this.state;
   let { questions } = this.state;
@@ -106,7 +105,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   this.setState({
-    searchResults: copy
+    searchResults: copy,
   })
 }
 
@@ -119,15 +118,15 @@ class QuestionsAndAnswers extends React.Component {
     return (
       <div>
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions questions={this.state.questions} onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
+        <SearchQuestions questions={this.state.questions} searchQuestions={this.searchQuestions}onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
         <QuestionList
-          questions={0 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions}
+          questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
         />
-        <ComponentFooter questions={0 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }
