@@ -88,28 +88,47 @@ class QuestionsAndAnswers extends React.Component {
 
   searchQuestions() {
 
-  let { searchBarText } = this.state;
-  let { questions } = this.state;
-
-  let foundQuestions = [];
-  let copy = { product_id: questions.id, results: foundQuestions }
-
-  for (let i = 0; i < questions.results.length; i++) {
-
-    let questionText = questions.results[i].question_body;
+    //Part 1: Search and Filter State
+    let { searchBarText } = this.state;
+    let { questions } = this.state;
     let search = searchBarText;
+    let foundQuestions = [];
+    let copy = {};
+    copy.product_id = questions.product_id;
+    copy.results = foundQuestions;
 
-    if (questionText.includes(search)) {
-      foundQuestions.push(questions.results[i]);
-    } else {
-      continue;
+    for (let i = 0; i < questions.results.length; i++) {
+      let questionText = questions.results[i].question_body;
+
+      if (questionText.includes(search)) {
+        foundQuestions.push(questions.results[i]);
+      } else {
+        continue;
+      }
     }
-  }
+    this.setState({
+      searchResults: copy,
+    });
 
-  this.setState({
-    searchResults: copy,
-  })
-}
+    //Part 2: Search and replace HTML
+
+    let htmlQuestions = document.getElementsByClassName("qa-question-links");
+    console.log(htmlQuestions);
+
+    for (let element of htmlQuestions) {
+      //Remove <mark> tags if they exist
+      let removeMarks = '<mark>|</mark>';
+      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, "i"), (same) => {
+        return ``
+       });
+      //Add <mark> tags
+      element.innerHTML = element.innerHTML.replace(new RegExp (search, "i"), (same) => {
+         return `<mark>${same}</mark>`
+        });
+    }
+
+
+  }
 
   // DATES
 
