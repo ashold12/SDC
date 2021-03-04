@@ -5,7 +5,7 @@
 //Answer List Entry
 
 .qa-answer-body {
-  font-size: 11;
+  font-size: 12;
   font-weight: normal;
 }
 
@@ -13,10 +13,40 @@
   display: block;
   width: 60vw;
   height: auto;
-  padding: 5px;
 
   font-size: 9;
   font-weight: lighter;
+}
+
+#qa-answerlist-title {
+  font-weight: bold;
+}
+
+//Most Helpful
+.qa-mosthelpful-footer {
+  display: block;
+  font-size: small;
+  padding-top: 10px;
+  padding-left: 22px;
+  padding-bottom: 10px;
+}
+
+.qa-helpful-body {
+  display: block;
+  font-size: medium;
+  padding-left: none;
+}
+
+.qa-answer-body {
+  padding-left: 22px;
+}
+
+.qa-answer-footer {
+  display: block;
+  font-size: small;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 22px;
 }
 
 //Qustion And Answer
@@ -37,6 +67,11 @@
   scroll-behavior: smooth;
 }
 
+.qa-al-load-more-button {
+  font-size: small;
+  text-decoration: none;
+}
+
 //Question List Entry
 
 .qa-question-links span {
@@ -48,8 +83,34 @@
 
 //SearchBar
 
+.qa-submit-form {
+  display: flex;
+  flex-direction: row;
+}
+
 .qa-searchbar {
   display: block;
-  width: 60vw;
+  width: 55vw;
   height: 5vh;
+  border-right: none;
 }
+
+.qa-searcbar-mag {
+  background: white url(https://developer.mozilla.org/static/media/search.db31d27c.svg) 0 0
+    no-repeat;
+  display: block;
+  width: 5vw;
+  height: 5vh;
+  border-left: none;
+  left: -150px;
+}
+
+.qa-search-exactMatch {
+  color: red;
+}
+
+// .qa-searchbar-container {
+//   display: block;
+//   padding-bottom: 5px;
+//   padding-top: 5px;
+// }
