@@ -6,64 +6,89 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import ProductOverview from './ProductOverview.jsx';
 
-// this is the outer holder component
 class Overview extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // selectedProduct: null,
+      // selectedProduct: null, this comes in as a prop now
       selectedProductStyles: [],
-      selectedStyle: null // set the first style as default
+      selectedStyle: null, // set the first style as default
+      outOfStock: false,
+      allSizes: []
     };
 
     this.getProductStyles = this.getProductStyles.bind(this);
-    // this.getProduct = this.getProduct.bind(this);
     this.selectStyleThumbnail = this.selectStyleThumbnail.bind(this);
+    this.checkOutOfStock = this.checkOutOfStock.bind(this);
   }
 
   componentDidMount() {
     this.getProductStyles();
-    // this.getProduct();
   }
 
-  // getProduct() {
-  //   axios.get('api/products/17762')
-  //     .then((product) => {
-  //       // update state in App component with function here
-  //       this.setState({
-  //         selectedProduct: product.data
-  //       });
-  //     });
-  // }
-
+  // get all the styles associated with the product
   getProductStyles() {
-    axios.get('/api/products/17762/styles')
-      .then((product) => {
-        this.setState({
+    axios.get('/api/products/17762/styles').then((product) => {
+      this.setState(
+        {
           selectedProductStyles: product.data.results,
-          selectedStyle: product.data.results[0] // sets first style to default style for now
-        });
-      });
+          selectedStyle: product.data.results[0], // sets first style to default style for now
+        },
+        () => {
+          this.checkOutOfStock();
+        }
+      );
+    });
   }
 
-  selectStyleThumbnail(style) {
-    this.setState({selectedStyle: style})
+  checkOutOfStock() {
+    const { selectedStyle } = this.state;
 
+    const allSizes = Object.values(selectedStyle.skus);
+    this.setState({ allSizes })
+
+    const inventory = [];
+
+    allSizes.forEach((item) => {
+      if (item.quantity === 0) {
+        inventory.push(item);
+      }
+    });
+
+    if (inventory.length === allSizes.length) {
+      this.setState({ outOfStock: true });
+    } else {
+      this.setState({ outOfStock: false });
+    }
+  }
+
+  // change the state of thee selectedStyle once we click on a thumbnail
+  selectStyleThumbnail(style) {
+    this.setState({ selectedStyle: style }, () => {this.checkOutOfStock()});
   }
 
   render() {
-    const { selectedProductStyles, selectedStyle } = this.state;
+    const { selectedProductStyles, selectedStyle, outOfStock } = this.state;
     const { selectedProduct } = this.props;
     return (
       <div>
-      <div className='o-overView'>
-        <ImageGallery />
-        <ProductInfo selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
-        <StyleSelector selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectStyleThumbnail={this.selectStyleThumbnail} selectedStyle={selectedStyle}/>
-        <AddToCart selectedProductStyles={selectedProductStyles} selectedStyle={selectedStyle} selectedProduct={selectedProduct}/>
-      </div>
-      <ProductOverview selectedProduct={selectedProduct}/>
+        <div className="o-overView">
+          <ImageGallery />
+          <ProductInfo selectedStyle={selectedStyle} selectedProduct={selectedProduct} />
+          <StyleSelector
+            selectedProductStyles={selectedProductStyles}
+            selectedStyle={selectedStyle}
+            selectStyleThumbnail={this.selectStyleThumbnail}
+          />
+          <AddToCart
+            outOfStock={outOfStock}
+            selectedProductStyles={selectedProductStyles}
+            selectedStyle={selectedStyle}
+            selectedProduct={selectedProduct}
+          />
+        </div>
+        <ProductOverview selectedProduct={selectedProduct} />
       </div>
     );
   }

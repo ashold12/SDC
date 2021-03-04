@@ -4,24 +4,24 @@
 
 /* Modal Settings */
 .rr-modal-image {
-  width: 100%;
-  height: auto;
+  height: 20px;
+  width: 20px;
 }
 
 .rr-modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 80%;
-  height: 80%;
-  background: rgba(0, 0, 0, 0.6);
+  width: 50%;
+  height: 50%;
+  background: rgba(255, 0, 0, 0.6);
 }
 
 .rr-modal-main {
   position: fixed;
   background: white;
   width: 70%;
-  height: auto;
+  height: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -38,7 +38,7 @@
 
 /*Star settings*/
 :root {
-  --star-size: 1vw;
+  --star-size: 1.1vw;
   --star-color: rgb(194, 133, 133);
   --star-background: rgb(153, 0, 255);
 }
@@ -110,25 +110,32 @@
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-rows: auto;
-  background-color: rgb(220, 230, 212);
+  background-color: rgb(115, 255, 0);
+  gap: 10px;
 }
 .rr-rating-breakdown {
   background-color: cadetblue;
   grid-column: 1;
-  grid-row: 3;
+  grid-row: 1;
 }
 
 .rr-rating-big {
   background-color: chocolate;
-  grid-row-start: 2;
+  grid-row-start: 1;
   grid-row-end: 3;
   grid-column-start: 1;
   grid-column-end: 2;
 }
 
+.rr-product-breakdown-container {
+  grid-row: 2;
+  height: 10%;
+}
+
 /* Review tile component */
 .rr-review-tile-container {
   font-size: 1vw;
+  grid-column: 2;
   display: grid;
   grid-template-rows: 10% 10% auto 10% auto auto 10%;
   grid-template-columns: auto auto auto auto auto;
@@ -169,5 +176,117 @@
 /* Review Breakdown Component */
 
 /* End Review Breakdown Component */
+/* Rating and Reviews submit reviews modal */
+/* Modal Settings */
+.rr-modal-image {
+  width: 50%;
+  height: auto;
+}
 
+.rr-review-modal {
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: auto;
+  background: rgb(255, 0, 0);
+  margin: auto;
+}
+
+.rr-review-modal-main {
+  position: fixed;
+  background: rgb(255, 255, 255);
+  width: 70%;
+  height: 60%;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
+
+.rr-form-display-block {
+  display: block;
+}
+
+.rr-form-display-none {
+  display: none;
+}
+
+.rr-review-modal-stars {
+  width: 50%;
+  height: auto;
+}
+
+.rr-modal-form-thumbnail {
+  width: 20%;
+  height: auto;
+}
+.rr-star-modal-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  /* the hidden clearer */
+}
+.rr-star-modal-group * {
+  font-size: 1rem;
+}
+.rr-star-modal-group > input {
+  display: none;
+}
+.rr-star-modal-group > input + label {
+  /* only enough room for the star */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 9999px;
+  width: 1em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rr-star-modal-group > input + label:before {
+  display: inline-block;
+  text-indent: -9999px;
+  content: '☆';
+  color: #888;
+}
+.rr-star-modal-group > input:checked ~ label:before,
+.rr-star-modal-group > input + label:hover ~ label:before,
+.rr-star-modal-group > input + label:hover:before {
+  content: '★';
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+.rr-star-modal-group > .rr-star-modal-clear + label {
+  text-indent: -9999px;
+  width: 0.5em;
+  margin-left: -0.5em;
+}
+.rr-star-modal-group > .rr-star-modal-clear + label:before {
+  width: 0.5em;
+}
+.rr-star-modal-group:hover > input + label:before {
+  content: '☆';
+  color: #888;
+  text-shadow: none;
+}
+.rr-star-modal-group:hover > input + label:hover ~ label:before,
+.rr-star-modal-group:hover > input + label:hover:before {
+  content: '★';
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+
+.rr-chara-1 {
+  display: inline-block;
+  padding-left: 7%;
+}
+.rr-chara-radio-button {
+  padding-left: 10%;
+}
+.rr-chara-rad-butt {
+  margin: 0 15% 0 0%;
+}
+/* End rating and reviews submit reviews modal */
 /*End Ratings and Reviews*/
