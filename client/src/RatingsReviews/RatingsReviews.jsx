@@ -68,13 +68,13 @@ class RatingsReviews extends React.Component {
         Ratings and Reviews.
         <div className="rr-parent" id="overview-link">
           {/* <div className="rr-rating-big" /> */}
+          <div className="rr-tiles-container">{tiles}</div>
           <div className="rr-rating-breakdown">
             <RatingBreakdown productId={product_id} filters={filters} />
           </div>
           <div className="rr-product-breakdown-container">
             <ProductBreakDown characteristics={this.state.meta.characteristics} />
           </div>
-          {tiles}
         </div>
         <div>
           <ReviewForm
@@ -86,6 +86,7 @@ class RatingsReviews extends React.Component {
           <button type="button" onClick={this.showReviewModal}>
             show modal
           </button>
+          <button>Show More Reviews</button>
         </div>
       </div>
     );
