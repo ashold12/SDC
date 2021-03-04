@@ -9,6 +9,7 @@ const ProductOverview = ({ selectedProduct }) => {
     }
     if (selectedProduct.features) {
       selectedProduct.features.forEach((feature) => {
+        // handle duplicates in here
         features.push(feature);
       });
     }
