@@ -200,7 +200,9 @@ class ReviewForm extends React.Component {
         <input type="file" accept="image/*" name="photoUpload" onChange={this.onChange} />
       );
     }
-
+    const modalClassName = this.props.showModal
+      ? 'rr-review-modal rr-form-display-block'
+      : 'rr-review-modal rr-form-display-none';
     if (loading) {
       return <div />;
     }
@@ -214,81 +216,80 @@ class ReviewForm extends React.Component {
     ));
 
     return (
-      <div className="rr-review-modal-container">
-        <h1>Write your review!</h1>
-        <h2>
-          About the
-          {this.props.productTitle}
-        </h2>
-        <form>
-          <div className="rr-review-modal-stars">
-            <ClickableStars onChange={this.onChange} ratingString={starRatingString} />
-          </div>
-          {characteristicRB}
-          Do you recommend this product?*
-          <input type="radio" onChange={this.onChange} name="recommendedProduct" value="true" />
-          Yes
-          <input type="radio" onChange={this.onChange} name="recommendedProduct" value="false" />
-          No
-          <div className="rr-review-modal-nickname">
-            Nickname:*{' '}
-            <input
-              type="text"
-              maxLength="60"
-              name="nickName"
-              value={nickName}
-              onChange={this.onChange}
-            />
-            <br />
-            For privacy reasons do not use your full name or e-mail address.
-          </div>
-          <div className="rr-reviw-modal-email">
-            E-Mail*:{' '}
-            <input
-              type="email"
-              maxLength="60"
-              name="email"
-              value=""
-              onChange={this.onChange}
-              value={email}
-            />
-            <div className="rr-review-modal-email-info">
-              For authentication reasons, you will not be emailed.
+      <div className={`${modalClassName}`}>
+        <section className="rr-review-modal-main">
+          <h1>Write your review!</h1>
+          <h2>About the {this.props.productTitle}</h2>
+          <form>
+            <div className="rr-review-modal-stars">
+              <ClickableStars onChange={this.onChange} ratingString={starRatingString} />
             </div>
-          </div>
-          <div className="rr-review-modal-summary">
-            Summary:
-            <input
-              type="text"
-              size="60"
-              maxLength="60"
-              placeholder={summaryPlaceHolder}
-              onChange={this.onChange}
-              name="textSummary"
-              value={summaryField}
-            />
-          </div>
-          <div className="rr-review-modal-reviewbody">
-            Review:
-            <textarea
-              type="textarea"
-              cols="40"
-              rows="30"
-              maxLength="1000"
-              placeholder={reviewBodyPlaceHolder}
-              onChange={this.onChange}
-              name="reviewBody"
-              value={reviewBody}
-            />
-            {reviewBodyCounterText}
-          </div>
-          <div className="rr-modal-photo-thumbnails-container">{photosJSX}</div>
-          <div className="rr-modal-photo-upload">{submitPhotoButton}</div>
-        </form>
-        <button name="submitButton" onClick={this.postReview} type="button">
-          Submit
-        </button>
-        {formError}
+            {characteristicRB}
+            Do you recommend this product?*
+            <input type="radio" onChange={this.onChange} name="recommendedProduct" value="true" />
+            Yes
+            <input type="radio" onChange={this.onChange} name="recommendedProduct" value="false" />
+            No
+            <div className="rr-review-modal-nickname">
+              Nickname:*{' '}
+              <input
+                type="text"
+                maxLength="60"
+                name="nickName"
+                value={nickName}
+                onChange={this.onChange}
+              />
+              <br />
+              For privacy reasons do not use your full name or e-mail address.
+            </div>
+            <div className="rr-reviw-modal-email">
+              E-Mail*:{' '}
+              <input
+                type="email"
+                maxLength="60"
+                name="email"
+                value=""
+                onChange={this.onChange}
+                value={email}
+              />
+              <div className="rr-review-modal-email-info">
+                For authentication reasons, you will not be emailed.
+              </div>
+            </div>
+            <div className="rr-review-modal-summary">
+              Summary:
+              <input
+                type="text"
+                size="60"
+                maxLength="60"
+                placeholder={summaryPlaceHolder}
+                onChange={this.onChange}
+                name="textSummary"
+                value={summaryField}
+              />
+            </div>
+            <div className="rr-review-modal-reviewbody">
+              Review:
+              <textarea
+                type="textarea"
+                cols="40"
+                rows="30"
+                maxLength="1000"
+                placeholder={reviewBodyPlaceHolder}
+                onChange={this.onChange}
+                name="reviewBody"
+                value={reviewBody}
+              />
+              {reviewBodyCounterText}
+            </div>
+            <div className="rr-modal-photo-thumbnails-container">{photosJSX}</div>
+            <div className="rr-modal-photo-upload">{submitPhotoButton}</div>
+          </form>
+          <button name="submitButton" onClick={this.postReview} type="button">
+            Submit
+          </button>
+          {formError}
+        </section>
       </div>
     );
   }

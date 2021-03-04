@@ -8,13 +8,15 @@ import ReviewForm from './ReviewForm.jsx';
 class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
-    this.tempReview = 17762;
+    this.tempReview = 17763;
     this.state = {
       loadedReviews: false,
       loadedMeta: false,
       product_id: this.tempReview,
       filters: [],
+      showReviewModal: true,
     };
+    this.showReviewModal = this.showReviewModal.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +42,13 @@ class RatingsReviews extends React.Component {
       });
   }
 
+  showReviewModal() {
+    this.setState({ showReviewModal: true });
+  }
+
   render() {
-    const { loadedMeta, loadedReviews } = this.state;
-    if (loadedReviews === false || loadedMeta === false) {
+    const { loadedMeta, loadedReviews, showReviewModal } = this.state;
+    if (loadedReviews === false || loadedMeta === false || this.props.productData == null) {
       return <div />;
     }
     // Get two reviews.
@@ -50,6 +56,7 @@ class RatingsReviews extends React.Component {
     for (let i = 0; i < 2; i += 1) {
       tiles.push(<ReviewTile item={product_id} key={i} review={this.state.reviews[i]} />);
     }
+
     const { product_id, filters, meta } = this.state;
     return (
       <div>
@@ -65,7 +72,14 @@ class RatingsReviews extends React.Component {
           <ProductBreakDown characteristics={this.state.meta.characteristics} />
         </div>
         <div>
-          <ReviewForm productTitle="Some Title" metaData={meta} />
+          <ReviewForm
+            productTitle={this.props.productData['name']}
+            metaData={meta}
+            showModal={showReviewModal}
+          />
+          <button type="button" onClick={this.showReviewModal}>
+            show modal
+          </button>
         </div>
       </div>
     );

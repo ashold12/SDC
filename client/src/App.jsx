@@ -12,7 +12,7 @@ class App extends React.Component {
 
     this.state = {
       allProducts: [],
-      selectedProduct: null
+      selectedProduct: null,
     };
 
     this.getAllProducts = this.getAllProducts.bind(this);
@@ -25,10 +25,12 @@ class App extends React.Component {
   }
 
   getAllProducts() {
-    axios.get('api/products?count=*')
-      .then((data) => { // data.data is an array of all products, where each product is an object
+    axios
+      .get('api/products?count=*')
+      .then((data) => {
+        // data.data is an array of all products, where each product is an object
         this.setState({
-          allProducts: data.data
+          allProducts: data.data,
         });
       })
       .catch((error) => {
@@ -37,12 +39,11 @@ class App extends React.Component {
   }
 
   getProduct() {
-    axios.get('api/products/17762')
-      .then((product) => {
-        this.setState({
-          selectedProduct: product.data
-        });
+    axios.get('api/products/17762').then((product) => {
+      this.setState({
+        selectedProduct: product.data,
       });
+    });
   }
 
   render() {
@@ -54,7 +55,7 @@ class App extends React.Component {
         <Overview selectedProduct={selectedProduct} />
         <RelatedItemsAndComparison allProducts={this.state.allProducts} />
         <QuestionsAndAnswers />
-        <RatingsReviews />
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
