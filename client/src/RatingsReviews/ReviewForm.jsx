@@ -83,7 +83,8 @@ class ReviewForm extends React.Component {
 
   postReview() {
     if (this.formIsValid()) {
-      const { product_id } = this.props.metaData;
+      let { product_id } = this.props.metaData;
+      product_id = parseInt(product_id, 10);
       const processedObj = {};
       Object.keys(this.metaData.characteristics).forEach((key) => {
         const { id } = this.metaData.characteristics[key];
@@ -99,6 +100,7 @@ class ReviewForm extends React.Component {
         photos,
         summaryField,
       } = this.state;
+
       const reviewData = {
         product_id,
         rating: parseInt(starRating, 10),
@@ -110,9 +112,10 @@ class ReviewForm extends React.Component {
         photos,
         characteristics: processedObj,
       };
+      debugger;
       this.setState({ formError: '' });
       axios
-        .post('/api/reviews', reviewData)
+        .post('/api/reviews/', reviewData)
         .then((data) => {
           debugger;
         })
