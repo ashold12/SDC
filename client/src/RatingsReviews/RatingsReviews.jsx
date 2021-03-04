@@ -64,17 +64,17 @@ class RatingsReviews extends React.Component {
 
     const { product_id, filters, meta } = this.state;
     return (
-      <div>
+      <div className="rr-start-div">
+        Ratings and Reviews.
         <div className="rr-parent" id="overview-link">
-          Ratings & Reviews
-          <div className="rr-rating-big" />
+          {/* <div className="rr-rating-big" /> */}
+          <div className="rr-rating-breakdown">
+            <RatingBreakdown productId={product_id} filters={filters} />
+          </div>
+          <div className="rr-product-breakdown-container">
+            <ProductBreakDown characteristics={this.state.meta.characteristics} />
+          </div>
           {tiles}
-        </div>
-        <div className="rr-rating-breakdown">
-          <RatingBreakdown productId={product_id} filters={filters} />
-        </div>
-        <div className="rr-product-breakdown-container">
-          <ProductBreakDown characteristics={this.state.meta.characteristics} />
         </div>
         <div>
           <ReviewForm
