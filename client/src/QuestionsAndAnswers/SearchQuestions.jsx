@@ -8,8 +8,9 @@ const SearchQuestions = function ({ questions, onChange, searchQuestions }) {
     }}>
       <input type="search" name="searchBarText" onChange={onChange} className="qa-searchbar qa-griditem1"  placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." results="0"/>
 
-    <input type="submit" value="" name="submitButton" className="qa-searchbar-mag qa-griditem2"/>
+    <div className="qa-griditem2"><input className="qa-searchbar-mag"type="submit" value="" name="submitButton"/></div>
     </form>
+
   )
 }
 

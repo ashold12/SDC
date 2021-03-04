@@ -117,11 +117,11 @@ class QuestionsAndAnswers extends React.Component {
     for (let element of htmlQuestions) {
       // Remove <mark> tags if they exist
       let removeMarks = '<mark className="qa-questions-searched">|</mark>';
-      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, "gi"), () => {
+      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, 'gi'), () => {
         return ``
        });
       //Add <mark> tags
-      element.innerHTML = element.innerHTML.replace(new RegExp (search, "gi"), (same) => {
+      element.innerHTML = element.innerHTML.replace(new RegExp (search, 'gi'), (same) => {
         return `<mark className="qa-questions-searched">${same}</mark>`;
         });
     }
