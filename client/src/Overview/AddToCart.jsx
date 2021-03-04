@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlinePlus } from 'react-icons/Ai';
+import { AiOutlinePlus } from 'react-icons';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class AddToCart extends React.Component {
             );
           }
         }
-      },
+      }
     );
   }
 
@@ -198,9 +198,7 @@ class AddToCart extends React.Component {
         </select>
         <button type="submit">
           ADD TO BAG
-          <span>
-            <AiOutlinePlus />
-          </span>
+          <span>{/* <AiOutlinePlus /> */}</span>
         </button>
       </div>
     );
