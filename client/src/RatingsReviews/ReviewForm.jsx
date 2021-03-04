@@ -19,7 +19,7 @@ class ReviewForm extends React.Component {
       starRating: null,
       starRatingString: '',
       characteristics: {},
-      completedReview: false,
+      formError: '',
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
@@ -32,11 +32,6 @@ class ReviewForm extends React.Component {
       charObj[key] = null;
     });
     this.setState({ characteristics: charObj });
-  }
-
-  postReview() {
-    // submit the review.
-    console.log(this.formIsValid());
   }
 
   onChange(e) {
@@ -86,6 +81,47 @@ class ReviewForm extends React.Component {
     this.setState({ starRatingString: possibleStrings[value - 1], starRating: value });
   }
 
+  postReview() {
+    if (this.formIsValid()) {
+      const { product_id } = this.props.metaData;
+      const processedObj = {};
+      Object.keys(this.metaData.characteristics).forEach((key) => {
+        const { id } = this.metaData.characteristics[key];
+        processedObj[id] = parseInt(this.state.characteristics[key], 10);
+      });
+      console.log(processedObj);
+      const {
+        recommendedProduct,
+        reviewBody,
+        nickName,
+        email,
+        starRating,
+        photos,
+        summaryField,
+      } = this.state;
+      const reviewData = {
+        product_id,
+        rating: parseInt(starRating, 10),
+        summary: summaryField,
+        body: reviewBody,
+        recommend: recommendedProduct,
+        name: nickName,
+        email,
+        photos,
+        characteristics: processedObj,
+      };
+      this.setState({ formError: '' });
+      axios
+        .post('/api/reviews', reviewData)
+        .then((data) => {
+          debugger;
+        })
+        .catch((e) => {
+          debugger;
+        });
+    }
+  }
+
   formIsValid() {
     const {
       recommendedProduct,
@@ -96,29 +132,29 @@ class ReviewForm extends React.Component {
       characteristics,
       reviewBodyCounter,
     } = this.state;
-    if (!recommendedProduct) {
-      console.log('rec prod');
+    if (recommendedProduct === null) {
+      this.setState({ formError: 'Recommended product is required.' });
       return false;
     }
     if (!reviewBody || reviewBodyCounter !== 0) {
-      console.log('review body counter issue.');
+      this.setState({ formError: 'A minimum of 50 characters is required.' });
       return false;
     }
     if (!nickName) {
-      console.log('nickname');
+      this.setState({ formError: 'Nickname is a required.' });
       return false;
     }
     if (!this.isValidEmailAddress(email)) {
-      console.log('email addy');
+      this.setState({ formError: 'E-mail is required.' });
       return false;
     }
     if (!starRating) {
-      console.log('starrating');
+      this.setState({ formError: 'Star rating is required.' });
       return false;
     }
     Object.keys(characteristics).forEach((key) => {
       if (!characteristics[key]) {
-        console.log('character');
+        this.setState({ formError: 'Product characteristics are required.' });
         return false;
       }
     });
@@ -140,6 +176,7 @@ class ReviewForm extends React.Component {
       nickName,
       photos,
       starRatingString,
+      formError,
     } = this.state;
     const summaryPlaceHolder = 'Example: Best purchase ever!';
     const reviewBodyPlaceHolder = 'Why did you like the product or not?';
@@ -249,6 +286,7 @@ class ReviewForm extends React.Component {
         <button name="submitButton" onClick={this.postReview} type="button">
           Submit
         </button>
+        {formError}
       </div>
     );
   }
