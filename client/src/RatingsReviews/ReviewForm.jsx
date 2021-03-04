@@ -116,9 +116,11 @@ class ReviewForm extends React.Component {
       axios
         .post('/api/reviews/', reviewData)
         .then((data) => {
+          console.log(data.data);
           this.props.closeModal();
         })
         .catch((e) => {
+          console.log(e);
           this.props.closeModal();
         });
     }
