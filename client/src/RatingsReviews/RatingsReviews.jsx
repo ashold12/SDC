@@ -4,6 +4,7 @@ import RatingBreakdown from './RatingBreakdown.jsx';
 import ReviewTile from './ReviewTile.jsx';
 import ProductBreakDown from './ProductBreakDown.jsx';
 import ReviewForm from './ReviewForm.jsx';
+import ReviewFilterSelector from './ReviewFilterSelector.jsx';
 
 class RatingsReviews extends React.Component {
   constructor(props) {
@@ -18,11 +19,12 @@ class RatingsReviews extends React.Component {
     };
     this.showReviewModal = this.showReviewModal.bind(this);
     this.closeReviewModal = this.closeReviewModal.bind(this);
+    this.sortReviewsBy = this.sortReviewsBy.bind(this);
   }
 
   componentDidMount() {
     axios
-      .get(`/api/reviews/?product_id=${this.tempReview}`)
+      .get(`/api/reviews/?product_id=${this.tempReview}&sort=relevant&count=30`)
       .then((data) => {
         this.setState({
           loadedReviews: true,
@@ -37,6 +39,17 @@ class RatingsReviews extends React.Component {
       .get(`/api/reviews/meta?product_id=${this.tempReview}`)
       .then((data) => {
         this.setState({ meta: data.data, loadedMeta: true });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  sortReviewsBy(incomingChage) {
+    axios
+      .get(`/api/reviews/?product_id=${this.tempReview}&sort=${incomingChage}&count=30`)
+      .then((data) => {
+        this.setState({ reviews: data.data.results });
       })
       .catch((e) => {
         console.log(e);
@@ -66,6 +79,7 @@ class RatingsReviews extends React.Component {
     return (
       <div className="rr-start-div">
         Ratings and Reviews.
+        <ReviewFilterSelector passChangeToRR={this.sortReviewsBy} />
         <div className="rr-parent" id="overview-link">
           {/* <div className="rr-rating-big" /> */}
           <div className="rr-tiles-container">{tiles}</div>
