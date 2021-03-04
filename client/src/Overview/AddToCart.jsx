@@ -173,7 +173,7 @@ class AddToCart extends React.Component {
             <button id="o-hide" type="submit">
               ADD TO BAG
               <span>
-                <AiOutlinePlus />
+                {/* <AiOutlinePlus /> */}
               </span>
             </button>
           )}
@@ -181,7 +181,7 @@ class AddToCart extends React.Component {
             <button type="submit">
               ADD TO BAG
               <span>
-                <AiOutlinePlus />
+                {/* <AiOutlinePlus /> */}
               </span>
             </button>
           )}
@@ -198,7 +198,7 @@ class AddToCart extends React.Component {
         </select>
         <button type="submit">
           ADD TO BAG
-          <span>{/* <AiOutlinePlus /> */}</span>
+          {/* <span> <AiOutlinePlus /> </span> */}
         </button>
       </div>
     );

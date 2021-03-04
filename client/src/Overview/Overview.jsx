@@ -46,7 +46,7 @@ class Overview extends React.Component {
     const { selectedStyle } = this.state;
 
     const allSizes = Object.values(selectedStyle.skus);
-    this.setState({ allSizes });
+    this.setState({ allSizes })
 
     const inventory = [];
 
