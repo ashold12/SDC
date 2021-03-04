@@ -3,10 +3,11 @@ import QuestionList from './QuestionList.jsx';
 import SearchQuestions from './SearchQuestions.jsx';
 import ComponentFooter from './ComponentFooter.jsx';
 import data from './dummyQuestions.js';
+import axios from 'axios';
 
 class QuestionsAndAnswers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       questions: data,
       numberOfQuestionsToRender: 4,
@@ -25,6 +26,9 @@ class QuestionsAndAnswers extends React.Component {
     this.searchQuestions = this.searchQuestions.bind(this);
     this.getFormattedDate = this.getFormattedDate.bind(this);
   }
+
+  //REQUESTS
+
 
   // HANDLERS
 
@@ -157,7 +161,8 @@ class QuestionsAndAnswers extends React.Component {
 
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
-    this.sortQuestions();
+      this.sortQuestions();
+
   }
 
   render() {
