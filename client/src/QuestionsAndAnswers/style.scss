@@ -5,7 +5,8 @@
 //Main
 
 .qa-main-container {
-  padding-left: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 //Answer List Entry
@@ -71,6 +72,7 @@
   width: 60vw;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  padding-left: 50px;
 }
 
 .qa-al-load-more-button {
