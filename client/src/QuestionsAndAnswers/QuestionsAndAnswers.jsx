@@ -75,7 +75,8 @@ class QuestionsAndAnswers extends React.Component {
 
   // FILTERS
   sortQuestions() {
-    this.state.questions.results.sort((a, b) => {
+    const { questions } = this.state;
+    questions.results.sort((a, b) => {
       if (b.question_helpfulness < a.question_helpfulness) {
         return -1;
       }
@@ -88,16 +89,16 @@ class QuestionsAndAnswers extends React.Component {
 
   searchQuestions() {
     // Part 1: Search and Filter State
-    let { searchBarText } = this.state;
-    let { questions } = this.state;
-    let search = searchBarText;
-    let foundQuestions = [];
-    let copy = {};
+    const { searchBarText } = this.state;
+    const { questions } = this.state;
+    const search = searchBarText;
+    const foundQuestions = [];
+    const copy = {};
     copy.product_id = questions.product_id;
     copy.results = foundQuestions;
 
     for (let i = 0; i < questions.results.length; i++) {
-      let questionText = questions.results[i].question_body;
+      const questionText = questions.results[i].question_body;
 
       if (questionText.includes(search)) {
         foundQuestions.push(questions.results[i]);
@@ -114,14 +115,14 @@ class QuestionsAndAnswers extends React.Component {
     const htmlQuestions = document.getElementsByClassName("qa-question-text-only");
 
     for (let element of htmlQuestions) {
-      //Remove <mark> tags if they exist
+      // Remove <mark> tags if they exist
       let removeMarks = '<mark className="qa-questions-searched">|</mark>';
       element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, "gi"), () => {
         return ``
        });
       //Add <mark> tags
       element.innerHTML = element.innerHTML.replace(new RegExp (search, "gi"), (same) => {
-         return `<mark className="qa-questions-searched">${same}</mark>`
+        return `<mark className="qa-questions-searched">${same}</mark>`;
         });
     }
 
@@ -163,7 +164,7 @@ class QuestionsAndAnswers extends React.Component {
     if (this.state.questions.results.length === 0) {
       return (
 
-        <div>
+        <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions questions={this.state.questions} searchQuestions={this.searchQuestions}onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
         <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
@@ -172,7 +173,7 @@ class QuestionsAndAnswers extends React.Component {
       )
     }
     return (
-      <div>
+      <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions
         questions={this.state.questions}
