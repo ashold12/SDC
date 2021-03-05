@@ -24,12 +24,10 @@ class App extends React.Component {
   }
 
   getAllProducts() {
-    axios
-      .get('api/products?count=*')
-      .then((data) => {
-        // data.data is an array of all products, where each product is an object
+    axios.get('api/products?count=*')
+      .then((data) => { // data.data is an array of all products, where each product is an object
         this.setState({
-          allProducts: data.data,
+          allProducts: data.data
         });
       })
       .catch((error) => {
