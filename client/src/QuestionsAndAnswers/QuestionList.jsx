@@ -2,8 +2,14 @@ import React from 'react';
 import QuestionListEntry from './QuestionListEntry.jsx';
 
 const QuestionList = function ({
- questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date
 }) {
+
+  if (numberOfQuestionsToRender === 0) {
+    <div className="qa-questionList-container">
+     <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
+    </div>
+  }
   return (
     <div className="qa-questionList-container">
       {questions.results.map((question) => {
@@ -11,6 +17,7 @@ const QuestionList = function ({
         if (numberOfQuestionsToRender >= 0) {
           return (
             <QuestionListEntry
+              date={date}
               question={question}
               key={question.question_id}
               moreAnswersClicked={moreAnswersClicked}

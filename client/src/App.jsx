@@ -5,31 +5,29 @@ import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import Overview from './Overview/Overview.jsx';
 import RelatedItemsAndComparison from './RelatedItemsAndComparison/RelatedItemsAndComparison.jsx';
 import axios from 'axios';
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       allProducts: [],
-      selectedProduct: null
+      selectedProduct: null,
+      questions: {},
     };
-
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
   }
-
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
   }
-
   getAllProducts() {
-    axios.get('api/products?count=*')
-      .then((data) => { // data.data is an array of all products, where each product is an object
+    axios
+      .get('api/products?count=*')
+      .then((data) => {
+        // data.data is an array of all products, where each product is an object
         this.setState({
-          allProducts: data.data
+          allProducts: data.data,
         });
       })
       .catch((error) => {
@@ -39,10 +37,20 @@ class App extends React.Component {
 
   getProduct(productID = 17762) {
     axios.get(`api/products/${productID}`)
-      .then((product) => {
+      .then((product) =>  this.setState({selectedProduct: product.data}))
+      .then(() => this.getQuestions())
+  }
+
+  getQuestions() {
+    axios
+      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
+      .then((questions) => {
         this.setState({
-          selectedProduct: product.data
+          questions: questions.data,
         });
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 
@@ -57,11 +65,15 @@ class App extends React.Component {
           selectedProduct={this.state.selectedProduct}
           changeProduct={this.getProduct}
         />
-        <QuestionsAndAnswers />
-        <RatingsReviews />
+        {this.state.questions.results && (
+          <QuestionsAndAnswers
+            selectedProduct={this.state.selectedProduct}
+            selectedProductsQuestions={this.state.questions}
+          />
+        )}
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
 }
-
 export default App;
