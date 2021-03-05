@@ -39,8 +39,8 @@ class App extends React.Component {
 
   getProduct(productID = 17762) {
     axios.get(`api/products/${productID}`)
-      .then((product) =>  this.setState({selectedProduct: product.data}))
-      .then(() => this.getQuestions())
+      .then((product) => this.setState({ selectedProduct: product.data }))
+      .then(() => this.getQuestions());
   }
 
   getQuestions() {
