@@ -16,8 +16,10 @@ class RelatedItemsAndComparison extends Component {
       relatedID: [],
       productStyles: [],
       productInformation: [],
-      currentProductTemp: 17762,
-      productCards: [],
+      currentProduct: this.props.selectedProduct ? this.props.selectedProduct.id : 17762,
+      // currentProduct: 17762,
+      relatedProductCards: [],
+      yourOutfit: [],
     };
 
     this.getRelated = this.getRelated.bind(this);
@@ -26,7 +28,8 @@ class RelatedItemsAndComparison extends Component {
   }
 
   componentDidMount() {
-    this.getRelated(this.state.currentProductTemp);
+    // this.setState({ currentProduct: this.props.selectedProduct });
+    this.getRelated(this.state.currentProduct);
   }
 
   getRelated(productID) {
@@ -38,7 +41,7 @@ class RelatedItemsAndComparison extends Component {
       .then(() => this.getRelatedInfo(this.state.relatedID))
       .then((infoData) => this.setState({ productInformation: infoData }))
       .then(() => this.setCards())
-      .then((cards) => this.setState({ productCards: cards }))
+      .then((cards) => this.setState({ relatedProductCards: cards }))
       .catch((err) => console.log(err));
   }
 
@@ -58,12 +61,12 @@ class RelatedItemsAndComparison extends Component {
     const cardInfo = this.state.productInformation.map((product, idx) => {
       const newProduct = JSON.parse(JSON.stringify(product));
       newProduct.styles = this.state.productStyles[idx];
-      // console.log(newProduct);
       return (
         <ItemCard
-          productInfo={product}
-          productStyle={this.state.productStyles[idx]}
-          key={this.state.relatedID[idx]}
+          productInfo={newProduct}
+          changeProduct={this.props.changeProduct}
+          getRelated={this.getRelated}
+          key={newProduct.id}
         />
       );
     });
@@ -73,8 +76,10 @@ class RelatedItemsAndComparison extends Component {
   render() {
     return (
       <div className="rpo-main-container">
-        <RelatedProducts />
-        {/* <YourOutfit /> */}
+        <div className="rpo-title-div">Related Products</div>
+        <RelatedProducts cards={this.state.relatedProductCards} />
+        <div className="rpo-title-div">Your Outfit</div>
+        <YourOutfit cards={this.state.relatedProductCards} />
       </div>
     );
   }

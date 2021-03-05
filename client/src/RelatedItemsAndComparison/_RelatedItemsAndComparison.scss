@@ -1,57 +1,65 @@
+.rpo-main-container {
+  display: grid;
+  grid-template-rows: 10px 400px 10px 400px;
+  row-gap: 10px;
+  padding: 10px;
+}
 
-// .rpo-main-container {
-//   display: grid;
-//   grid-template-rows: repeat(2, 40%);
-//   width: 100%;
-//   height: 1000px;
-//   grid-gap: 40px;
-//   background-color: deeppink;
+// .rpo-title-div {
+//   // margin: 5px;
 // }
-
-.rpo-related-main-container {
+.rpo-card-container {
   display: grid;
-  grid-template-rows: 20px 80%;
-  grid-gap: 20px;
-  // min-height: 400px;
-  background-color: darksalmon;
+  margin: 0 auto; //centers card container on webpage
+  // max-height: 100%;
+  // max-width: 100%;
+
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px; //grid gap??
+  font-family: sans-serif;
 }
 
-.rpo-card-holder {
-  display: grid;
-  grid-template-columns: repeat(4, 22%);
+.rpo-image-div {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.rpo-card {
+  // display: grid;
+  // grid-template-rows:  70% 25%;
+  padding: 2px;
+  // max-width: 100%;
+  // max-height: 70%;
+  // min-width: 100%;
+  // min-height: 100%;
+  border: burlywood;
+  border-radius: 3px;
+  border-color: burlywood;
+}
+
+.rpo-product-image {
+  width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: auto;
+  padding: 1px;
+}
+
+.rpo-product-info-div {
+  line-height: 1.5;
+  font-size: 0.9em;
+  padding: 5px;
+  background: #fafafa;
+}
+
+.rpo-product-rating {
+  padding: 15px;
+  display: flex;
   justify-content: center;
-  grid-gap: 2%;
-  margin: 3px;
+  align-items: center;
+  background: #eeeeee;
+  border-bottom: 2px solid #cccccc;
 }
 
-.rpo-outfit-main-container {
-  display: grid;
-  grid-template-rows: 20px 80%;
-  grid-gap: 20px;
-  background-color: darksalmon;
-}
+.rpo-product-info {}
 
-
-/***********/
-/*Item Card*/
-/***********/
-
-.rpo-item-card {
-  display: grid;
-  grid-template-rows: 70% 30%;
-  background-color: brown;
-  // width: 100%;
-  max-width: 180px;
-  // margin: auto;
-  height: 300px;
-}
-
-.rpo-item-card-info {
-  display: grid;
-  grid-template-rows: repeat(4, 20%);
-  grid-gap: 5px;
-}
-.rpo-item-card-img {
-  background-color: darkorchid;
-  padding: 0px;
-}
