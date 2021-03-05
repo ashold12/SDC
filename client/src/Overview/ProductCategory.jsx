@@ -5,7 +5,7 @@ const ProductCategory = ({ selectedProduct }) => {
   if (selectedProduct) {
     name = selectedProduct.category;
   }
-  return <div>{name}</div>;
+  return <div id="o-category">{name}</div>;
 };
 
 export default ProductCategory;

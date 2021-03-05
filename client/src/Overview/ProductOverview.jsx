@@ -9,17 +9,20 @@ const ProductOverview = ({ selectedProduct }) => {
     }
     if (selectedProduct.features) {
       selectedProduct.features.forEach((feature) => {
-        // handle duplicates in here
-        features.push(feature);
+        if (features.indexOf(feature.feature) === -1) {
+          features.push(feature.feature);
+        }
       });
     }
   }
 
   return (
     <div className="o-productOverview">
-      {features.map((feature) => {
-        return <div>{feature.feature}</div>;
-      })}
+      <div className="o-productOverviewChecks">
+        {features.map((feature) => (
+          <div key={feature}> ✓ {feature}</div>
+        ))}
+      </div>
       <div className="o-productOverviewText">{description}</div>
     </div>
   );
