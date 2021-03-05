@@ -72,7 +72,7 @@ class App extends React.Component {
             selectedProductsQuestions={this.state.questions}
           />
         )}
-        <RatingsReviews />
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
