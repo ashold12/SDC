@@ -13,6 +13,7 @@ class QuestionsAndAnswers extends React.Component {
       searchBarText: '',
       showQuestionModal: false,
       showAnswerModal: false,
+      validQuestionForm: null,
     };
 
     // BINDINGS
@@ -33,11 +34,50 @@ class QuestionsAndAnswers extends React.Component {
     this.hideAnswerModalHandler = this.hideAnswerModalHandler.bind(this);
     this.hideQuestionModalHandler = this.hideQuestionModalHandler.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.verifyQuestionForm = this.verifyQuestionForm.bind(this);
   }
 
   // REQUESTS
 
   // HANDLERS
+
+  verifyQuestionForm() {
+    let verified = null;
+
+  if (this.state.QuestionModalNameInput === '') {
+    verified = false;
+    this.setState({
+      validQuestionForm: false,
+      questionFormNameValidation: "Must add a name",
+    })
+  };
+
+  if (this.state.QuestionModalTextArea === '') {
+    verified = false;
+    this.setState({
+      validQuestionForm: false,
+      questionFormNameValidation: "Must add a question"
+    })
+  }
+
+  let email = this.state.QuestionModalEmailInput;
+  verified = false;
+
+  if(!/\S+@\S+\.\S+/.test(email)) {
+    this.setState({
+      validQuestionForm: false,
+      questionFormEmailValidation: "The email address provided is not in correct email format"
+    })
+  }
+
+  if (!verified) {
+    return null;
+  } else {
+    this.setState({
+      validQuestionForm: true,
+    })
+  }
+  }
 
   onChange(e) {
     this.setState({
@@ -258,7 +298,8 @@ class QuestionsAndAnswers extends React.Component {
         onClick={this.questionModalClickHandler}
         productName={this.props.selectedProduct.name}
         onChange={this.onChange}
-        state={this.state}/>
+        state={this.state}
+        verifyForm={this.verifyQuestionForm}/>
         {/* QuestionList */}
         <QuestionList
           questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}

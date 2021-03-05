@@ -12,7 +12,7 @@ const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuest
     return (
       <div>
         <div>
-          <button onClick={(e) => {onClick(e)}}>ADD A QUESTION +</button>
+          <button onClick={onClick}>ADD A QUESTION +</button>
         </div>
       </div>
     );
@@ -21,7 +21,7 @@ const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuest
     <div>
       <div>
         <button onClick={incrementQuestions}>MORE ANSWERED QUESTIONS</button>
-        <button onClick={(e) => {onClick(e)}}>ADD A QUESTION +</button>
+        <button onClick={onClick}>ADD A QUESTION +</button>
       </div>
     </div>
   );
