@@ -241,10 +241,9 @@ class QuestionsAndAnswers extends React.Component {
       <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions onChange={this.onChange} />
-        <AnswerModal show={this.state.showAnswerModal} onClick={this.answerModalClickHandler}/> <QuestionModal show={this.state.showQuestionModal} onClick={this.questionModalClickHandler}/>
+        <AnswerModal show={this.state.showAnswerModal} onClick={this.answerModalClickHandler}/> <QuestionModal show={this.state.showQuestionModal} onClick={this.questionModalClickHandler} productName={this.props.selectedProduct.name}/>
         <QuestionList
           questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
-          productName={this.props.selectedProduct.name}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
