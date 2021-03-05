@@ -5,10 +5,9 @@ import ComponentFooter from './ComponentFooter.jsx';
 import data from './dummyQuestions.js';
 
 class QuestionsAndAnswers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      questions: data,
       numberOfQuestionsToRender: 4,
       searchBarText: '',
     };
@@ -23,7 +22,11 @@ class QuestionsAndAnswers extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.sortQuestions = this.sortQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
+    this.getFormattedDate = this.getFormattedDate.bind(this);
   }
+
+  //REQUESTS
+
 
   // HANDLERS
 
@@ -46,11 +49,20 @@ class QuestionsAndAnswers extends React.Component {
   // QUESTION LIST HANDLERS
 
   findNumberOfQuestionsToRender() {
-    const numberOfQuestions = this.state.questions.results.length;
+    let numberOfQuestions = this.props.selectedProductsQuestions.results
+      ? this.props.selectedProductsQuestions.results.length
+      : undefined;
+
+    if (numberOfQuestions === undefined) {
+      this.setState({
+        noProduct: true,
+      });
+    }
 
     if (numberOfQuestions < 4) {
       this.setState({
         numberOfQuestionsToRender: numberOfQuestions,
+        noProduct: false,
       });
     }
   }
@@ -67,12 +79,18 @@ class QuestionsAndAnswers extends React.Component {
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
+    }, () => {
+      this.searchQuestions();
     });
   }
 
   // FILTERS
   sortQuestions() {
-    this.state.questions.results.sort((a, b) => {
+    const questions = this.props.selectedProductsQuestions;
+    if (questions.results === undefined) {
+      return console.error('Nothing to Sort');
+    }
+    questions.results.sort((a, b) => {
       if (b.question_helpfulness < a.question_helpfulness) {
         return -1;
       }
@@ -84,50 +102,125 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   searchQuestions() {
+    // Part 1: Search and Filter State
+    const { searchBarText } = this.state;
+    const questions = this.props.selectedProductsQuestions;
 
-  //need to loop over the questions and check to see if the word is included in them or if they match the regex above
+    if (questions.results === undefined) {
+      return console.error('Nothing to Search');
+    }
 
-  let { searchBarText } = this.state;
-  let { questions } = this.state;
+    const search = searchBarText;
+    const foundQuestions = [];
+    const copy = {};
+    copy.product_id = questions.product_id;
+    copy.results = foundQuestions;
 
-  let foundQuestions = [];
-  let copy = { product_id: questions.id, results: foundQuestions }
+    for (let i = 0; i < questions.results.length; i++) {
+      const questionText = questions.results[i].question_body;
 
-  for (let i = 0; i < questions.results.length; i++) {
+      if (questionText.includes(search)) {
+        foundQuestions.push(questions.results[i]);
+      } else {
+        continue;
+      }
+    }
+    this.setState({
+      searchResults: copy,
+    });
 
-    let questionText = questions.results[i].question_body;
-    let search = searchBarText;
+    // Part 2: Search and replace HTML
 
-    if (questionText.includes(search)) {
-      foundQuestions.push(questions.results[i]);
-    } else {
-      continue;
+    const htmlQuestions = document.getElementsByClassName("qa-question-text-only");
+
+    for (let element of htmlQuestions) {
+      // Remove <mark> tags if they exist
+      let removeMarks = '<mark className="qa-questions-searched">|</mark>';
+      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, 'gi'), () => {
+        return ``
+       });
+      //Add <mark> tags
+      element.innerHTML = element.innerHTML.replace(new RegExp (search, 'gi'), (same) => {
+        return `<mark className="qa-questions-searched">${same}</mark>`;
+        });
     }
   }
 
-  this.setState({
-    searchResults: copy
-  })
-}
+  // DATES
+
+  getFormattedDate(unformatedDate) {
+    const date = new Date(unformatedDate);
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    let day = date.getDate().toString();
+    if (day.length < 2) {
+      day = `0${day}`;
+    }
+    const formattedDate = `${months[date.getMonth()]} ${day}, ${date.getFullYear()}`;
+    return formattedDate;
+  }
 
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
-    this.sortQuestions();
+      this.sortQuestions();
+
   }
 
   render() {
-    return (
-      <div>
+    if (this.state.noProduct === true) {
+      return (
+
+        <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions questions={this.state.questions} onChange={this.onChange} searchBarText={this.state.searchBarText || ''}/>
+        <SearchQuestions onChange={this.onChange}/>
+          <div className="qa-questionList-container">
+            <h3 className="qa-no-results">NO PRODUCT HAS BEEN SELECTED</h3>
+          </div>
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+      </div>
+
+      )
+
+    }
+    else if (this.state.numberOfQuestionsToRender === 0) {
+      return (
+
+        <div className="qa-main-container">
+        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
+        <SearchQuestions onChange={this.onChange}/>
+          <div className="qa-questionList-container">
+            <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
+          </div>
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+      </div>
+
+      )
+    }
+    return (
+      <div className="qa-main-container">
+        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
+        <SearchQuestions onChange={this.onChange} />
         <QuestionList
-          questions={0 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions}
+          questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
+          date={this.getFormattedDate}
         />
-        <ComponentFooter questions={0 < this.state.searchBarText.length ? this.state.searchResults : this.state.questions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
     );
   }
