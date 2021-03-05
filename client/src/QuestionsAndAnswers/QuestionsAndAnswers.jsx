@@ -29,8 +29,8 @@ class QuestionsAndAnswers extends React.Component {
     this.getFormattedDate = this.getFormattedDate.bind(this);
     this.answerModalClickHandler = this.answerModalClickHandler.bind(this);
     this.questionModalClickHandler = this.questionModalClickHandler.bind(this);
-    this.showAnswerModal = this.showAnswerModal.bind(this);
-    this.showQuestionModal = this.showQuestionModal.bind(this);
+    // this.showAnswerModal = this.showAnswerModal.bind(this);
+    // this.showQuestionModal = this.showQuestionModal.bind(this);
   }
 
   // REQUESTS

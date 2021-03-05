@@ -33,17 +33,20 @@ class App extends React.Component {
       });
   }
   getProduct() {
-    axios.get('api/products/17762')
-      .then((product) => {
-        this.setState({
-          selectedProduct: product.data
-        }, () => {
+    axios.get('api/products/17762').then((product) => {
+      this.setState(
+        {
+          selectedProduct: product.data,
+        },
+        () => {
           this.getQuestions();
-        });
-      });
+        }
+      );
+    });
   }
   getQuestions() {
-    axios.get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
+    axios
+      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
       .then((questions) => {
         this.setState({
           questions: questions.data,
@@ -61,10 +64,12 @@ class App extends React.Component {
         {/*need to pass in what item we're on here*/}
         <Overview selectedProduct={selectedProduct} />
         <RelatedItemsAndComparison allProducts={this.state.allProducts} />
-        {this.state.questions.results && <QuestionsAndAnswers
-          selectedProduct={this.state.selectedProduct}
-          selectedProductsQuestions={this.state.questions}
-        />}
+        {this.state.questions.results && (
+          <QuestionsAndAnswers
+            selectedProduct={this.state.selectedProduct}
+            selectedProductsQuestions={this.state.questions}
+          />
+        )}
         <RatingsReviews />
       </div>
     );
