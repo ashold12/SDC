@@ -2,6 +2,8 @@ import React from 'react';
 import QuestionList from './QuestionList.jsx';
 import SearchQuestions from './SearchQuestions.jsx';
 import ComponentFooter from './ComponentFooter.jsx';
+import AnswerModal from './AnswerModal/AnswerModal.jsx'
+import QuestionModal from './QuestionModal/QuestionModal.jsx'
 import data from './dummyQuestions.js';
 
 class QuestionsAndAnswers extends React.Component {
@@ -10,6 +12,8 @@ class QuestionsAndAnswers extends React.Component {
     this.state = {
       numberOfQuestionsToRender: 4,
       searchBarText: '',
+      showQuestionModal: false,
+      showAnswerModal: false,
     };
 
     // BINDINGS
@@ -23,6 +27,10 @@ class QuestionsAndAnswers extends React.Component {
     this.sortQuestions = this.sortQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
     this.getFormattedDate = this.getFormattedDate.bind(this);
+    this.answerModalClickHandler = this.answerModalClickHandler.bind(this);
+    this.questionModalClickHandler = this.questionModalClickHandler.bind(this);
+    this.showAnswerModal = this.showAnswerModal.bind(this);
+    this.showQuestionModal = this.showQuestionModal.bind(this);
   }
 
   //REQUESTS
@@ -82,6 +90,35 @@ class QuestionsAndAnswers extends React.Component {
     }, () => {
       this.searchQuestions();
     });
+  }
+
+  // MODAL HANDLERS
+
+  // Answers
+  answerModalClickHandler(e) {
+    e.preventDefault();
+    this.showAnswerModalHandler();
+  }
+
+  showAnswerModalHandler(e) {
+    e.preventDefault();
+    this.setState({
+      showAnswerModal: true
+    })
+  }
+
+  // Questions
+
+  questionModalClickHandler(e) {
+    e.preventDefault();
+    this.showQuestionModalHandler();
+  }
+
+  showQuestionModalHandler(e) {
+    e.preventDefault();
+    this.setState({
+      showQuestionModal: true
+    })
   }
 
   // FILTERS
