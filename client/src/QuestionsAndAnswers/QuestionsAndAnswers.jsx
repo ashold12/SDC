@@ -42,42 +42,53 @@ class QuestionsAndAnswers extends React.Component {
   // HANDLERS
 
   verifyQuestionForm() {
-    let verified = null;
-
-  if (this.state.QuestionModalNameInput === '') {
-    verified = false;
+    // first reset state
     this.setState({
-      validQuestionForm: false,
-      questionFormNameValidation: "Must add a name",
-    })
-  };
+      validQuestionForm: null,
+      questionFormNameValidation: true,
+      questionFormQuestionValidation: true,
+      questionFormEmailValidation: false,
+    },
+    // second verify
+    () => {
+      let verified = null;
 
-  if (this.state.QuestionModalTextArea === '') {
-    verified = false;
-    this.setState({
-      validQuestionForm: false,
-      questionFormNameValidation: "Must add a question"
-    })
-  }
+      if (!this.state.QuestionModalNameInput || this.state.QuestionModalNameInput === '') {
+        verified = false;
+        this.setState({
+          validQuestionForm: false,
+          questionFormNameValidation: false,
+        })
+      };
 
-  let email = this.state.QuestionModalEmailInput;
-  verified = false;
+      if (!this.state.QuestionModalTextArea || this.state.QuestionModalTextArea === '') {
+        verified = false;
+        this.setState({
+          validQuestionForm: false,
+          questionFormQuestionValidation: false,
+        })
+      }
 
-  if(!/\S+@\S+\.\S+/.test(email)) {
-    this.setState({
-      validQuestionForm: false,
-      questionFormEmailValidation: "The email address provided is not in correct email format"
-    })
-  }
+      let email = this.state.QuestionModalEmailInput;
+      verified = false;
 
-  if (!verified) {
-    return null;
-  } else {
-    this.setState({
-      validQuestionForm: true,
-    })
-  }
-  }
+      if(!/\S+@\S+\.\S+/.test(email)) {
+        this.setState({
+          validQuestionForm: false,
+          questionFormEmailValidation: false,
+        })
+      }
+
+      if (!verified) {
+        return null;
+      } else {
+        this.setState({
+          validQuestionForm: true,
+        })
+      }
+    }
+  )
+}
 
   onChange(e) {
     this.setState({

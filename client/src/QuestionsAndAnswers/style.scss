@@ -174,6 +174,11 @@ mark {
 
 //Modals
 
+.qa-modal-alert-text {
+  color: red;
+  font-size: large;
+}
+
 //Question
 .qa-question-modal-hide {
   display: none;
@@ -202,6 +207,119 @@ mark {
   border-bottom-color: rgb(91, 84, 84);
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
+
+  display: block;
+}
+
+.qa-question-modal-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 70vh;
+  width: 68vw;
+  margin-top: -35vh;
+  margin-left: -35vw;
+
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+  column-gap: normal;
+  padding: 5px 5px 5px 5px;
+}
+.qa-question-modal-griditem1 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.qa-question-modal-griditem2 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+.qa-question-modal-griditem3 {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+.qa-question-modal-griditem4 {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 5;
+  grid-row-end: 10;
+}
+
+.qa-question-modal-griditem5 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.qa-question-modal-griditem6 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.qa-question-modal-griditem7 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+.qa-question-modal-griditem8 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+.qa-question-modal-griditem9 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 6;
+  grid-row-end: 7;
+}
+.qa-question-modal-griditem10 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 7;
+  grid-row-end: 8;
+}
+.qa-question-modal-griditem11 {
+  border: solid;
+  border-width: thick;
+  border-top-color: rgb(187, 178, 178);
+  border-bottom-color: rgb(91, 84, 84);
+  border-left-color: rgb(239, 244, 239);
+  border-right-color: rgb(239, 244, 239);
+  background-color: rgb(53, 47, 47);
+  color: rgb(239, 244, 239);
+  grid-column-start: 8;
+  grid-column-end: 9;
+  grid-row-start: 8;
+  grid-row-end: 9;
+}
+
+.qa-question-modal-griditem12 {
+  border: solid;
+  border-width: thick;
+  border-top-color: rgb(187, 178, 178);
+  border-bottom-color: rgb(91, 84, 84);
+  border-left-color: rgb(239, 244, 239);
+  border-right-color: rgb(239, 244, 239);
+  background-color: rgb(91, 84, 84);
+  background-color: rgb(53, 47, 47);
+  color: rgb(239, 244, 239);
+  grid-column-start: 8;
+  grid-column-end: 9;
+  grid-row-start: 9;
+  grid-row-end: 10;
 }
 
 //Answer

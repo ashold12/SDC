@@ -6,25 +6,36 @@ const QuestionModal = function ({ show, onClick, productName, onChange, state, v
   }
   return (
     <div className={show ? "qa-question-modal-show" : "qa-question-modal-hide"}>
-      <h3>Ask Your Question</h3>
-      <h4>About {productName}</h4>
-      <form onSubmit={(e) => {e.preventDefault(); console.log(`submitted`)}}>
-        <div><label htmlFor="QuestionModalTextArea">Your Question*</label></div>
-        <textarea name="QuestionModalTextArea" value={state.QuestionModalTextArea || ''} onChange={onChange} maxLength="1000" id="qa-question-modal-textarea" rows="10" cols="50" />
-        <div>
-        <div>
-          <label htmlFor="QuestionModalNameInput">Your Nickname*</label></div>
-          <input name="QuestionModalNameInput" value={state.QuestionModalNameInput || ''} onChange={onChange} maxLength="60" placeholder="Example: jackson11!" type="text" />
-          <div>For privacy reasons, do not use your full name or email address</div>
-          <div>
+      <form className="qa-question-modal-form" onSubmit={(e) => {e.preventDefault(); console.log(`submitted`)}}>
+      <h3 className="qa-question-modal-griditem1">Ask Your Question</h3>
+      <h4 className="qa-question-modal-griditem2">About {productName}</h4>
 
-          <label htmlFor="QuestionModalEmailInput">Your Email*</label></div>
-          <input name="QuestionModalEmailInput" placeholder="Example: jackson@hotmail.com" value={state.QuestionModalEmailInput || ''} onChange={onChange} maxLength="60" type="text" />
-          <div>For authentication reasons, you will not be emailed</div>
-        </div>
-        <input type="submit" name="closeQuestionModal" onClick={verifyForm}/>
+          <label htmlFor="QuestionModalTextArea" className="qa-question-modal-griditem3">{state.questionFormQuestionValidation === false ? <span className="qa-modal-alert-text">You must enter a Question! </span>:'Your Question*'}</label>
+        <textarea
+        name="QuestionModalTextArea"
+        className="qa-question-modal-griditem4"
+        value={state.QuestionModalTextArea || ''}
+        onChange={onChange}
+        maxLength="1000"
+        id="qa-question-modal-textarea"
+        rows="10"
+        cols="50"
+        />
+          <label htmlFor="QuestionModalNameInput" className="qa-question-modal-griditem5">{state.questionFormNameValidation === false ? <span className="qa-modal-alert-text">You must enter a NickName! </span>:'Your Nickname*'}</label>
+
+          <input name="QuestionModalNameInput" className="qa-question-modal-griditem6" value={state.QuestionModalNameInput || ''} onChange={onChange} maxLength="60" placeholder="Example: jackson11!" type="text" />
+          <div className="qa-question-modal-griditem7">For privacy reasons, do not use your full name or email address
+          </div>
+
+          <label htmlFor="QuestionModalEmailInput" className="qa-question-modal-griditem8">{state.questionFormEmailValidation === false ? <span className="qa-modal-alert-text">The email address provided is not in correct email format</span>:'Your Email*'}</label>
+
+          <input name="QuestionModalEmailInput" placeholder="Example: jackson@hotmail.com" className="qa-question-modal-griditem9" value={state.QuestionModalEmailInput || ''} onChange={onChange} maxLength="60" type="text" />
+          <div className="qa-question-modal-griditem10">For authentication reasons, you will not be emailed
+          </div>
+
+        <input type="submit" className="qa-question-modal-griditem11" name="closeQuestionModal" onClick={verifyForm}/>
+      <input type="click" name="closeQuestionModal" onClick={onClick} value="Close" className="qa-question-modal-griditem12"/>
       </form>
-      <input type="submit" name="closeQuestionModal" onClick={onClick}/>
     </div>
   );
 };
