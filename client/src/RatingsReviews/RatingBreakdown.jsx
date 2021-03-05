@@ -69,7 +69,6 @@ class RatingBreakdown extends React.Component {
     let totalRatingScore = 0;
     let totalNumberOfRatings = 0;
     const { ratings } = this.props.meta;
-    debugger;
     Object.keys(ratings).forEach((key) => {
       totalRatingScore += parseInt(key, 10) * ratings[key];
       totalNumberOfRatings += parseInt(ratings[key], 10);

@@ -12,12 +12,12 @@ class ProductBreakDown extends React.Component {
   getCharacteristicsBars() {
     const bar = [];
     const characteristicsToScale = {
-      Size: ['too small', 'too wide'],
-      Width: ['too narrow', 'too wide'],
-      Quality: ['poor', 'perfect'],
-      Comfort: ['uncomfortable', 'perfect'],
-      Length: ['runs short', 'runs long'],
-      Fit: ['runs tight', 'runs long'],
+      Size: ['A size too small', 'A size too wide'],
+      Width: ['Too narrow', '!oo wide'],
+      Quality: ['Poor', 'Perfect'],
+      Comfort: ['Uncomfortable', 'Perfect'],
+      Length: ['Runs short', 'Runs long'],
+      Fit: ['Runs tight', 'Runs long'],
     };
     if (this.props.characteristics === undefined) {
       return <div />;
@@ -30,16 +30,24 @@ class ProductBreakDown extends React.Component {
 
       const inlineStyle = {
         width: `${percentage}%`,
-        backgroundColor: '#2196F3',
+        // backgroundColor: '#2196F3',
       };
       bar.push(
-        <div key={key} className="rr-product-overview-bar-container">
-          {names[i] + ' '}
-          {parseInt(characteristics[names[i]].value).toFixed(0)}
-          <div style={inlineStyle} className="rr-product-overview-review-bar">
-            <h2>⇓</h2>
+        <div className="rr-product-overview-surroundtext">
+          {`${names[i]}: ${parseInt(characteristics[names[i]].value, 10).toFixed(0)} stars.`}
+          <div key={key} className="rr-product-overview-bar-container">
+            <div style={inlineStyle} className="rr-product-overview-review-bar">
+              <b>{'⇓'}</b>
+            </div>
           </div>
-          {characteristicsToScale[names[i]][0] + ' ' + characteristicsToScale[names[i]][1]}
+          <div className="rr-product-overview-text">
+            <div className="rr-product-overview-left-text">
+              {characteristicsToScale[names[i]][0]}
+            </div>
+            <div className="rr-product-overview-right-text">
+              {characteristicsToScale[names[i]][1]}
+            </div>
+          </div>
         </div>
       );
     }
