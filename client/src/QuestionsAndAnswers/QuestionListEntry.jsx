@@ -1,7 +1,7 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
 
-const QuestionListEntry = function ({ question, collapseAnswers, moreAnswersClicked, userWantsMoreAnswers, date}) {
+const QuestionListEntry = function ({ question, collapseAnswers, moreAnswersClicked, userWantsMoreAnswers, date, showAnswerModal, onClick}) {
   return (
     <div id="questionListEntry">
       <div>
@@ -15,6 +15,8 @@ const QuestionListEntry = function ({ question, collapseAnswers, moreAnswersClic
           collapseAnswers={collapseAnswers}
           moreAnswersClicked={moreAnswersClicked}
           userWantsMoreAnswers={userWantsMoreAnswers}
+          showAnswerModal={showAnswerModal}
+          onClick={onClick}
         />
       </div>
     </div>

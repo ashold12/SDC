@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AnswerListEntry = function ({ answer, date }) {
+const AnswerListEntry = function ({ answer, date, onClick, showAnswerModal }) {
   return (
     <div>
       <span className="qa-answer-body"> {answer.body}</span>

@@ -5,7 +5,9 @@ import MostHelpfulAnswer from './MostHelpfulAnswer.jsx';
 function AnswerList({
   date,
   answers,
+  onClick,
   questionId,
+  showAnswerModal,
   collapseAnswers,
   moreAnswersClicked,
   userWantsMoreAnswers,
@@ -33,7 +35,7 @@ function AnswerList({
       i--;
       return (
         <div className="qa-answer-entry">
-          <AnswerListEntry answer={answer} key={answer.id} date={date}/>
+          <AnswerListEntry onClick={onClick} showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date}/>
         </div>
       );
     }
@@ -46,7 +48,7 @@ function AnswerList({
   if (Object.values(answers).length === 1) {
     return (
     <div>
-      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date}/>
+      <MostHelpfulAnswer onClick={onClick} showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
     </div>
     )
   }
@@ -57,7 +59,7 @@ function AnswerList({
   ) {
     return (
       <div className="qa-answer-entry">
-        <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date}/>
+        <MostHelpfulAnswer onClick={onClick} showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
         {renderHelper}
         <a className="qa-al-load-more-button"
           href="#"
@@ -74,7 +76,7 @@ function AnswerList({
 
   return (
     <div>
-      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date}/>
+      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date} />
       {orderedAnswers.map((answer) => (
         <div className="qa-answer-entry">
 

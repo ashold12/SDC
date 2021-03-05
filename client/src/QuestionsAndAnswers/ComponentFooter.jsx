@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuestionsToRender, }) {
+const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuestionsToRender, onClick }) {
 
   if (questions === undefined || questions.results === undefined) {
     return <div />
@@ -12,7 +12,7 @@ const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuest
     return (
       <div>
         <div>
-          <button>ADD A QUESTION +</button>
+          <button onClick={(e) => {onClick(e)}}>ADD A QUESTION +</button>
         </div>
       </div>
     );
@@ -21,7 +21,7 @@ const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuest
     <div>
       <div>
         <button onClick={incrementQuestions}>MORE ANSWERED QUESTIONS</button>
-        <button>ADD A QUESTION +</button>
+        <button onClick={(e) => {onClick(e)}}>ADD A QUESTION +</button>
       </div>
     </div>
   );

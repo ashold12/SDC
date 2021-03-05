@@ -97,8 +97,7 @@ class QuestionsAndAnswers extends React.Component {
     this.showAnswerModalHandler();
   }
 
-  showAnswerModalHandler(e) {
-    e.preventDefault();
+  showAnswerModalHandler() {
     this.setState({
       showAnswerModal: true
     })
@@ -111,8 +110,7 @@ class QuestionsAndAnswers extends React.Component {
     this.showQuestionModalHandler();
   }
 
-  showQuestionModalHandler(e) {
-    e.preventDefault();
+  showQuestionModalHandler() {
     this.setState({
       showQuestionModal: true
     })
@@ -213,31 +211,27 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   render() {
-      if (this.state.numberOfQuestionsToRender === 0) {
-      return (
-        <div className="qa-main-container">
-        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions onChange={this.onChange}/>
-          <div className="qa-questionList-container">
-            <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
-          </div>
-        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
-      </div>
-      )
-    }
     return (
       <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions onChange={this.onChange} />
         <QuestionList
           questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
+          productName={this.props.selectedProduct.name}
           moreAnswersClicked={this.moreAnswersClicked}
           collapseAnswers={this.collapseAnswers}
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
           date={this.getFormattedDate}
+          showAnswerModal={this.showAnswerModalHandler}
+          onClick={this.answerModalClickHandler}
         />
-        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
+        <ComponentFooter
+        questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
+        numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
+        incrementQuestions={this.increaseNumberOfQuestionsToRender}
+        onClick={this.questionModalClickHandler}
+        />
       </div>
     );
   }
