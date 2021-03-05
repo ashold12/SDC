@@ -47,6 +47,11 @@ class App extends React.Component {
         }, () => {
           this.getQuestions();
         });
+
+    axios.get('api/products/17762').then((product) => {
+      this.setState({
+        selectedProduct: product.data,
+
       });
   }
 
@@ -76,6 +81,9 @@ class App extends React.Component {
 
         />}
         <RatingsReviews />
+
+        <QuestionsAndAnswers />
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
