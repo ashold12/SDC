@@ -17,10 +17,12 @@ class App extends React.Component {
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
   }
+
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
   }
+
   getAllProducts() {
     axios
       .get('api/products?count=*')
@@ -34,6 +36,7 @@ class App extends React.Component {
         console.log(error);
       });
   }
+
   getProduct() {
     axios.get('api/products/17762').then((product) => {
       this.setState(
@@ -46,6 +49,7 @@ class App extends React.Component {
       );
     });
   }
+
   getQuestions() {
     axios
       .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
@@ -58,8 +62,13 @@ class App extends React.Component {
         console.error(error);
       });
   }
+
   render() {
     const { selectedProduct } = this.state;
+    let RatingsReviewsSection = <div />;
+    if (selectedProduct !== null) {
+      RatingsReviewsSection = <RatingsReviews productData={selectedProduct} />;
+    }
     return (
       <div className="main-app">
         {/* react is up and running */}
@@ -72,7 +81,7 @@ class App extends React.Component {
             selectedProductsQuestions={this.state.questions}
           />
         )}
-        <RatingsReviews />
+        {RatingsReviewsSection}
       </div>
     );
   }
