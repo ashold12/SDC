@@ -22,7 +22,7 @@ class QuestionsAndAnswers extends React.Component {
     this.increaseNumberOfQuestionsToRender = this.increaseNumberOfQuestionsToRender.bind(this);
     this.userWantsMoreAnswers = this.userWantsMoreAnswers.bind(this);
     this.findNumberOfQuestionsToRender = this.findNumberOfQuestionsToRender.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onChangeSearchHandler = this.onChangeSearchHandler.bind(this);
     this.sortQuestions = this.sortQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
     this.getFormattedDate = this.getFormattedDate.bind(this);
@@ -32,12 +32,18 @@ class QuestionsAndAnswers extends React.Component {
     this.showQuestionModalHandler = this.showQuestionModalHandler.bind(this);
     this.hideAnswerModalHandler = this.hideAnswerModalHandler.bind(this);
     this.hideQuestionModalHandler = this.hideQuestionModalHandler.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   // REQUESTS
 
-
   // HANDLERS
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
 
   moreAnswersClicked(id) {
     this.setState({
@@ -85,7 +91,7 @@ class QuestionsAndAnswers extends React.Component {
 
   // SEARCH BAR HANDLERS
 
-  onChange(e) {
+  onChangeSearchHandler(e) {
     this.setState({
       [e.target.name]: e.target.value,
     }, () => {
@@ -240,8 +246,20 @@ class QuestionsAndAnswers extends React.Component {
       <div className="qa-modal-main-container">
       <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions onChange={this.onChange} />
-        <AnswerModal show={this.state.showAnswerModal} onClick={this.answerModalClickHandler}/> <QuestionModal show={this.state.showQuestionModal} onClick={this.questionModalClickHandler} productName={this.props.selectedProduct.name}/>
+        <SearchQuestions onChange={this.onChangeSearchHandler} />
+        {/* Modals */}
+        <AnswerModal
+        show={this.state.showAnswerModal}
+        onClick={this.answerModalClickHandler}
+        onChange={this.onChange}
+        state={this.state}/>
+        <QuestionModal
+        show={this.state.showQuestionModal}
+        onClick={this.questionModalClickHandler}
+        productName={this.props.selectedProduct.name}
+        onChange={this.onChange}
+        state={this.state}/>
+        {/* QuestionList */}
         <QuestionList
           questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
           moreAnswersClicked={this.moreAnswersClicked}
