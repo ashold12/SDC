@@ -5,46 +5,59 @@ import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import Overview from './Overview/Overview.jsx';
 import RelatedItemsAndComparison from './RelatedItemsAndComparison/RelatedItemsAndComparison.jsx';
 import axios from 'axios';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       allProducts: [],
-      selectedProduct: null
+      selectedProduct: null,
+      questions: {},
     };
-
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
   }
-
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
   }
-
   getAllProducts() {
-    axios.get('api/products?count=*')
-      .then((data) => { // data.data is an array of all products, where each product is an object
+    axios
+      .get('api/products?count=*')
+      .then((data) => {
+        // data.data is an array of all products, where each product is an object
         this.setState({
-          allProducts: data.data
+          allProducts: data.data,
         });
       })
       .catch((error) => {
         console.log(error);
       });
   }
-
   getProduct() {
-    axios.get('api/products/17762')
-      .then((product) => {
+    axios.get('api/products/17762').then((product) => {
+      this.setState(
+        {
+          selectedProduct: product.data,
+        },
+        () => {
+          this.getQuestions();
+        }
+      );
+    });
+  }
+  getQuestions() {
+    axios
+      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
+      .then((questions) => {
         this.setState({
-          selectedProduct: product.data
+          questions: questions.data,
         });
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
-
   render() {
     const { selectedProduct } = this.state;
     return (
@@ -53,11 +66,15 @@ class App extends React.Component {
         {/*need to pass in what item we're on here*/}
         <Overview selectedProduct={selectedProduct} />
         <RelatedItemsAndComparison allProducts={this.state.allProducts} />
-        <QuestionsAndAnswers />
+        {this.state.questions.results && (
+          <QuestionsAndAnswers
+            selectedProduct={this.state.selectedProduct}
+            selectedProductsQuestions={this.state.questions}
+          />
+        )}
         <RatingsReviews />
       </div>
     );
   }
 }
-
 export default App;

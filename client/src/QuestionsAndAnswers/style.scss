@@ -2,6 +2,13 @@
 /*Questions and Answers*/
 /*****************************/
 
+//Main
+
+.qa-main-container {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 //Answer List Entry
 
 .qa-answer-body {
@@ -59,12 +66,17 @@
 
 //Question List
 
+.qa-no-results {
+  color: rgb(182, 176, 176);
+}
+
 .qa-questionList-container {
   display: block;
   height: 60vh;
   width: 60vw;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  padding-left: 50px;
 }
 
 .qa-al-load-more-button {
@@ -74,35 +86,75 @@
 
 //Question List Entry
 
-.qa-question-links span {
+.qa-question-links .qa-question-side-links {
   font-size: 11;
   font-weight: normal;
-  float: right;
   padding-right: 20px;
+  float: right;
+}
+
+.qa-question-text-only {
+  font-size: 11;
+  font-weight: normal;
+  padding-right: 20px;
+}
+
+.qa-question-searched {
+  color: red;
+}
+
+.qa-question-side-links span {
+  font-size: 11;
+  color: green;
+  font-weight: normal;
+  padding-right: 20px;
+  float: right;
 }
 
 //SearchBar
 
 .qa-submit-form {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.qa-searchbar-mag {
+  background: white url(https://developer.mozilla.org/static/media/search.db31d27c.svg) 0 0
+    no-repeat;
+  height: 25px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.qa-griditem1 {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  border: solid;
+  border-width: thick;
+  border-top-color: rgb(187, 178, 178);
+  border-bottom-color: rgb(91, 84, 84);
+  border-left-color: rgb(239, 244, 239);
+  border-right-color: rgb(239, 244, 239);
+  overflow: hidden;
+}
+
+.qa-griditem2 {
+  margin-top: 5px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 2;
   display: flex;
-  flex-direction: row;
 }
 
 .qa-searchbar {
-  display: block;
-  width: 55vw;
-  height: 5vh;
-  border-right: none;
-}
-
-.qa-searcbar-mag {
-  background: white url(https://developer.mozilla.org/static/media/search.db31d27c.svg) 0 0
-    no-repeat;
-  display: block;
-  width: 5vw;
-  height: 5vh;
-  border-left: none;
-  left: -150px;
+  height: 35px;
 }
 
 .qa-search-exactMatch {
@@ -114,3 +166,8 @@
 //   padding-bottom: 5px;
 //   padding-top: 5px;
 // }
+
+mark {
+  background-color: white;
+  color: red;
+}

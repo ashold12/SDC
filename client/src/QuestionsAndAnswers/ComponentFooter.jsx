@@ -1,6 +1,11 @@
 import React from 'react';
 
-const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuestionsToRender }) {
+const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuestionsToRender, }) {
+
+  if (questions === undefined || questions.results === undefined) {
+    return <div />
+  }
+
   const numberOfQuestions = questions.results.length;
 
   if (numberOfQuestions < numberOfQuestionsToRender || numberOfQuestions <= 4) {
