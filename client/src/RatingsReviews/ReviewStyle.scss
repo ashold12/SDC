@@ -126,7 +126,7 @@
   display: flex;
   grid-template-columns: 1;
   grid-template-rows: auto;
-  overflow-y: auto;
+  overflow-y: scroll;
   flex-direction: column;
 }
 .rr-rating-big {

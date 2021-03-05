@@ -16,6 +16,8 @@ class RatingsReviews extends React.Component {
       product_id: this.tempReview,
       filters: [],
       showReviewModal: false,
+      currentShownReviews: [],
+      numberOfReviewsShowing: 3,
     };
     this.showReviewModal = this.showReviewModal.bind(this);
     this.closeReviewModal = this.closeReviewModal.bind(this);
@@ -26,10 +28,15 @@ class RatingsReviews extends React.Component {
     axios
       .get(`/api/reviews/?product_id=${this.tempReview}&sort=relevant&count=30`)
       .then((data) => {
+        const reviews = [];
+        for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+          reviews.push(data.data.results[i]);
+        }
         this.setState({
           loadedReviews: true,
           product_id: this.tempReview,
           reviews: data.data.results,
+          currentShownReviews: reviews,
         });
       })
       .catch((e) => {
@@ -45,11 +52,21 @@ class RatingsReviews extends React.Component {
       });
   }
 
+  generateReviewsArray(reviewsArray) {
+    const { numberOfReviewsShowing } = this.state;
+    const reviews = [];
+    for (let i = 0; i < numberOfReviewsShowing; i += 1) {
+      reviews.push(reviewsArray[i]);
+    }
+    return reviews;
+  }
+
   sortReviewsBy(incomingChage) {
     axios
       .get(`/api/reviews/?product_id=${this.tempReview}&sort=${incomingChage}&count=30`)
       .then((data) => {
-        this.setState({ reviews: data.data.results });
+        const reviewsArray = this.generateReviewsArray(data.data.results);
+        this.setState({ reviews: data.data.results, currentShownReviews: reviewsArray });
       })
       .catch((e) => {
         console.log(e);
@@ -65,24 +82,23 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    const { loadedMeta, loadedReviews, showReviewModal } = this.state;
+    const { loadedMeta, loadedReviews, showReviewModal, currentShownReviews } = this.state;
     if (loadedReviews === false || loadedMeta === false || this.props.productData == null) {
       return <div />;
     }
-    // Get two reviews.
-    const tiles = [];
-    for (let i = 0; i < 2; i += 1) {
-      tiles.push(<ReviewTile item={product_id} key={i} review={this.state.reviews[i]} />);
-    }
-
     const { product_id, filters, meta } = this.state;
+
     return (
       <div className="rr-start-div">
         Ratings and Reviews.
         <ReviewFilterSelector passChangeToRR={this.sortReviewsBy} />
         <div className="rr-parent" id="overview-link">
           {/* <div className="rr-rating-big" /> */}
-          <div className="rr-tiles-container">{tiles}</div>
+          <div className="rr-tiles-container">
+            {currentShownReviews.map((review, i) => (
+              <ReviewTile item={product_id} key={i} review={review} />
+            ))}
+          </div>
           <div className="rr-rating-breakdown">
             <RatingBreakdown productId={product_id} filters={filters} />
           </div>

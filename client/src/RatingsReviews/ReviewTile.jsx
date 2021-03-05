@@ -15,11 +15,13 @@ class ReviewTile extends React.Component {
     // Single test review testing block.
     //let [testReview, testReview2] = dummyReviews.results;
     // Calculate star rating.
+    let starRating = 0;
     if (props.review.rating > 0) {
-      props.review.starRating = parseFloat((Math.round(props.review.rating * 4) / 4).toFixed(2));
+      starRating = parseFloat((Math.round(props.review.rating * 4) / 4).toFixed(2));
     }
+
     this.state = {
-      ...props.review,
+      starRating,
       showModal: false,
       modalURL: '',
       helpfulClicked: false,
@@ -32,7 +34,7 @@ class ReviewTile extends React.Component {
 
   getReviewSummary() {
     // Truncation logic.
-    let { summary } = this.state;
+    let { summary } = this.props.review;
     summary = summary.slice(0, 60);
 
     if (summary[summary.length - 1] === ' ') {
@@ -49,7 +51,7 @@ class ReviewTile extends React.Component {
   }
 
   getReviewBodyObject() {
-    const { body } = this.state;
+    const { body } = this.props.review;
     const bodObject = {};
     bodObject.body = body;
     bodObject.truncatedBody = `${body.slice(0, 250)}...`;
@@ -63,7 +65,7 @@ class ReviewTile extends React.Component {
 
   getReviewBodyHTML() {
     const { body, truncatedBody, isTruncated } = this.getReviewBodyObject();
-    const id = this.state.review_id;
+    const id = this.props.review.review_id;
     if (isTruncated) {
       return (
         <div className="rr-body-text" id={id}>
@@ -80,7 +82,7 @@ class ReviewTile extends React.Component {
   }
 
   getPhotosHTML() {
-    const { photos } = this.state;
+    const { photos } = this.props.review;
     const photoList = photos.map((photo) => {
       return (
         <img
@@ -96,7 +98,7 @@ class ReviewTile extends React.Component {
   }
 
   getFormattedDate() {
-    const date = new Date(this.state.date);
+    const date = new Date(this.props.review.date);
     const months = [
       'January',
       'February',
@@ -120,7 +122,7 @@ class ReviewTile extends React.Component {
   }
 
   getRecommendedHTML() {
-    if (this.state.recommend) {
+    if (this.props.review.recommended) {
       return <div className="rr-recommended">✓ I recommend this product.</div>;
     }
   }
@@ -130,18 +132,19 @@ class ReviewTile extends React.Component {
   }
 
   getResponseHTML() {
-    if (this.state.response) {
+    if (this.props.review.response) {
       return (
         <div className="rr-staff-response">
           Response from seller
-          <div>{this.state.response}</div>
+          <div>{this.props.review.response}</div>
         </div>
       );
     }
   }
 
   getHelpfulHTML() {
-    const { helpfulness, helpfulClicked } = this.state;
+    const { helpfulClicked } = this.state;
+    const { helpfulness } = this.props.review;
     if (!helpfulClicked) {
       return (
         <div className="rr-helpfulness">
@@ -165,7 +168,7 @@ class ReviewTile extends React.Component {
   }
 
   showMoreReview() {
-    const { body, review_id } = this.state;
+    const { body, review_id } = this.props.review;
     const bodyText = document.getElementById(review_id);
     bodyText.innerText = body;
   }
@@ -175,7 +178,7 @@ class ReviewTile extends React.Component {
   }
 
   changeHelpfulness(e) {
-    let { helpfulness } = this.state;
+    let { helpfulness } = this.props.review;
     if (e.target.innerText.includes('Yes')) {
       // FIXME: hit the api and adjust the rating.
       this.setState({ helpfulness: (helpfulness += 1), helpfulClicked: true });
@@ -186,7 +189,7 @@ class ReviewTile extends React.Component {
   }
 
   hasRegisteredEmail() {
-    const { email } = this.state;
+    const { email } = this.props.review;
     if (email) {
       return true;
     }
@@ -194,14 +197,14 @@ class ReviewTile extends React.Component {
   }
 
   render() {
-    const { reviewer_name } = this.state;
+    const { reviewer_name } = this.props.review;
     let checkmark = '';
     if (this.hasRegisteredEmail()) {
       checkmark = '✓ Verified Purchaser';
     }
 
     const title = this.getReviewSummary();
-
+    console.log(title);
     return (
       <div className="rr-review-tile-container">
         <div
