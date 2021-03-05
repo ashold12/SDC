@@ -202,6 +202,7 @@ class RatingsReviews extends React.Component {
               productId={product_id}
               changeFilter={this.sortByStars}
               filters={filters}
+              meta={this.state.meta}
             />
           </div>
           <div className="rr-product-breakdown-container">

@@ -11,16 +11,23 @@ class RatingBreakdown extends React.Component {
   }
 
   componentDidMount() {
-    const { productId } = this.props;
-    // Get meta data.
-    axios
-      .get(`/api/reviews/meta?product_id=${productId}`)
-      .then((data) => {
-        this.setInitialState(data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // const { productId } = this.props;
+    // // Get meta data.
+    // axios
+    //   .get(`/api/reviews/meta?product_id=${productId}`)
+    //   .then((data) => {
+    //     this.setInitialState(data.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    this.setInitialState(this.props.meta);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (parseInt(this.props.productId, 10) !== parseInt(prevProps.productId, 10)) {
+      this.setInitialState(this.props.meta);
+    }
   }
 
   getReviewBar(indexNumber, starNumber) {
