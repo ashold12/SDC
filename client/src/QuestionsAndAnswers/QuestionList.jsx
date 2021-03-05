@@ -4,7 +4,7 @@ import AnswerModal from './AnswerModal/AnswerModal.jsx'
 import QuestionModal from './QuestionModal/QuestionModal.jsx'
 
 const QuestionList = function ({
- questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, showAnswerModal, onClick
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick
 }) {
 
   if (numberOfQuestionsToRender === 0) {
@@ -27,7 +27,6 @@ const QuestionList = function ({
               moreAnswersClicked={moreAnswersClicked}
               collapseAnswers={collapseAnswers}
               userWantsMoreAnswers={userWantsMoreAnswers}
-              showAnswerModal={showAnswerModal}
               onClick={onClick}
             />
           );

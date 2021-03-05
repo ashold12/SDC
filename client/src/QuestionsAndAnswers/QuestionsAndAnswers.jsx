@@ -28,6 +28,8 @@ class QuestionsAndAnswers extends React.Component {
     this.questionModalClickHandler = this.questionModalClickHandler.bind(this);
     this.showAnswerModalHandler = this.showAnswerModalHandler.bind(this);
     this.showQuestionModalHandler = this.showQuestionModalHandler.bind(this);
+    this.hideAnswerModalHandler = this.hideAnswerModalHandler.bind(this);
+    this.hideQuestionModalHandler = this.hideQuestionModalHandler.bind(this);
   }
 
   // REQUESTS
@@ -94,26 +96,46 @@ class QuestionsAndAnswers extends React.Component {
   // Answers
   answerModalClickHandler(e) {
     e.preventDefault();
-    this.showAnswerModalHandler();
+    if (this.state.showAnswerModal) {
+      this.hideAnswerModalHandler();
+    } else {
+      this.showAnswerModalHandler();
+    }
   }
 
   showAnswerModalHandler() {
     this.setState({
-      showAnswerModal: true
-    })
+      showAnswerModal: true,
+    });
+  }
+
+  hideAnswerModalHandler() {
+    this.setState({
+      showAnswerModal: false,
+    });
   }
 
   // Questions
 
   questionModalClickHandler(e) {
     e.preventDefault();
-    this.showQuestionModalHandler();
+    if (this.state.showQuestionModal) {
+      this.hideQuestionModalHandler();
+    } else {
+      this.showQuestionModalHandler();
+    }
   }
 
   showQuestionModalHandler() {
     this.setState({
-      showQuestionModal: true
-    })
+      showQuestionModal: true,
+    });
+  }
+
+  hideQuestionModalHandler() {
+    this.setState({
+      showQuestionModal: false,
+    });
   }
 
   // FILTERS
@@ -223,7 +245,6 @@ class QuestionsAndAnswers extends React.Component {
           numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
           userWantsMoreAnswers={this.userWantsMoreAnswers}
           date={this.getFormattedDate}
-          showAnswerModal={this.showAnswerModalHandler}
           onClick={this.answerModalClickHandler}
         />
         <ComponentFooter

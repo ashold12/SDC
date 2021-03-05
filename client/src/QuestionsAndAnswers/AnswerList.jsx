@@ -35,7 +35,7 @@ function AnswerList({
       i--;
       return (
         <div className="qa-answer-entry">
-          <AnswerListEntry onClick={onClick} showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date}/>
+          <AnswerListEntry showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date}/>
         </div>
       );
     }
@@ -48,7 +48,7 @@ function AnswerList({
   if (Object.values(answers).length === 1) {
     return (
     <div>
-      <MostHelpfulAnswer onClick={onClick} showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+      <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
     </div>
     )
   }
@@ -59,7 +59,7 @@ function AnswerList({
   ) {
     return (
       <div className="qa-answer-entry">
-        <MostHelpfulAnswer onClick={onClick} showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+        <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
         {renderHelper}
         <a className="qa-al-load-more-button"
           href="#"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MostHelpfulAnswer = function ({ answer, date, onClick, showAnswerModal }) {
+const MostHelpfulAnswer = function ({ answer, date }) {
   return (
     <div>
       <span  className="qa-helpful-body"> <span id="qa-answerlist-title">A:</span> {answer.body}</span>
