@@ -2,9 +2,6 @@ import React from 'react';
 import QuestionList from './QuestionList.jsx';
 import SearchQuestions from './SearchQuestions.jsx';
 import ComponentFooter from './ComponentFooter.jsx';
-import AnswerModal from './AnswerModal/AnswerModal.jsx'
-import QuestionModal from './QuestionModal/QuestionModal.jsx'
-import data from './dummyQuestions.js';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -29,8 +26,8 @@ class QuestionsAndAnswers extends React.Component {
     this.getFormattedDate = this.getFormattedDate.bind(this);
     this.answerModalClickHandler = this.answerModalClickHandler.bind(this);
     this.questionModalClickHandler = this.questionModalClickHandler.bind(this);
-    // this.showAnswerModal = this.showAnswerModal.bind(this);
-    // this.showQuestionModal = this.showQuestionModal.bind(this);
+    this.showAnswerModalHandler = this.showAnswerModalHandler.bind(this);
+    this.showQuestionModalHandler = this.showQuestionModalHandler.bind(this);
   }
 
   // REQUESTS
@@ -216,25 +213,8 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   render() {
-
-    if (this.state.noProduct === true) {
+      if (this.state.numberOfQuestionsToRender === 0) {
       return (
-
-        <div className="qa-main-container">
-        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions onChange={this.onChange}/>
-          <div className="qa-questionList-container">
-            <h3 className="qa-no-results">NO PRODUCT HAS BEEN SELECTED</h3>
-          </div>
-        <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
-      </div>
-
-      )
-
-    }
-    else if (this.state.numberOfQuestionsToRender === 0) {
-      return (
-
         <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions onChange={this.onChange}/>
@@ -243,7 +223,6 @@ class QuestionsAndAnswers extends React.Component {
           </div>
         <ComponentFooter questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions} numberOfQuestionsToRender={this.state.numberOfQuestionsToRender} incrementQuestions={this.increaseNumberOfQuestionsToRender} />
       </div>
-
       )
     }
     return (
