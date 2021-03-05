@@ -19,6 +19,9 @@ class ProductBreakDown extends React.Component {
       Length: ['runs short', 'runs long'],
       Fit: ['runs tight', 'runs long'],
     };
+    if (this.props.characteristics === undefined) {
+      return <div />;
+    }
     const { characteristics } = this.props;
     const names = Object.keys(characteristics);
     for (let i = 0; i < names.length; i += 1) {
