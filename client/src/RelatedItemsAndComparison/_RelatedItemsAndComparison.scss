@@ -4,14 +4,16 @@
 
 
 
-.rpo-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
-  gap: 10px;
-}
+// .rpo-card-container {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(100px, 250px));
+//   gap: 3%;
+// }
 
+
+/***** CARD ELEMENT DESIGNS BEGIN*****/
 .rpo-image-div {
-  height: 250px;
+  height: 200px;
 }
 
 .rpo-product-image {
@@ -31,11 +33,28 @@
 }
 
 .rpo-card {
-  width: 300px;
+  width: 250px;
   box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
+  transition: 0.5s ease-out;
 }
+
+.rpo-card:hover {
+  transform: translateY(-20px);
+  transition: 0.5s ease-out;
+}
+
+.rpo-card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.5s ease-out;
+}
+//stack cards ontop of each other
+// .card:not(:first-child) {
+//   margin-left: -50px;
+// }
 
 .rpo-sale-price {
   color:red;
@@ -44,4 +63,43 @@
 .rpo-slashed-price {
   text-decoration: line-through;
   // color: red;
+}
+/***** CARD ELEMENT DESIGNS end*****/
+
+/****** CAROUSEL DESIGN BEGIN ******/
+@mixin flex {
+  display: flex;
+}
+
+
+//Container
+.rpo-title-and-card-container {
+  height: 100vh;
+  width: 100%;
+  background: #ecf0f1;
+}
+
+//HorizontalCenter
+.rpo-card-container {
+  @include flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 25rem;
+}
+
+.rpo-card-carousel{}
+
+.rpo-inner-carousel {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none; //remove later and test
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > * {
+    scroll-snap-align: center;
+  }
 }
