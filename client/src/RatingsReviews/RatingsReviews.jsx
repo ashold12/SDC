@@ -204,13 +204,28 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    const { loadedMeta, loadedReviews, showReviewModal, currentShownReviews, reviews } = this.state;
+    const {
+      loadedMeta,
+      loadedReviews,
+      showReviewModal,
+      currentShownReviews,
+      reviews,
+      numberOfReviewsShowing,
+    } = this.state;
     if (loadedReviews === false || loadedMeta === false || this.props.productData == null) {
       return <div />;
     }
     let ReviewButton = <div />;
-    if (currentShownReviews < reviews) {
-      ReviewButton = <button onClick={this.showMoreReviews}>Show More Reviews</button>;
+    if (numberOfReviewsShowing <= reviews.length) {
+      ReviewButton = (
+        <button
+          type="button"
+          className="rr-button button-color-change"
+          onClick={this.showMoreReviews}
+        >
+          Show More Reviews
+        </button>
+      );
     }
     const { product_id, filters, meta } = this.state;
     return (
@@ -243,8 +258,12 @@ class RatingsReviews extends React.Component {
             showModal={showReviewModal}
             closeModal={this.closeReviewModal}
           />
-          <button type="button" onClick={this.showReviewModal}>
-            show modal
+          <button
+            type="button"
+            className="rr-button button-color-change"
+            onClick={this.showReviewModal}
+          >
+            Add Review
           </button>
           {ReviewButton}
         </div>
