@@ -33,7 +33,7 @@ class QuestionsAndAnswers extends React.Component {
     this.showQuestionModal = this.showQuestionModal.bind(this);
   }
 
-  //REQUESTS
+  // REQUESTS
 
 
   // HANDLERS
@@ -216,6 +216,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   render() {
+
     if (this.state.noProduct === true) {
       return (
 
