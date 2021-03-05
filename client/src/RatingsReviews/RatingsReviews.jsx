@@ -25,8 +25,37 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
     if (this.props.productData) {
+      axios
+        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+        .then((data) => {
+          const reviews = [];
+          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+            reviews.push(data.data.results[i]);
+          }
+          this.setState({
+            loadedReviews: true,
+            product_id: this.props.productData.id,
+            reviews: data.data.results,
+            currentShownReviews: reviews,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      axios
+        .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
+        .then((data) => {
+          this.setState({ meta: data.data, loadedMeta: true });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.productData.id !== this.state.product_id) {
       axios
         .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
         .then((data) => {
@@ -127,9 +156,6 @@ class RatingsReviews extends React.Component {
 
   render() {
     const { loadedMeta, loadedReviews, showReviewModal, currentShownReviews } = this.state;
-    if (this.props.productData && loadedReviews === false) {
-      this.getReviews();
-    }
     if (loadedReviews === false || loadedMeta === false || this.props.productData == null) {
       return <div />;
     }

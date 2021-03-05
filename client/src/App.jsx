@@ -65,6 +65,10 @@ class App extends React.Component {
 
   render() {
     const { selectedProduct } = this.state;
+    let RatingsReviewsSection = <div />;
+    if (selectedProduct !== null) {
+      RatingsReviewsSection = <RatingsReviews productData={selectedProduct} />;
+    }
     return (
       <div className="main-app">
         {/* react is up and running */}
@@ -77,7 +81,7 @@ class App extends React.Component {
             selectedProductsQuestions={this.state.questions}
           />
         )}
-        <RatingsReviews productData={selectedProduct} />
+        {RatingsReviewsSection}
       </div>
     );
   }
