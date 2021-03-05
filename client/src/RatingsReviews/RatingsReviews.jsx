@@ -22,6 +22,7 @@ class RatingsReviews extends React.Component {
     this.closeReviewModal = this.closeReviewModal.bind(this);
     this.sortReviewsBy = this.sortReviewsBy.bind(this);
     this.sortByStars = this.sortByStars.bind(this);
+    this.showMoreReviews = this.showMoreReviews.bind(this);
   }
 
   componentDidMount() {
@@ -114,11 +115,17 @@ class RatingsReviews extends React.Component {
     }
   }
 
-  generateReviewsArray(reviewsArray) {
+  generateReviewsArray(reviewsArray, reviewCount = null) {
     const { numberOfReviewsShowing } = this.state;
     const reviews = [];
-    for (let i = 0; i < numberOfReviewsShowing; i += 1) {
-      reviews.push(reviewsArray[i]);
+    if (!reviewCount) {
+      for (let i = 0; i < numberOfReviewsShowing; i += 1) {
+        reviews.push(reviewsArray[i]);
+      }
+    } else {
+      for (let i = 0; i < reviewCount; i += 1) {
+        reviews.push(reviewsArray[i]);
+      }
     }
     return reviews;
   }
@@ -172,6 +179,22 @@ class RatingsReviews extends React.Component {
       });
   }
 
+  showMoreReviews() {
+    const { numberOfReviewsShowing, filters, reviews } = this.state;
+    const show = 2 + numberOfReviewsShowing;
+    let newReviewsArray = [];
+    if (filters.length === 0) {
+      newReviewsArray = this.generateReviewsArray(reviews, show);
+    } else {
+      reviews.forEach((review) => {
+        if (filters.includes(review.rating)) {
+          newReviewsArray.push(review);
+        }
+      });
+    }
+    this.setState({ numberOfReviewsShowing: show, currentShownReviews: newReviewsArray });
+  }
+
   showReviewModal() {
     this.setState({ showReviewModal: true });
   }
@@ -181,9 +204,13 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    const { loadedMeta, loadedReviews, showReviewModal, currentShownReviews } = this.state;
+    const { loadedMeta, loadedReviews, showReviewModal, currentShownReviews, reviews } = this.state;
     if (loadedReviews === false || loadedMeta === false || this.props.productData == null) {
       return <div />;
+    }
+    let ReviewButton = <div />;
+    if (currentShownReviews < reviews) {
+      ReviewButton = <button onClick={this.showMoreReviews}>Show More Reviews</button>;
     }
     const { product_id, filters, meta } = this.state;
     return (
@@ -219,7 +246,7 @@ class RatingsReviews extends React.Component {
           <button type="button" onClick={this.showReviewModal}>
             show modal
           </button>
-          <button>Show More Reviews</button>
+          {ReviewButton}
         </div>
       </div>
     );
