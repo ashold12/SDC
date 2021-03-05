@@ -17,10 +17,12 @@ class App extends React.Component {
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
   }
+
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
   }
+
   getAllProducts() {
     axios
       .get('api/products?count=*')
@@ -37,8 +39,8 @@ class App extends React.Component {
 
   getProduct(productID = 17762) {
     axios.get(`api/products/${productID}`)
-      .then((product) =>  this.setState({selectedProduct: product.data}))
-      .then(() => this.getQuestions())
+      .then((product) => this.setState({ selectedProduct: product.data }))
+      .then(() => this.getQuestions());
   }
 
   getQuestions() {
@@ -56,6 +58,10 @@ class App extends React.Component {
 
   render() {
     const { selectedProduct } = this.state;
+    let RatingsReviewsSection = <div />;
+    if (selectedProduct !== null) {
+      RatingsReviewsSection = <RatingsReviews productData={selectedProduct} />;
+    }
     return (
       <div className="main-app">
         {/* react is up and running */}

@@ -1,14 +1,15 @@
 import React from 'react';
 import QuestionListEntry from './QuestionListEntry.jsx';
+import QuestionModal from './QuestionModal/QuestionModal.jsx'
 
 const QuestionList = function ({
- questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick
 }) {
 
   if (numberOfQuestionsToRender === 0) {
-    <div className="qa-questionList-container">
+   return( <div className="qa-questionList-container">
      <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
-    </div>
+    </div>)
   }
   return (
     <div className="qa-questionList-container">
@@ -23,6 +24,7 @@ const QuestionList = function ({
               moreAnswersClicked={moreAnswersClicked}
               collapseAnswers={collapseAnswers}
               userWantsMoreAnswers={userWantsMoreAnswers}
+              onClick={onClick}
             />
           );
         }
