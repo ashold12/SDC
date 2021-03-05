@@ -37,8 +37,8 @@ class App extends React.Component {
       });
   }
 
-  getProduct() {
-    axios.get('api/products/17762')
+  getProduct(productID = 17762) {
+    axios.get(`api/products/${productID}`)
       .then((product) => {
         this.setState({
           selectedProduct: product.data
@@ -53,7 +53,10 @@ class App extends React.Component {
         {/* react is up and running */}
         {/*need to pass in what item we're on here*/}
         <Overview selectedProduct={selectedProduct} />
-        <RelatedItemsAndComparison allProducts={this.state.allProducts} />
+        <RelatedItemsAndComparison
+          selectedProduct={this.state.selectedProduct}
+          changeProduct={this.getProduct}
+        />
         <QuestionsAndAnswers />
         <RatingsReviews />
       </div>

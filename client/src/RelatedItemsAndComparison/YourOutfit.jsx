@@ -1,13 +1,9 @@
 import React from 'react';
 
-function YourOutfit() {
+function YourOutfit({ cards }) {
   return (
-    <div
-      className="rpo-container"
-      name="YourOutfitContainer"
-    >
-      <div>YOUR OUTFIT</div>
-      <div>PRODUCT IMAGE HERE</div>
+    <div className="rpo-card-container">
+      {cards}
     </div>
   );
 }
