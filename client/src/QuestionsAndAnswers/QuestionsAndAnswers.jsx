@@ -2,6 +2,8 @@ import React from 'react';
 import QuestionList from './QuestionList.jsx';
 import SearchQuestions from './SearchQuestions.jsx';
 import ComponentFooter from './ComponentFooter.jsx';
+import QuestionModal from './QuestionModal/QuestionModal.jsx';
+import AnswerModal from './AnswerModal/AnswerModal.jsx';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -173,7 +175,7 @@ class QuestionsAndAnswers extends React.Component {
     for (let i = 0; i < questions.results.length; i++) {
       const questionText = questions.results[i].question_body;
 
-      if (questionText.includes(search)) {
+      if (questionText.match(new RegExp (search, 'gi'))) {
         foundQuestions.push(questions.results[i]);
       } else {
         continue;
@@ -233,7 +235,9 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   render() {
+
     return (
+      <div className="qa-modal-main-container">
       <div className="qa-main-container">
         <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
         <SearchQuestions onChange={this.onChange} />
@@ -253,6 +257,8 @@ class QuestionsAndAnswers extends React.Component {
         incrementQuestions={this.increaseNumberOfQuestionsToRender}
         onClick={this.questionModalClickHandler}
         />
+      </div>
+      <AnswerModal show={this.state.showAnswerModal} onClick={this.answerModalClickHandler}/> <QuestionModal show={this.state.showQuestionModal} onClick={this.questionModalClickHandler}/>
       </div>
     );
   }

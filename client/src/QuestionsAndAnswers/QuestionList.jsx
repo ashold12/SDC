@@ -1,6 +1,5 @@
 import React from 'react';
 import QuestionListEntry from './QuestionListEntry.jsx';
-import AnswerModal from './AnswerModal/AnswerModal.jsx'
 import QuestionModal from './QuestionModal/QuestionModal.jsx'
 
 const QuestionList = function ({
@@ -9,13 +8,11 @@ const QuestionList = function ({
 
   if (numberOfQuestionsToRender === 0) {
    return( <div className="qa-questionList-container">
-     <QuestionModal productName={productName}/>
      <h3 className="qa-no-results">NO QUESTIONS HAVE BEEN ASKED</h3>
     </div>)
   }
   return (
     <div className="qa-questionList-container">
-      <QuestionModal productName={productName}/>
       {questions.results.map((question) => {
         numberOfQuestionsToRender--;
         if (numberOfQuestionsToRender >= 0) {
