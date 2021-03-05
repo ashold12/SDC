@@ -24,10 +24,12 @@ class App extends React.Component {
   }
 
   getAllProducts() {
-    axios.get('api/products?count=*')
-      .then((data) => { // data.data is an array of all products, where each product is an object
+    axios
+      .get('api/products?count=*')
+      .then((data) => {
+        // data.data is an array of all products, where each product is an object
         this.setState({
-          allProducts: data.data
+          allProducts: data.data,
         });
       })
       .catch((error) => {
@@ -35,17 +37,10 @@ class App extends React.Component {
       });
   }
 
-  getProduct() {
-    axios.get('api/products/17762').then((product) => {
-      this.setState(
-        {
-          selectedProduct: product.data,
-        },
-        () => {
-          this.getQuestions();
-        }
-      );
-    });
+  getProduct(productID = 17762) {
+    axios.get(`api/products/${productID}`)
+      .then((product) => this.setState({ selectedProduct: product.data }))
+      .then(() => this.getQuestions());
   }
 
   getQuestions() {
@@ -72,14 +67,17 @@ class App extends React.Component {
         {/* react is up and running */}
         {/*need to pass in what item we're on here*/}
         <Overview selectedProduct={selectedProduct} />
-        <RelatedItemsAndComparison allProducts={this.state.allProducts} />
+        <RelatedItemsAndComparison
+          selectedProduct={this.state.selectedProduct}
+          changeProduct={this.getProduct}
+        />
         {this.state.questions.results && (
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
             selectedProductsQuestions={this.state.questions}
           />
         )}
-        {RatingsReviewsSection}
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
