@@ -28,7 +28,7 @@ function ItemCard({ productInfo, changeProduct, getRelated }) {
       <div className="rpo-image-div">
         <img className="rpo-product-image"
           src={productInfo.styles[0].photos[0].url}
-          alt='placeholder'
+          // alt='placeholder'
         />
       </div>
       <div className="rpo-product-info-div">
