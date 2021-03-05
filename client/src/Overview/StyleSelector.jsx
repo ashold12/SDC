@@ -12,7 +12,7 @@ const StyleSelector = ({selectedStyle, selectedProductStyles, selectStyleThumbna
 
   return (
     <div className="o-styleSelector">
-      Style > {name}
+      <span id="o-color-picked"> <b>Style ></b> {name}</span>
       <div className="o-selectStyleThumbnail">
         {selectedProductStyles.map((style) => {
           // put checkmark on the thumbnail if clicked
