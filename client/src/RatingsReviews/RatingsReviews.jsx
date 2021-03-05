@@ -9,47 +9,80 @@ import ReviewFilterSelector from './ReviewFilterSelector.jsx';
 class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
-    this.tempReview = 17763;
     this.state = {
       loadedReviews: false,
       loadedMeta: false,
-      product_id: this.tempReview,
       filters: [],
       showReviewModal: false,
       currentShownReviews: [],
       numberOfReviewsShowing: 3,
+      filteredReviewList: [],
     };
     this.showReviewModal = this.showReviewModal.bind(this);
     this.closeReviewModal = this.closeReviewModal.bind(this);
     this.sortReviewsBy = this.sortReviewsBy.bind(this);
+    this.sortByStars = this.sortByStars.bind(this);
   }
 
   componentDidMount() {
-    axios
-      .get(`/api/reviews/?product_id=${this.tempReview}&sort=relevant&count=30`)
-      .then((data) => {
-        const reviews = [];
-        for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
-          reviews.push(data.data.results[i]);
-        }
-        this.setState({
-          loadedReviews: true,
-          product_id: this.tempReview,
-          reviews: data.data.results,
-          currentShownReviews: reviews,
+    debugger;
+    if (this.props.productData) {
+      axios
+        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+        .then((data) => {
+          const reviews = [];
+          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+            reviews.push(data.data.results[i]);
+          }
+          this.setState({
+            loadedReviews: true,
+            product_id: this.props.productData.id,
+            reviews: data.data.results,
+            currentShownReviews: reviews,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
         });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    axios
-      .get(`/api/reviews/meta?product_id=${this.tempReview}`)
-      .then((data) => {
-        this.setState({ meta: data.data, loadedMeta: true });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      axios
+        .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
+        .then((data) => {
+          this.setState({ meta: data.data, loadedMeta: true });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
+
+  getReviews() {
+    if (this.props.productData) {
+      axios
+        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+        .then((data) => {
+          const reviews = [];
+          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+            reviews.push(data.data.results[i]);
+          }
+          this.setState({
+            loadedReviews: true,
+            product_id: this.props.productData.id,
+            reviews: data.data.results,
+            currentShownReviews: reviews,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      axios
+        .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
+        .then((data) => {
+          this.setState({ meta: data.data, loadedMeta: true });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   }
 
   generateReviewsArray(reviewsArray) {
@@ -61,9 +94,20 @@ class RatingsReviews extends React.Component {
     return reviews;
   }
 
+  sortByStars(filter) {
+    const { reviews, filters } = this.state;
+    // All of the reviews we have, are currently ordered by the selector.
+    // Default there are no filtered reviews
+    // If the user clicks on a filter, we need to generate a filtered review list to pull from.
+    // Then ensure that we select from the filtered list instead of the current list when building
+    // our tiles out.
+
+    const newFilteredArray = Array.from(new Set(filters, filter));
+  }
+
   sortReviewsBy(incomingChage) {
     axios
-      .get(`/api/reviews/?product_id=${this.tempReview}&sort=${incomingChage}&count=30`)
+      .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=${incomingChage}&count=30`)
       .then((data) => {
         const reviewsArray = this.generateReviewsArray(data.data.results);
         this.setState({ reviews: data.data.results, currentShownReviews: reviewsArray });
@@ -83,11 +127,14 @@ class RatingsReviews extends React.Component {
 
   render() {
     const { loadedMeta, loadedReviews, showReviewModal, currentShownReviews } = this.state;
+    if (this.props.productData && loadedReviews === false) {
+      this.getReviews();
+    }
     if (loadedReviews === false || loadedMeta === false || this.props.productData == null) {
       return <div />;
     }
     const { product_id, filters, meta } = this.state;
-
+    this.sortByStars(5);
     return (
       <div className="rr-start-div">
         Ratings and Reviews.
