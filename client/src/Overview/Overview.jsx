@@ -15,7 +15,7 @@ class Overview extends React.Component {
       selectedProductStyles: [],
       selectedStyle: null, // set the first style as default
       outOfStock: false,
-      allSizes: []
+      allSizes: [],
     };
 
     this.getProductStyles = this.getProductStyles.bind(this);
@@ -27,7 +27,7 @@ class Overview extends React.Component {
     this.getProductStyles();
   }
 
-  // get all the styles associated with the product
+  // get all the styles associated with the product - get product id as props through App component
   getProductStyles() {
     axios.get('/api/products/17762/styles').then((product) => {
       this.setState(
@@ -46,7 +46,7 @@ class Overview extends React.Component {
     const { selectedStyle } = this.state;
 
     const allSizes = Object.values(selectedStyle.skus);
-    this.setState({ allSizes })
+    this.setState({ allSizes });
 
     const inventory = [];
 
@@ -63,13 +63,16 @@ class Overview extends React.Component {
     }
   }
 
-  // change the state of thee selectedStyle once we click on a thumbnail
+  // change the state of the selectedStyle once we click on a thumbnail
   selectStyleThumbnail(style) {
-    this.setState({ selectedStyle: style }, () => {this.checkOutOfStock()});
+    this.setState({ selectedStyle: style }, () => {
+      this.checkOutOfStock();
+      // need to check quantity too once we change a style
+    });
   }
 
   render() {
-    const { selectedProductStyles, selectedStyle, outOfStock } = this.state;
+    const { selectedProductStyles, selectedStyle, outOfStock, allSizes } = this.state;
     const { selectedProduct } = this.props;
     return (
       <div>
@@ -86,6 +89,7 @@ class Overview extends React.Component {
             selectedProductStyles={selectedProductStyles}
             selectedStyle={selectedStyle}
             selectedProduct={selectedProduct}
+            allSizes={allSizes}
           />
         </div>
         <ProductOverview selectedProduct={selectedProduct} />

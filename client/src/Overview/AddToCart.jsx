@@ -1,5 +1,6 @@
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons';
+import axios from 'axios';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class AddToCart extends React.Component {
       selectedSizeItem: null, // object containing quanitity and size
       selectedQuantity: null,
       allQuantities: [],
-      allSizes: [],
+      selectedItemSku: null,
+      // allSizes: [],
     };
 
     this.handleSelectedSize = this.handleSelectedSize.bind(this);
@@ -36,11 +38,9 @@ class AddToCart extends React.Component {
             this.setState(
               {
                 selectedSizeItem: this.props.selectedStyle.skus[key],
+                selectedItemSku: key,
                 selectedQuantity: 1,
-              },
-              function () {
-                this.checkQuantity();
-              },
+              },() => {this.checkQuantity()}
             );
           }
         }
@@ -56,20 +56,34 @@ class AddToCart extends React.Component {
     });
   }
 
-  // on submit is handled on the form itself, not the button so you can access the other values
-  handleAddToCart(event) {
+  // take out event prevent default if you want it to reset everytime
+  handleAddToCart(sku) {
+    // debugger;
+    const { selectedQuantity } = this.state;
+    const skuInt = Number(sku);
+    const selectedQuantityInt = Number(selectedQuantity)
     event.preventDefault();
 
-    if (this.state.selectedSize === null || this.state.selectedSize === 'select size') {
+    if (this.state.selectedSize === null || this.state.selectedSize === 'SELECT SIZE') {
       // it should open the select size dropdown and display "please select size above all the sizes"
       // this.openDropdown()
     } else if (
-      (this.state.selectedSize !== null || this.state.selectedSize !== 'select size')
+      (this.state.selectedSize !== null || this.state.selectedSize !== 'SELECT SIZE')
       && this.state.selectedQuantity !== null
     ) {
-      alert(
-        `You added ${this.state.selectedQuantity} ${this.props.selectedStyle.name} ${this.props.selectedProduct.name} to your cart`,
-      );
+      // send post request of id to the item added to cart
+      // no count parameter for api?
+      for (var i=0; i<selectedQuantityInt; i++) {
+        axios
+        .post('/api/cart', { sku_id: skuInt })
+        .then((response) => {
+          console.log(response);
+        })
+      }
+
+      // alert(
+      //   `You added ${this.state.selectedQuantity} ${this.props.selectedStyle.name} ${this.props.selectedProduct.name} to your cart`,
+      // );
     }
   }
 
@@ -77,15 +91,9 @@ class AddToCart extends React.Component {
   checkQuantity() {
     const { selectedStyle } = this.props;
 
-    let allSizes = [];
     let maxQuantity = 1;
 
     const allQuantities = [];
-
-    if (selectedStyle) {
-      allSizes = Object.values(selectedStyle.skus);
-      this.setState({ allSizes });
-    }
 
     // max quantity is either 15 or the quantity of the item
     if (this.state.selectedSizeItem) {
@@ -103,53 +111,16 @@ class AddToCart extends React.Component {
   }
 
   render() {
-    const { selectedStyle, outOfStock } = this.props;
-    const { allQuantities } = this.state;
-
-    // checkout quanity
-    let allSizes = [];
-    // let maxQuantity = 1;
-
-    // const allQuantities = [];
-
-    if (selectedStyle) {
-      allSizes = Object.values(selectedStyle.skus);
-    }
-    // if (this.state.selectedSizeItem) {
-    //   maxQuantity = this.state.selectedSizeItem.quantity;
-    //   if (maxQuantity > 15) {
-    //     maxQuantity = 15;
-    //   } else {
-    //     maxQuantity = this.state.selectedSizeItem.quantity;
-    //   }
-    //   for (let i = 1; i <= maxQuantity; i++) {
-    //     allQuantities.push(i);
-    //   }
-    // }
-
-    // checkout out of stock
-    // const inventory = [];
-    // let outOfStock = false;
-
-    // allSizes.forEach((item) => {
-    //   if (item.quantity === 0) {
-    //     inventory.push(item);
-    //   }
-    // });
-
-    // if (inventory.length === allSizes.length) {
-    //   // this.changeOutOfStock();
-    //   outOfStock = true;
-    // } else {
-    //   outOfStock = false;
-    // }
+    const { outOfStock, allSizes } = this.props;
+    const { allQuantities, selectedItemSku } = this.state;
 
     // case when state is loaded - break up into component
+    // break this up into components on next refactor
     if (allSizes.length !== 0) {
       return (
-        <form className="o-addToCart" onSubmit={this.handleAddToCart}>
-          <select onChange={this.handleSelectedSize}>
-            {!outOfStock && <option>select size</option>}
+        <form className="o-addToCart">
+          <select id="o-size-selector" onChange={this.handleSelectedSize}>
+            {!outOfStock && <option>SELECT SIZE</option>}
             {allSizes.map((size) => {
               if (size.quantity === 0) {
                 return <option id="o-hide">OUT OF STOCK</option>;
@@ -161,9 +132,8 @@ class AddToCart extends React.Component {
               );
             })}
             {outOfStock && <option>OUT OF STOCK</option>}
-            {console.log(outOfStock)}
           </select>
-          <select onChange={this.handleSelectedQuantity}>
+          <select id="o-quantity-selector" onChange={this.handleSelectedQuantity}>
             {!this.state.selectedSize && <option>-</option>}
             {allQuantities.map((quantity) => (
               <option name="quantity">{quantity}</option>
@@ -172,17 +142,19 @@ class AddToCart extends React.Component {
           {outOfStock && (
             <button id="o-hide" type="submit">
               ADD TO BAG
-              <span>
-                {/* <AiOutlinePlus /> */}
-              </span>
+              <span>{/* <AiOutlinePlus /> */}</span>
             </button>
           )}
           {!outOfStock && (
-            <button type="submit">
+            <button
+              id="o-add-to-bag-button"
+              type="submit"
+              onClick={() => {
+                this.handleAddToCart(selectedItemSku);
+              }}
+            >
               ADD TO BAG
-              <span>
-                {/* <AiOutlinePlus /> */}
-              </span>
+              <span>{/* <AiOutlinePlus /> */}</span>
             </button>
           )}
         </form>
@@ -191,7 +163,7 @@ class AddToCart extends React.Component {
     return (
       <div className="o-addToCart">
         <select>
-          <option>select size</option>
+          <option>SELECT SIZE</option>
         </select>
         <select>
           <option>1</option>
