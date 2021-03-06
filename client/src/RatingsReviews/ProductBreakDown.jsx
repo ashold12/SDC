@@ -13,7 +13,7 @@ class ProductBreakDown extends React.Component {
     const bar = [];
     const characteristicsToScale = {
       Size: ['A size too small', 'A size too wide'],
-      Width: ['Too narrow', '!oo wide'],
+      Width: ['Too narrow', 'Too wide'],
       Quality: ['Poor', 'Perfect'],
       Comfort: ['Uncomfortable', 'Perfect'],
       Length: ['Runs short', 'Runs long'],
