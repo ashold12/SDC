@@ -247,9 +247,9 @@ class RatingsReviews extends React.Component {
               meta={this.state.meta}
             />
           </div>
-          <div className="rr-product-breakdown-container">
-            <ProductBreakDown characteristics={this.state.meta.characteristics} />
-          </div>
+          {/* <div className="rr-product-breakdown-container"> */}
+          <ProductBreakDown characteristics={this.state.meta.characteristics} />
+          {/* </div> */}
         </div>
         <div>
           <ReviewForm
@@ -258,14 +258,16 @@ class RatingsReviews extends React.Component {
             showModal={showReviewModal}
             closeModal={this.closeReviewModal}
           />
-          <button
-            type="button"
-            className="rr-button button-color-change"
-            onClick={this.showReviewModal}
-          >
-            Add Review
-          </button>
-          {ReviewButton}
+          <div className="rr-review-footer">
+            <button
+              type="button"
+              className="rr-button button-color-change"
+              onClick={this.showReviewModal}
+            >
+              Add Review
+            </button>
+            {ReviewButton}
+          </div>
         </div>
       </div>
     );

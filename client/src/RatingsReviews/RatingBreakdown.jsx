@@ -42,7 +42,7 @@ class RatingBreakdown extends React.Component {
     }
     const barStyling = {
       width: `${percentage}%`,
-      backgroundColor: '#4CAF50',
+      backgroundColor: '#2be255',
     };
     return (
       <div key={indexNumber} className="rr-review-bar-star-count">
@@ -124,7 +124,8 @@ class RatingBreakdown extends React.Component {
         />
         <div className="rr-filters-applied">{filterString}</div>
         Number of Reviews: {totalNumberOfReviews}
-        <div className="rr-review-bar-container">{ratingBars}</div>
+        <div className="rr-reviews-bar-container">{ratingBars}</div>
+        <hr className="rr-line-break" />
       </div>
     );
   }
