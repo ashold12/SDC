@@ -60,18 +60,18 @@ class App extends React.Component {
       <div className="main-app">
         {/* react is up and running */}
         {/*need to pass in what item we're on here*/}
-        {/* <Overview selectedProduct={selectedProduct} /> */}
+        <Overview selectedProduct={selectedProduct} />
         <RelatedItemsAndComparison
           selectedProduct={this.state.selectedProduct}
           changeProduct={this.getProduct}
         />
-        {/* {this.state.questions.results && (
+        {this.state.questions.results && (
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
             selectedProductsQuestions={this.state.questions}
           />
-        )} */}
-        {/* <RatingsReviews productData={selectedProduct} /> */}
+        )}
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }

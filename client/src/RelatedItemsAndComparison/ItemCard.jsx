@@ -6,14 +6,6 @@ import React from 'react';
 function ItemCard({ productInfo, changeProduct, getRelated }) {
   const sale_price = productInfo.styles[1].sale_price;
   const original_price = productInfo.styles[1].original_price
-  // const price = productInfo.styles[0].sale_price
-  //   ? (
-  //     <p>
-  //       {productInfo.styles[1].sale_price}
-  //       {productInfo.styles[1].original_price}
-  //     </p>
-  //   )
-  //   : <p>{productInfo.styles[0].original_price}</p>;
 
   const price = sale_price ? (
     <p>
