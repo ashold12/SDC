@@ -76,7 +76,7 @@ const QuestionModal = function ({
 
         <input
           name="QuestionModalEmailInput"
-          placeholder="Example: jackson@hotmail.com"
+          placeholder="Example: jill@email.com"
           className="qa-question-modal-griditem9"
           value={state.QuestionModalEmailInput || ''}
           onChange={onChange}

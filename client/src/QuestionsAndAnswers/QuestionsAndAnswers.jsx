@@ -339,7 +339,7 @@ class QuestionsAndAnswers extends React.Component {
     return (
       <div className="qa-modal-main-container">
         <div className="qa-main-container">
-          <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
+          <h2 className="qa-qna-title">QUESTIONS & ANSWERS</h2>
           <SearchQuestions onChange={this.onChangeSearchHandler} />
           {/* Modals */}
           <AnswerModal

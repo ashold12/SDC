@@ -16,7 +16,7 @@ const QuestionListEntry = function ({
       <div>
         <h4 className="qa-question-links">
           Q:
-          <span className="qa-question-text-only">{question.question_body}</span>
+          <span className="qa-question-text-only">{' ' + question.question_body}</span>
           <span className="qa-question-side-links">
             {' '}
             Helpful?{' '}

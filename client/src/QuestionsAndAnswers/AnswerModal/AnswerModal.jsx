@@ -4,7 +4,8 @@ const AnswerModal = function ({
   show,
   state,
   productName,
-  getQuestionBeingAnswered,
+  onChange,
+  onClick
 }) {
 
   if (!show) {
@@ -22,9 +23,9 @@ const AnswerModal = function ({
         <h3 className="qa-answer-modal-griditem1">Submit you Answer</h3>
          <h4 className="qa-answer-modal-griditem2">
           About
-          {productName}: {state.questionToBeAnswered}
+          {' ' + productName}: {state.questionToBeAnswered}
         </h4>
-{/*
+
         <label htmlFor="answerModalTextArea" className="qa-answer-modal-griditem3">
           {state.answerFormAnswerValidation === false ? (
             <span className="qa-modal-alert-text">You must enter a Answer! </span>
@@ -56,7 +57,7 @@ const AnswerModal = function ({
           value={state.AnswerModalNameInput || ''}
           onChange={onChange}
           maxLength="60"
-          placeholder="Example: jackson11!"
+          placeholder="Example: jack543!"
           type="text"
         />
         <div className="qa-answer-modal-griditem7">
@@ -75,7 +76,7 @@ const AnswerModal = function ({
 
         <input
           name="AnswerModalEmailInput"
-          placeholder="Example: jackson@hotmail.com"
+          placeHolder="Example: jack@email.com"
           className="qa-answer-modal-griditem9"
           value={state.AnswerModalEmailInput || ''}
           onChange={onChange}
@@ -84,6 +85,19 @@ const AnswerModal = function ({
         />
         <div className="qa-answer-modal-griditem10">
           For authentication reasons, you will not be emailed
+        </div>
+
+        <div className="qa-answer-modal-griditem13">
+          <div qa-answer-modal-photos>image1</div>
+          <div qa-answer-modal-photos>image2</div>
+          <div qa-answer-modal-photos>image3</div>
+          <div qa-answer-modal-photos>image4</div>
+          <div qa-answer-modal-photos>image5</div>
+          {/* <img qa-answer-modal-photos>image1</img>
+          <img qa-answer-modal-photos>image2</img>
+          <img qa-answer-modal-photos>image3</img>
+          <img qa-answer-modal-photos>image4</img>
+          <img qa-answer-modal-photos>image5</img> */}
         </div>
 
         <input type="submit" className="qa-answer-modal-griditem11" name="closeAnswerModal" />
@@ -96,7 +110,7 @@ const AnswerModal = function ({
           }}
           placeHolder="Close"
           className="qa-answer-modal-griditem12"
-        /> */}
+        />
       </form>
     </div>
   )
