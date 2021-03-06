@@ -16,6 +16,7 @@ class Overview extends React.Component {
       selectedStyle: null, // set the first style as default
       outOfStock: false,
       allSizes: [],
+
     };
 
     this.getProductStyles = this.getProductStyles.bind(this);
@@ -29,7 +30,7 @@ class Overview extends React.Component {
 
   // get all the styles associated with the product - get product id as props through App component
   getProductStyles() {
-    axios.get('/api/products/17762/styles').then((product) => {
+    axios.get('/api/products/17072/styles').then((product) => {
       this.setState(
         {
           selectedProductStyles: product.data.results,
@@ -77,7 +78,10 @@ class Overview extends React.Component {
     return (
       <div>
         <div className="o-overView">
-          <ImageGallery />
+          <ImageGallery
+            selectedProductStyles={selectedProductStyles}
+            selectedStyle={selectedStyle}
+          />
           <ProductInfo selectedStyle={selectedStyle} selectedProduct={selectedProduct} />
           <StyleSelector
             selectedProductStyles={selectedProductStyles}
