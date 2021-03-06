@@ -15,6 +15,7 @@ class QuestionsAndAnswers extends React.Component {
       showQuestionModal: false,
       showAnswerModal: false,
       validQuestionForm: null,
+      questionToBeAnswered: null,
     };
 
     // BINDINGS
@@ -38,6 +39,7 @@ class QuestionsAndAnswers extends React.Component {
     this.verifyQuestionForm = this.verifyQuestionForm.bind(this);
     this.resetQuestionForm = this.resetQuestionForm.bind(this);
     this.submitValidForm = this.submitValidForm.bind(this);
+    this.setQuestionBody = this.setQuestionBody.bind(this);
   }
 
   // REQUESTS
@@ -55,6 +57,12 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   // HANDLERS
+
+  setQuestionBody(questionBody){
+    this.setState({
+      questionToBeAnswered: questionBody,
+    })
+  }
 
   resetQuestionForm() {
     this.setState({
@@ -337,6 +345,7 @@ class QuestionsAndAnswers extends React.Component {
           <AnswerModal
             show={this.state.showAnswerModal}
             onClick={this.answerModalClickHandler}
+            productName={this.props.selectedProduct.name}
             onChange={this.onChange}
             state={this.state}
           />
@@ -362,6 +371,7 @@ class QuestionsAndAnswers extends React.Component {
             userWantsMoreAnswers={this.userWantsMoreAnswers}
             date={this.getFormattedDate}
             onClick={this.answerModalClickHandler}
+            setQuestionBody={this.setQuestionBody}
           />
           <ComponentFooter
             questions={

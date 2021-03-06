@@ -324,7 +324,7 @@ mark {
 
 //Answer
 
-.qa-question-modal-hide {
+.qa-answer-modal-hide {
   display: none;
 }
 
@@ -333,20 +333,18 @@ mark {
   position: fixed;
   top: 50%;
   left: 50%;
-  height: 50%;
+  height: 70vh;
   width: 70vw;
   margin-top: -35vh;
   margin-left: -35vw;
 
-  //background
   background: white;
   transition: 1.1s ease-out;
   box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
-  transform: scale(2);
+  transform: scale(1);
   opacity: 1;
   visibility: visible;
 
-  //border
   border: solid;
   border-width: thick;
   border-top-color: rgb(187, 178, 178);
@@ -354,9 +352,35 @@ mark {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-  //display
+  display: block;
+}
+
+.qa-answer-modal-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 70vh;
+  width: 68vw;
+  margin-top: -35vh;
+  margin-left: -35vw;
+
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
   grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+  column-gap: normal;
   padding: 5px 5px 5px 5px;
+}
+
+.qa-answer-modal-griditem1 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.qa-answer-modal-griditem2 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 4;
 }

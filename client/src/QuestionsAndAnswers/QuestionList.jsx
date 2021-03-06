@@ -3,7 +3,7 @@ import QuestionListEntry from './QuestionListEntry.jsx';
 import QuestionModal from './QuestionModal/QuestionModal.jsx'
 
 const QuestionList = function ({
- questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick, setQuestionBody
 }) {
 
   if (numberOfQuestionsToRender === 0) {
@@ -25,6 +25,7 @@ const QuestionList = function ({
               collapseAnswers={collapseAnswers}
               userWantsMoreAnswers={userWantsMoreAnswers}
               onClick={onClick}
+              setQuestionBody={setQuestionBody}
             />
           );
         }
