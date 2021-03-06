@@ -220,6 +220,8 @@ mark {
   transform: scale(1);
   opacity: 1;
   visibility: visible;
+  overflow: hidden;
+  z-index: 1;
 
   border: solid;
   border-width: thick;
@@ -364,6 +366,8 @@ mark {
   transform: scale(1);
   opacity: 1;
   visibility: visible;
+  overflow: hidden;
+  z-index: 1;
 
   border: solid;
   border-width: thick;
@@ -471,20 +475,31 @@ mark {
   grid-row-end: 14;
 }
 
+//Close Button
+
 .qa-answer-modal-griditem12 {
+  //size
+  height: 10px;
+  width: 10px;
+
+  //decoration
+  color: white; //this isn't working and I can't see where it is inheriting from
+
+  //border
   border: solid;
+  border-radius: 50%;
   border-width: thick;
   border-top-color: rgb(187, 178, 178);
   border-bottom-color: rgb(91, 84, 84);
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
-  background-color: rgb(91, 84, 84);
-  background-color: rgb(53, 47, 47);
-  color: rgb(239, 244, 239);
-  grid-column-start: 8;
-  grid-column-end: 9;
-  grid-row-start: 14;
-  grid-row-end: 15;
+  background-color: white;
+
+  //position
+  grid-column-start: 9;
+  grid-column-end: 10;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
 
 .qa-answer-modal-griditem13 {

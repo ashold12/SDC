@@ -100,7 +100,7 @@ const AnswerModal = function ({
           <img qa-answer-modal-photos>image5</img> */}
         </div>
 
-        <input type="submit" className="qa-answer-modal-griditem11" name="closeAnswerModal" />
+        <input type="submit" className="qa-answer-modal-griditem11" name="submitAnswerModal" />
         <input
           type="click"
           name="closeAnswerModal"
@@ -108,7 +108,7 @@ const AnswerModal = function ({
             onClick(e);
             resetForm();
           }}
-          placeHolder="Close"
+          placeHolder="X"
           className="qa-answer-modal-griditem12"
         />
       </form>
