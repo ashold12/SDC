@@ -6,21 +6,28 @@ class RatingBreakdown extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-    }
+    };
     this.setInitialState = this.setInitialState.bind(this);
   }
 
   componentDidMount() {
-    const { productId } = this.props;
-    // Get meta data.
-    axios
-      .get(`/api/reviews/meta?product_id=${productId}`)
-      .then((data) => {
-        this.setInitialState(data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // const { productId } = this.props;
+    // // Get meta data.
+    // axios
+    //   .get(`/api/reviews/meta?product_id=${productId}`)
+    //   .then((data) => {
+    //     this.setInitialState(data.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    this.setInitialState(this.props.meta);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (parseInt(this.props.productId, 10) !== parseInt(prevProps.productId, 10)) {
+      this.setInitialState(this.props.meta);
+    }
   }
 
   getReviewBar(indexNumber, starNumber) {
@@ -41,7 +48,15 @@ class RatingBreakdown extends React.Component {
       <div key={indexNumber} className="rr-review-bar-star-count">
         # Stars {indexNumber} With {numberOfVotes} votes.
         <div className="rr-review-bar-container">
-          <div className="rr-review-bar" style={barStyling} id={`rr-bar-${starNumber}`} />
+          <div
+            className="rr-review-bar"
+            style={barStyling}
+            value={indexNumber}
+            onClick={(e) => {
+              this.props.changeFilter(indexNumber);
+            }}
+            id={`rr-bar-${starNumber}`}
+          />
         </div>
       </div>
     );
@@ -59,8 +74,10 @@ class RatingBreakdown extends React.Component {
     });
     const toNearestDecimal = (totalRatingScore / totalNumberOfRatings).toFixed(1);
     // Calculate the recommended amount and the number of reviewers.
-    const usersRecommendedPercentage =
-      ((parseInt(data.recommended.true, 10) / totalNumberOfRatings) * 100).toFixed(0);
+    const usersRecommendedPercentage = (
+      (parseInt(data.recommended.true, 10) / totalNumberOfRatings) *
+      100
+    ).toFixed(0);
     this.setState({
       ...data,
       starRating: toNearestDecimal,
@@ -74,11 +91,19 @@ class RatingBreakdown extends React.Component {
     if (this.state.loaded === false) {
       return <div />;
     }
+    let filterString = '';
+    if (this.props.filters.length > 0) {
+      filterString += 'Filtering by:';
+      this.props.filters.forEach((filter) => {
+        filterString += ` ${filter}`;
+        filterString += ' star reviews.';
+      });
+    }
     const { starRating, totalNumberOfReviews } = this.state;
     // Map ratings.
-    let ratingBars = [];
+    const ratingBars = [];
     for (let i = 1; i <= 5; i++) {
-      let bar = this.getReviewBar(i, i);
+      const bar = this.getReviewBar(i, i);
       ratingBars.push(bar);
     }
     return (
@@ -90,8 +115,8 @@ class RatingBreakdown extends React.Component {
           style={{ '--rating': starRating }}
           aria-label="Rating of this product is {starRating} out of 5."
         />
-        <div className="rr-filters-applied">Filters go here.</div>Number of Reviews:
-        {' '}{totalNumberOfReviews}
+        <div className="rr-filters-applied">{filterString}</div>
+        Number of Reviews: {totalNumberOfReviews}
         <div className="rr-review-bar-container">{ratingBars}</div>
       </div>
     );

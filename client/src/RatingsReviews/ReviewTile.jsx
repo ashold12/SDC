@@ -151,13 +151,13 @@ class ReviewTile extends React.Component {
           Was this review helpful?
           {/*eslint-disable*/
           /*using link as button per spec*/}
-          <a href="#" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
+          <a href="#!" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
             {/*eslint-disable*/
             /*wants to change parens*/}
             Yes ({helpfulness})
           </a>
           {' | '}
-          <a href="#" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
+          <a href="#!" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
             No
           </a>
           {/* eslint-enable */}
@@ -197,6 +197,9 @@ class ReviewTile extends React.Component {
   }
 
   render() {
+    if (!this.props.review) {
+      return <div />;
+    }
     const { reviewer_name } = this.props.review;
     let checkmark = '';
     if (this.hasRegisteredEmail()) {

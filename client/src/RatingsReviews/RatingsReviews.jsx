@@ -15,7 +15,7 @@ class RatingsReviews extends React.Component {
       filters: [],
       showReviewModal: false,
       currentShownReviews: [],
-      numberOfReviewsShowing: 3,
+      numberOfReviewsShowing: 2,
       filteredReviewList: [],
     };
     this.showReviewModal = this.showReviewModal.bind(this);
@@ -130,8 +130,34 @@ class RatingsReviews extends React.Component {
     // If the user clicks on a filter, we need to generate a filtered review list to pull from.
     // Then ensure that we select from the filtered list instead of the current list when building
     // our tiles out.
-
-    const newFilteredArray = Array.from(new Set(filters, filter));
+    // Check if the filter is already in our filters, if it is remove it.
+    let adjustedFilters = [];
+    if (filters.includes(filter)) {
+      filters.forEach((element) => {
+        if (element !== filter) {
+          adjustedFilters.push(element);
+        }
+      });
+    } else {
+      adjustedFilters = [...filters];
+      adjustedFilters.push(filter);
+    }
+    // We added a filter, now we need to sort and set our state to filtered reviews.
+    const filteredResults = [];
+    reviews.forEach((review) => {
+      if (adjustedFilters.includes(review.rating)) {
+        filteredResults.push(review);
+      }
+    });
+    // Add adjusted filters, and filtered reviews.
+    let currentShownReviews = reviews;
+    if (adjustedFilters.length !== 0) {
+      currentShownReviews = this.generateReviewsArray(filteredResults);
+    }
+    if (adjustedFilters.length === 0) {
+      currentShownReviews = this.generateReviewsArray(reviews);
+    }
+    this.setState({ currentShownReviews, filters: adjustedFilters });
   }
 
   sortReviewsBy(incomingChage) {
@@ -160,7 +186,6 @@ class RatingsReviews extends React.Component {
       return <div />;
     }
     const { product_id, filters, meta } = this.state;
-    this.sortByStars(5);
     return (
       <div className="rr-start-div">
         Ratings and Reviews.
@@ -173,7 +198,12 @@ class RatingsReviews extends React.Component {
             ))}
           </div>
           <div className="rr-rating-breakdown">
-            <RatingBreakdown productId={product_id} filters={filters} />
+            <RatingBreakdown
+              productId={product_id}
+              changeFilter={this.sortByStars}
+              filters={filters}
+              meta={this.state.meta}
+            />
           </div>
           <div className="rr-product-breakdown-container">
             <ProductBreakDown characteristics={this.state.meta.characteristics} />
