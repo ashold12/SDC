@@ -1,6 +1,8 @@
 import React from 'react';
+import AnswerModalImages from './AnswerModalImages.jsx';
 
 const AnswerModal = function ({
+  addAnswerPhotos,
   show,
   state,
   productName,
@@ -20,7 +22,7 @@ const AnswerModal = function ({
           e.preventDefault();
         }}
       >
-        <h3 className="qa-answer-modal-griditem1">Submit you Answer</h3>
+        <h3 className="qa-answer-modal-griditem1">Submit your Answer</h3>
          <h4 className="qa-answer-modal-griditem2">
           About
           {' ' + productName}: {state.questionToBeAnswered}
@@ -76,7 +78,7 @@ const AnswerModal = function ({
 
         <input
           name="AnswerModalEmailInput"
-          placeHolder="Example: jack@email.com"
+          placeholder="Example: jack@email.com"
           className="qa-answer-modal-griditem9"
           value={state.AnswerModalEmailInput || ''}
           onChange={onChange}
@@ -87,18 +89,8 @@ const AnswerModal = function ({
           For authentication reasons, you will not be emailed
         </div>
 
-        <div className="qa-answer-modal-griditem13">
-          <div qa-answer-modal-photos>image1</div>
-          <div qa-answer-modal-photos>image2</div>
-          <div qa-answer-modal-photos>image3</div>
-          <div qa-answer-modal-photos>image4</div>
-          <div qa-answer-modal-photos>image5</div>
-          {/* <img qa-answer-modal-photos>image1</img>
-          <img qa-answer-modal-photos>image2</img>
-          <img qa-answer-modal-photos>image3</img>
-          <img qa-answer-modal-photos>image4</img>
-          <img qa-answer-modal-photos>image5</img> */}
-        </div>
+
+        <AnswerModalImages photos={state.answerModalPhotos} onChange={addAnswerPhotos} />
 
         <input type="submit" className="qa-answer-modal-griditem11" name="submitAnswerModal" />
         <input
@@ -108,7 +100,7 @@ const AnswerModal = function ({
             onClick(e);
             resetForm();
           }}
-          placeHolder="X"
+          placeholder="X"
           className="qa-answer-modal-griditem12"
         />
       </form>

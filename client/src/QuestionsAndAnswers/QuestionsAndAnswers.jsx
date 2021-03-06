@@ -16,6 +16,7 @@ class QuestionsAndAnswers extends React.Component {
       showAnswerModal: false,
       validQuestionForm: null,
       questionToBeAnswered: null,
+      answerModalPhotos: [],
     };
 
     // BINDINGS
@@ -40,6 +41,7 @@ class QuestionsAndAnswers extends React.Component {
     this.resetQuestionForm = this.resetQuestionForm.bind(this);
     this.submitValidForm = this.submitValidForm.bind(this);
     this.setQuestionBody = this.setQuestionBody.bind(this);
+    this.addAnswerPhotos = this.addAnswerPhotos.bind(this);
   }
 
   // REQUESTS
@@ -57,6 +59,16 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   // HANDLERS
+
+  //ModalImage
+
+  addAnswerPhotos(e) {
+    const photos = this.state.answerModalPhotos;
+    photos.push(e.target.value)
+      this.setState({
+        answerModalPhotos: photos,
+      });
+  }
 
   setQuestionBody(questionBody){
     this.setState({
@@ -348,6 +360,7 @@ class QuestionsAndAnswers extends React.Component {
             productName={this.props.selectedProduct.name}
             onChange={this.onChange}
             state={this.state}
+            addAnswerPhotos={this.addAnswerPhotos}
           />
           <QuestionModal
             show={this.state.showQuestionModal}
