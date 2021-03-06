@@ -64,11 +64,16 @@ class QuestionsAndAnswers extends React.Component {
 
   addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
-    photos.push(e.target.value)
+    const photo = URL.createObjectURL(e.target.files[0]);
+    photos.push(photo);
       this.setState({
         answerModalPhotos: photos,
       });
   }
+
+  // removeAnswerPhoto(e) {
+
+  // }
 
   setQuestionBody(questionBody){
     this.setState({
