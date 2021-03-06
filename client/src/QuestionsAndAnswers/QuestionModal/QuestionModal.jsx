@@ -1,12 +1,12 @@
 import React from 'react';
 
-const QuestionModal = function ({ show, onClick, productName, onChange, state, verifyForm}) {
+const QuestionModal = function ({ show, onClick, productName, onChange, state, verifyForm, resetForm}) {
   if (!show) {
     return null;
   }
   return (
     <div className={show ? "qa-question-modal-show" : "qa-question-modal-hide"}>
-      <form className="qa-question-modal-form" onSubmit={(e) => {e.preventDefault(); console.log(`submitted`)}}>
+      <form className="qa-question-modal-form" onSubmit={(e) => {e.preventDefault(), verifyForm()}}>
       <h3 className="qa-question-modal-griditem1">Ask Your Question</h3>
       <h4 className="qa-question-modal-griditem2">About {productName}</h4>
 
@@ -33,8 +33,8 @@ const QuestionModal = function ({ show, onClick, productName, onChange, state, v
           <div className="qa-question-modal-griditem10">For authentication reasons, you will not be emailed
           </div>
 
-        <input type="submit" className="qa-question-modal-griditem11" name="closeQuestionModal" onClick={verifyForm}/>
-      <input type="click" name="closeQuestionModal" onClick={onClick} value="Close" className="qa-question-modal-griditem12"/>
+        <input type="submit" className="qa-question-modal-griditem11" name="closeQuestionModal"/>
+      <input type="click" name="closeQuestionModal" onClick={(e) => {onClick(e); resetForm()}} value="Close" className="qa-question-modal-griditem12"/>
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import QuestionList from './QuestionList.jsx';
 import SearchQuestions from './SearchQuestions.jsx';
 import ComponentFooter from './ComponentFooter.jsx';
@@ -35,60 +36,94 @@ class QuestionsAndAnswers extends React.Component {
     this.hideQuestionModalHandler = this.hideQuestionModalHandler.bind(this);
     this.onChange = this.onChange.bind(this);
     this.verifyQuestionForm = this.verifyQuestionForm.bind(this);
+    this.resetQuestionForm = this.resetQuestionForm.bind(this);
+    this.submitValidForm = this.submitValidForm.bind(this);
   }
 
   // REQUESTS
 
+  submitValidForm(questionData) {
+
+    axios.post('api/qa/questions', questionData)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        this.props.getQuestions();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   // HANDLERS
 
-  verifyQuestionForm() {
-    // first reset state
+  resetQuestionForm() {
     this.setState({
-      validQuestionForm: null,
       questionFormNameValidation: true,
       questionFormQuestionValidation: true,
-      questionFormEmailValidation: false,
-    },
-    // second verify
-    () => {
-      let verified = null;
+      questionFormEmailValidation: true,
+    });
+  }
 
-      if (!this.state.QuestionModalNameInput || this.state.QuestionModalNameInput === '') {
-        verified = false;
-        this.setState({
-          validQuestionForm: false,
-          questionFormNameValidation: false,
-        })
-      };
+  // tech debt code sniff
 
-      if (!this.state.QuestionModalTextArea || this.state.QuestionModalTextArea === '') {
-        verified = false;
-        this.setState({
-          validQuestionForm: false,
-          questionFormQuestionValidation: false,
-        })
-      }
+  verifyQuestionForm() {
+    let verified = true;
 
-      let email = this.state.QuestionModalEmailInput;
+    if (!this.state.QuestionModalNameInput || this.state.QuestionModalNameInput === '') {
       verified = false;
-
-      if(!/\S+@\S+\.\S+/.test(email)) {
-        this.setState({
-          validQuestionForm: false,
-          questionFormEmailValidation: false,
-        })
-      }
-
-      if (!verified) {
-        return null;
-      } else {
-        this.setState({
-          validQuestionForm: true,
-        })
-      }
+      this.setState({
+        questionFormNameValidation: false,
+      });
+    } else {
+      this.setState({
+        questionFormNameValidation: true,
+      });
     }
-  )
-}
+
+    if (!this.state.QuestionModalTextArea || this.state.QuestionModalTextArea === '') {
+      verified = false;
+      this.setState({
+        questionFormQuestionValidation: false,
+      });
+    } else {
+      this.setState({
+        questionFormQuestionValidation: true,
+      });
+    }
+
+    const email = this.state.QuestionModalEmailInput;
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      verified = false;
+      this.setState({
+        questionFormEmailValidation: false,
+      });
+    } else {
+      this.setState({
+        questionFormEmailValidation: true,
+      });
+    }
+
+    if (!verified) {
+      return null;
+    }
+
+    const formDataToSend = {
+      body: this.state.QuestionModalTextArea,
+      name: this.state.QuestionModalNameInput,
+      email: this.state.QuestionModalEmailInput,
+      product_id: parseInt(this.props.selectedProductsQuestions.product_id),
+    };
+
+    this.submitValidForm(formDataToSend);
+
+    this.setState({
+      QuestionModalEmailInput: '',
+      QuestionModalNameInput: '',
+      QuestionModalTextArea: '',
+      showQuestionModal: false,
+    });
+  }
 
   onChange(e) {
     this.setState({
@@ -115,7 +150,7 @@ class QuestionsAndAnswers extends React.Component {
   // QUESTION LIST HANDLERS
 
   findNumberOfQuestionsToRender() {
-    let numberOfQuestions = this.props.selectedProductsQuestions.results
+    const numberOfQuestions = this.props.selectedProductsQuestions.results
       ? this.props.selectedProductsQuestions.results.length
       : undefined;
 
@@ -143,11 +178,14 @@ class QuestionsAndAnswers extends React.Component {
   // SEARCH BAR HANDLERS
 
   onChangeSearchHandler(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    }, () => {
-      this.searchQuestions();
-    });
+    this.setState(
+      {
+        [e.target.name]: e.target.value,
+      },
+      () => {
+        this.searchQuestions();
+      },
+    );
   }
 
   // MODAL HANDLERS
@@ -232,7 +270,7 @@ class QuestionsAndAnswers extends React.Component {
     for (let i = 0; i < questions.results.length; i++) {
       const questionText = questions.results[i].question_body;
 
-      if (questionText.match(new RegExp (search, 'gi'))) {
+      if (questionText.match(new RegExp(search, 'gi'))) {
         foundQuestions.push(questions.results[i]);
       } else {
         continue;
@@ -244,18 +282,17 @@ class QuestionsAndAnswers extends React.Component {
 
     // Part 2: Search and replace HTML
 
-    const htmlQuestions = document.getElementsByClassName("qa-question-text-only");
+    const htmlQuestions = document.getElementsByClassName('qa-question-text-only');
 
-    for (let element of htmlQuestions) {
+    for (const element of htmlQuestions) {
       // Remove <mark> tags if they exist
-      let removeMarks = '<mark className="qa-questions-searched">|</mark>';
-      element.innerHTML = element.innerHTML.replace(new RegExp (removeMarks, 'gi'), () => {
-        return ``
-       });
-      //Add <mark> tags
-      element.innerHTML = element.innerHTML.replace(new RegExp (search, 'gi'), (same) => {
-        return `<mark className="qa-questions-searched">${same}</mark>`;
-        });
+      const removeMarks = '<mark className="qa-questions-searched">|</mark>';
+      element.innerHTML = element.innerHTML.replace(new RegExp(removeMarks, 'gi'), () => '');
+      // Add <mark> tags
+      element.innerHTML = element.innerHTML.replace(
+        new RegExp(search, 'gi'),
+        (same) => `<mark className="qa-questions-searched">${same}</mark>`
+      );
     }
   }
 
@@ -287,47 +324,56 @@ class QuestionsAndAnswers extends React.Component {
 
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
-      this.sortQuestions();
-
+    this.sortQuestions();
   }
 
   render() {
-
     return (
       <div className="qa-modal-main-container">
-      <div className="qa-main-container">
-        <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
-        <SearchQuestions onChange={this.onChangeSearchHandler} />
-        {/* Modals */}
-        <AnswerModal
-        show={this.state.showAnswerModal}
-        onClick={this.answerModalClickHandler}
-        onChange={this.onChange}
-        state={this.state}/>
-        <QuestionModal
-        show={this.state.showQuestionModal}
-        onClick={this.questionModalClickHandler}
-        productName={this.props.selectedProduct.name}
-        onChange={this.onChange}
-        state={this.state}
-        verifyForm={this.verifyQuestionForm}/>
-        {/* QuestionList */}
-        <QuestionList
-          questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
-          moreAnswersClicked={this.moreAnswersClicked}
-          collapseAnswers={this.collapseAnswers}
-          numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
-          userWantsMoreAnswers={this.userWantsMoreAnswers}
-          date={this.getFormattedDate}
-          onClick={this.answerModalClickHandler}
-        />
-        <ComponentFooter
-        questions={3 < this.state.searchBarText.length ? this.state.searchResults : this.props.selectedProductsQuestions}
-        numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
-        incrementQuestions={this.increaseNumberOfQuestionsToRender}
-        onClick={this.questionModalClickHandler}
-        />
-      </div>
+        <div className="qa-main-container">
+          <div className="qa-qna-title">QUESTIONS & ANSWERS</div>
+          <SearchQuestions onChange={this.onChangeSearchHandler} />
+          {/* Modals */}
+          <AnswerModal
+            show={this.state.showAnswerModal}
+            onClick={this.answerModalClickHandler}
+            onChange={this.onChange}
+            state={this.state}
+          />
+          <QuestionModal
+            show={this.state.showQuestionModal}
+            onClick={this.questionModalClickHandler}
+            productName={this.props.selectedProduct.name}
+            onChange={this.onChange}
+            state={this.state}
+            verifyForm={this.verifyQuestionForm}
+            resetForm={this.resetQuestionForm}
+          />
+          {/* QuestionList */}
+          <QuestionList
+            questions={
+              this.state.searchBarText.length > 3
+                ? this.state.searchResults
+                : this.props.selectedProductsQuestions
+            }
+            moreAnswersClicked={this.moreAnswersClicked}
+            collapseAnswers={this.collapseAnswers}
+            numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
+            userWantsMoreAnswers={this.userWantsMoreAnswers}
+            date={this.getFormattedDate}
+            onClick={this.answerModalClickHandler}
+          />
+          <ComponentFooter
+            questions={
+              this.state.searchBarText.length > 3
+                ? this.state.searchResults
+                : this.props.selectedProductsQuestions
+            }
+            numberOfQuestionsToRender={this.state.numberOfQuestionsToRender}
+            incrementQuestions={this.increaseNumberOfQuestionsToRender}
+            onClick={this.questionModalClickHandler}
+          />
+        </div>
       </div>
     );
   }
