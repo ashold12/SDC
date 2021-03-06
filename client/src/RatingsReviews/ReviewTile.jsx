@@ -71,9 +71,7 @@ class ReviewTile extends React.Component {
         <div className="rr-body-text" id={id}>
           {truncatedBody}
           <div className="rr-body-show-more">
-            <a href="#!" onClick={this.showMoreReview}>
-              Show More...
-            </a>
+            <a onClick={this.showMoreReview}>Show More...</a>
           </div>
         </div>
       );
