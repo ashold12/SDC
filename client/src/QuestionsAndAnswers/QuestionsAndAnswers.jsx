@@ -63,22 +63,22 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   submitValidAnswerForm(answerData) {
-    axios
-      .post(
-        `api/qa/questions/:question_id=${this.state.questionIdOfQuestionToBeAnswered}/answers`,
-        answerData,
-      )
-      .then((response) => {
-        console.log(this.props.getAnswers(this.state.questionIdOfQuestionToBeAnswered));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const { questionIdOfQuestionToBeAnswered } = this.state;
+    axios.post(`api/qa/questions/${questionIdOfQuestionToBeAnswered}/answers`, answerData)
+    .then((response) => {
+      this.getAnswers();
+      this.props.getQuestions();
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   getAnswers() {
+    const { questionIdOfQuestionToBeAnswered } = this.state;
     axios
-      .get(`api/qa/questions/?question_id=${this.state.questionIdOfQuestionToBeAnswered}/answers`)
+      .get(`api/qa/questions/${questionIdOfQuestionToBeAnswered}/answers?count=50`)
       .then((response) => {
         this.setState({
           answers: response.data,
@@ -168,17 +168,15 @@ class QuestionsAndAnswers extends React.Component {
         answerModalEmailValidation: true,
       });
     }
-
     if (!verified) {
       return null;
     }
     const answerDataToSend = {
       body: this.state.AnswerModalTextAreaInput,
       name: this.state.AnswerModalNameInput,
-      email: this.state.AnswersModalEmailInput,
+      email: this.state.AnswerModalEmailInput,
       photos: this.state.answerModalPhotos,
     };
-
     this.submitValidAnswerForm(answerDataToSend);
 
     this.setState({
@@ -190,7 +188,12 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   verifyQuestionForm() {
-    const { QuestionModalTextArea, QuestionModalNameInput, QuestionModalEmailInput, selectedProductsQuestions } = this.state;
+    const {
+      QuestionModalTextArea,
+      QuestionModalNameInput,
+      QuestionModalEmailInput,
+      selectedProductsQuestions,
+    } = this.state;
     let verified = true;
 
     if (!QuestionModalNameInput || QuestionModalNameInput === '') {
@@ -450,7 +453,6 @@ class QuestionsAndAnswers extends React.Component {
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
     this.sortQuestions();
-    this.getAnswers();
   }
 
   render() {

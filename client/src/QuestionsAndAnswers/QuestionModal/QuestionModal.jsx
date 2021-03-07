@@ -95,7 +95,7 @@ const QuestionModal = function ({
             onClick(e);
             resetForm();
           }}
-          placeHolder="Close"
+          placeholder="X"
           className="qa-question-modal-griditem12"
         />
       </form>

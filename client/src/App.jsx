@@ -75,6 +75,7 @@ class App extends React.Component {
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
             selectedProductsQuestions={this.state.questions}
+            getQuestions={this.getQuestions}
           />
         )}
         <RatingsReviews productData={selectedProduct} />

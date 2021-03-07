@@ -248,27 +248,28 @@ mark {
   column-gap: normal;
   padding: 5px 5px 5px 5px;
 }
+//Title
 .qa-question-modal-griditem1 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+//Subtitle
+.qa-question-modal-griditem2 {
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 2;
   grid-row-end: 3;
 }
-
-.qa-question-modal-griditem2 {
-  grid-column-start: 3;
-  grid-column-end: 5;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-
+//Text Area Label
 .qa-question-modal-griditem3 {
   grid-column-start: 2;
   grid-column-end: 6;
   grid-row-start: 4;
   grid-row-end: 5;
 }
-
+//Text Area
 .qa-question-modal-griditem4 {
   grid-column-start: 2;
   grid-column-end: 6;
@@ -298,21 +299,22 @@ mark {
 .qa-question-modal-griditem8 {
   grid-column-start: 7;
   grid-column-end: 9;
-  grid-row-start: 5;
-  grid-row-end: 6;
-}
-.qa-question-modal-griditem9 {
-  grid-column-start: 7;
-  grid-column-end: 9;
   grid-row-start: 6;
   grid-row-end: 7;
 }
-.qa-question-modal-griditem10 {
+.qa-question-modal-griditem9 {
   grid-column-start: 7;
   grid-column-end: 9;
   grid-row-start: 7;
   grid-row-end: 8;
 }
+.qa-question-modal-griditem10 {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 8;
+  grid-row-end: 9;
+}
+//Submit Button
 .qa-question-modal-griditem11 {
   border: solid;
   border-width: thick;
@@ -322,26 +324,42 @@ mark {
   border-right-color: rgb(239, 244, 239);
   background-color: rgb(53, 47, 47);
   color: rgb(239, 244, 239);
-  grid-column-start: 8;
-  grid-column-end: 9;
-  grid-row-start: 8;
-  grid-row-end: 9;
+  grid-column-start: 9;
+  grid-column-end: 10;
+  grid-row-start: 9;
+  grid-row-end: 10;
 }
 
 .qa-question-modal-griditem12 {
+  height: 10px;
+  width: 10px;
   border: solid;
   border-width: thick;
+  border-radius: 50%;
   border-top-color: rgb(187, 178, 178);
   border-bottom-color: rgb(91, 84, 84);
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
   background-color: rgb(91, 84, 84);
-  background-color: rgb(53, 47, 47);
+  background-color: white;
   color: rgb(239, 244, 239);
-  grid-column-start: 8;
-  grid-column-end: 9;
-  grid-row-start: 9;
-  grid-row-end: 10;
+  grid-column-start: 10;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  position: relative;
+  left: 75%;
+  font-size: large;
+  justify-content: left;
+}
+
+.qa-question-modal-griditem12:hover {
+  border-top-color: rgb(239, 244, 239);
+  border-bottom-color: rgb(239, 244, 239);
+  border-left-color: rgb(187, 178, 178);
+  border-right-color: rgb(91, 84, 84);
+  transition: cubic-bezier(1, 0, 0, 1);
 }
 
 //Answer
@@ -472,7 +490,7 @@ mark {
   background-color: rgb(53, 47, 47);
   border-radius: 2%;
   color: rgb(239, 244, 239);
-  grid-column-start: 9;
+  grid-column-start: 10;
   grid-column-end: 10;
   grid-row-start: 14;
   grid-row-end: 15;
@@ -503,6 +521,17 @@ mark {
   grid-column-end: 11;
   grid-row-start: 1;
   grid-row-end: 2;
+
+  position: relative;
+  left: 75%;
+}
+
+.qa-answer-modal-griditem12:hover {
+  border-top-color: rgb(239, 244, 239);
+  border-bottom-color: rgb(239, 244, 239);
+  border-left-color: rgb(187, 178, 178);
+  border-right-color: rgb(91, 84, 84);
+  transition: cubic-bezier(1, 0.6, 0.9, 1);
 }
 
 .qa-answer-modal-griditem13 {
