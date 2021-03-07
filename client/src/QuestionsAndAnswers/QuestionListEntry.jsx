@@ -34,7 +34,7 @@ const QuestionListEntry = function ({
             <a
               href="#"
               onClick={(e) => {
-                onClick(e); setQuestionBody(question.question_body);
+                onClick(e); setQuestionBody(question.question_id, question.question_body);
               }}
             >
               {' '}

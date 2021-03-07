@@ -42,6 +42,9 @@ class QuestionsAndAnswers extends React.Component {
     this.submitValidForm = this.submitValidForm.bind(this);
     this.setQuestionBody = this.setQuestionBody.bind(this);
     this.addAnswerPhotos = this.addAnswerPhotos.bind(this);
+    this.submitValidAnswerForm = this.submitValidAnswerForm.bind(this);
+    this.verifyAnswerForm = this.verifyAnswerForm.bind(this);
+    this.resetAnswerForm = this.resetAnswerForm.bind(this);
   }
 
   // REQUESTS
@@ -51,6 +54,16 @@ class QuestionsAndAnswers extends React.Component {
     axios.post('api/qa/questions', questionData)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        this.props.getQuestions();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  submitValidAnswerForm(answerData) {
+    axios.post(`api/qu/questions/:question_id=${this.state.questionIdOfQuestionToBeAnswered}/answers`, answerData)
+      .then((response) => {
         this.props.getQuestions();
       })
       .catch((error) => {
@@ -75,10 +88,19 @@ class QuestionsAndAnswers extends React.Component {
 
   // }
 
-  setQuestionBody(questionBody){
+  setQuestionBody(questionId, questionBody){
     this.setState({
       questionToBeAnswered: questionBody,
+      questionIdOfQuestionToBeAnswered: questionId,
     })
+  }
+
+  resetAnswerForm() {
+    this.setState({
+      answerFormNameValidation: true,
+      answerFormAnswerValidation: true,
+      answerFormEmailValidation: true,
+    });
   }
 
   resetQuestionForm() {
@@ -90,6 +112,66 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   // tech debt code sniff
+
+  verifyAnswerForm() {
+    let verified = true;
+
+    if (!this.state.AnswerModalNameInput || this.state.AnswerModalNameInput === '') {
+      verified = false;
+      this.setState({
+        answerModalNameValidation: false,
+      });
+    } else {
+      this.setState({
+        answerModalNameValidation: true,
+      });
+    }
+
+    if (!this.state.AnswerModalTextAreaInput || this.state.AnswerModalTextAreaInput === '') {
+      verified = false;
+      this.setState({
+        answerModalTextAreaValidation: false,
+      });
+    } else {
+      this.setState({
+        answerModalTextAreaValidation: true,
+      });
+    };
+
+    debugger;
+    const email = this.state.AnswerModalEmailInput;
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      verified = false;
+      this.setState({
+        answerModalEmailValidation: false,
+      });
+    } else {
+      this.setState({
+        answerModalEmailValidation: true,
+      });
+    };
+
+    if (!verified) {
+      return null;
+    } else {
+      let answerDataToSend = {
+        body: this.state.AnswerModalTextAreaInput,
+        name: this.state.AnswerModalNameInput,
+        email: this.state.AnswersModalEmailInput,
+        photos: this.state.answerModalPhotos,
+      }
+
+      this.submitValidAnswerForm(answerDataToSend);
+
+      this.setState({
+        AnswerModalEmailInput: '',
+        AnswerModalNameInput: '',
+        AnswerModalTextAreaInput: '',
+        showAnswerModal: false,
+      });
+    }
+  }
 
   verifyQuestionForm() {
     let verified = true;
@@ -366,6 +448,8 @@ class QuestionsAndAnswers extends React.Component {
             onChange={this.onChange}
             state={this.state}
             addAnswerPhotos={this.addAnswerPhotos}
+            verifyForm={this.verifyAnswerForm}
+            resetForm={this.resetAnswerForm}
           />
           <QuestionModal
             show={this.state.showQuestionModal}

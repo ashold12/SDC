@@ -7,7 +7,9 @@ const AnswerModal = function ({
   state,
   productName,
   onChange,
-  onClick
+  onClick,
+  verifyForm,
+  resetForm
 }) {
 
   if (!show) {
@@ -20,6 +22,7 @@ const AnswerModal = function ({
         className="qa-answer-modal-form"
         onSubmit={(e) => {
           e.preventDefault();
+          verifyForm();
         }}
       >
         <h3 className="qa-answer-modal-griditem1">Submit your Answer</h3>
@@ -29,16 +32,16 @@ const AnswerModal = function ({
         </h4>
 
         <label htmlFor="answerModalTextArea" className="qa-answer-modal-griditem3">
-          {state.answerFormAnswerValidation === false ? (
-            <span className="qa-modal-alert-text">You must enter a Answer! </span>
+          {state.answerModalTextAreaValidation === false ? (
+            <span className="qa-modal-alert-text">You must submit an Answer! </span>
           ) : (
             'Your Answer*'
           )}
         </label>
         <textarea
-          name="AnswerModalTextArea"
+          name="AnswerModalTextAreaInput"
           className="qa-answer-modal-griditem4"
-          value={state.AnswerModalTextArea || ''}
+          value={state.AnswerModalTextAreaInput || ''}
           onChange={onChange}
           maxLength="1000"
           id="qa-answer-modal-textarea"
@@ -46,7 +49,8 @@ const AnswerModal = function ({
           cols="50"
         />
         <label htmlFor="AnswerModalNameInput" className="qa-answer-modal-griditem5">
-          {state.answerFormNameValidation === false ? (
+          {state.answerModalNameValidation
+ === false ? (
             <span className="qa-modal-alert-text">You must enter a NickName! </span>
           ) : (
             'Your Nickname*'
@@ -67,7 +71,7 @@ const AnswerModal = function ({
         </div>
 
         <label htmlFor="AnswerModalEmailInput" className="qa-answer-modal-griditem8">
-          {state.answerFormEmailValidation === false ? (
+          {state.answerModalEmailValidation === false ? (
             <span className="qa-modal-alert-text">
               The email address provided is not in correct email format
             </span>
