@@ -71,9 +71,7 @@ class ReviewTile extends React.Component {
         <div className="rr-body-text" id={id}>
           {truncatedBody}
           <div className="rr-body-show-more">
-            <a href="#" onClick={this.showMoreReview}>
-              Show More...
-            </a>
+            <a onClick={this.showMoreReview}>Show More...</a>
           </div>
         </div>
       );
@@ -205,14 +203,17 @@ class ReviewTile extends React.Component {
     if (this.hasRegisteredEmail()) {
       checkmark = '✓ Verified Purchaser';
     }
-
+    let starRating = 0;
+    if (this.props.review.rating > 0) {
+      starRating = parseFloat((Math.round(this.props.review.rating * 4) / 4).toFixed(2));
+    }
     const title = this.getReviewSummary();
-    console.log(title);
+
     return (
       <div className="rr-review-tile-container">
         <div
           className="Stars rr-review-tile-stars"
-          style={{ '--rating': this.state.starRating }}
+          style={{ '--rating': starRating }}
           aria-label="Rating of this product is {this.state.starRating} out of 5."
         />
         <div className="rr-tile-checkmark">

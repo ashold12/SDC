@@ -42,7 +42,7 @@ class RatingBreakdown extends React.Component {
     }
     const barStyling = {
       width: `${percentage}%`,
-      backgroundColor: '#4CAF50',
+      backgroundColor: '#2be255',
     };
     return (
       <div key={indexNumber} className="rr-review-bar-star-count">
@@ -68,18 +68,22 @@ class RatingBreakdown extends React.Component {
     // AR = 1 * (1 star ratings) + 2 * (two star ratings) + ... / 5
     let totalRatingScore = 0;
     let totalNumberOfRatings = 0;
-    Object.keys(data.ratings).forEach((key) => {
-      totalRatingScore += parseInt(key, 10) * data.ratings[key];
-      totalNumberOfRatings += parseInt(data.ratings[key], 10);
+    const { ratings } = this.props.meta;
+    Object.keys(ratings).forEach((key) => {
+      totalRatingScore += parseInt(key, 10) * ratings[key];
+      totalNumberOfRatings += parseInt(ratings[key], 10);
     });
     const toNearestDecimal = (totalRatingScore / totalNumberOfRatings).toFixed(1);
     // Calculate the recommended amount and the number of reviewers.
     const usersRecommendedPercentage = (
-      (parseInt(data.recommended.true, 10) / totalNumberOfRatings) *
+      (parseInt(this.props.meta.recommended.true, 10) / totalNumberOfRatings) *
       100
     ).toFixed(0);
     this.setState({
-      ...data,
+      characteristics: this.props.meta.characteristics,
+      ratings: this.props.meta.ratings,
+      product_id: this.product_id,
+      recommended: this.props.meta.recommended,
       starRating: toNearestDecimal,
       totalNumberOfReviews: totalNumberOfRatings,
       usersRecommendedPercentage: usersRecommendedPercentage,
@@ -91,7 +95,9 @@ class RatingBreakdown extends React.Component {
     if (this.state.loaded === false) {
       return <div />;
     }
+
     let filterString = '';
+
     if (this.props.filters.length > 0) {
       filterString += 'Filtering by:';
       this.props.filters.forEach((filter) => {
@@ -99,6 +105,7 @@ class RatingBreakdown extends React.Component {
         filterString += ' star reviews.';
       });
     }
+
     const { starRating, totalNumberOfReviews } = this.state;
     // Map ratings.
     const ratingBars = [];
@@ -117,7 +124,8 @@ class RatingBreakdown extends React.Component {
         />
         <div className="rr-filters-applied">{filterString}</div>
         Number of Reviews: {totalNumberOfReviews}
-        <div className="rr-review-bar-container">{ratingBars}</div>
+        <div className="rr-reviews-bar-container">{ratingBars}</div>
+        <hr className="rr-line-break" />
       </div>
     );
   }
