@@ -46,6 +46,7 @@ class QuestionsAndAnswers extends React.Component {
     this.verifyAnswerForm = this.verifyAnswerForm.bind(this);
     this.resetAnswerForm = this.resetAnswerForm.bind(this);
     this.getAnswers = this.getAnswers.bind(this);
+    this.removeAnswerPhoto = this.removeAnswerPhoto.bind(this);
   }
 
   // REQUESTS
@@ -102,9 +103,15 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
-  // removeAnswerPhoto(e) {
-
-  // }
+  removeAnswerPhoto(e, photo) {
+    const { answerModalPhotos } = this.state;
+    const newPhotoArray = answerModalPhotos;
+    newPhotoArray.splice(answerModalPhotos.indexOf(photo), 1);
+    URL.revokeObjectURL(photo);
+    this.setState({
+      answerModalPhotos: newPhotoArray,
+    });
+  }
 
   setQuestionBody(questionId, questionBody) {
     this.setState({
@@ -471,6 +478,7 @@ class QuestionsAndAnswers extends React.Component {
             addAnswerPhotos={this.addAnswerPhotos}
             verifyForm={this.verifyAnswerForm}
             resetForm={this.resetAnswerForm}
+            imageClose={this.removeAnswerPhoto}
           />
           <QuestionModal
             show={this.state.showQuestionModal}

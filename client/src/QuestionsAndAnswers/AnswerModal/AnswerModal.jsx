@@ -9,9 +9,9 @@ const AnswerModal = function ({
   onChange,
   onClick,
   verifyForm,
-  resetForm
+  resetForm,
+  imageClose,
 }) {
-
   if (!show) {
     return null;
   }
@@ -94,7 +94,7 @@ const AnswerModal = function ({
         </div>
 
 
-        <AnswerModalImages photos={state.answerModalPhotos} onChange={addAnswerPhotos} />
+        <AnswerModalImages photos={state.answerModalPhotos} onChange={addAnswerPhotos} imageClose={imageClose}/>
 
         <input type="submit" className="qa-answer-modal-griditem11" name="submitAnswerModal" />
         <input
