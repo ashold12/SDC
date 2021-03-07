@@ -3,7 +3,7 @@ import QuestionListEntry from './QuestionListEntry.jsx';
 import QuestionModal from './QuestionModal/QuestionModal.jsx'
 
 const QuestionList = function ({
- questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick, setQuestionBody
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick, setQuestionBody, getAnswers
 }) {
 
   if (numberOfQuestionsToRender === 0) {

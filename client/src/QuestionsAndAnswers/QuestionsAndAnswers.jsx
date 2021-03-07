@@ -45,13 +45,14 @@ class QuestionsAndAnswers extends React.Component {
     this.submitValidAnswerForm = this.submitValidAnswerForm.bind(this);
     this.verifyAnswerForm = this.verifyAnswerForm.bind(this);
     this.resetAnswerForm = this.resetAnswerForm.bind(this);
+    this.getAnswers = this.getAnswers.bind(this);
   }
 
   // REQUESTS
 
   submitValidForm(questionData) {
-
-    axios.post('api/qa/questions', questionData)
+    axios
+      .post('api/qa/questions', questionData)
       .then((response) => {
         console.log(JSON.stringify(response.data));
         this.props.getQuestions();
@@ -62,9 +63,26 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   submitValidAnswerForm(answerData) {
-    axios.post(`api/qu/questions/:question_id=${this.state.questionIdOfQuestionToBeAnswered}/answers`, answerData)
+    axios
+      .post(
+        `api/qa/questions/:question_id=${this.state.questionIdOfQuestionToBeAnswered}/answers`,
+        answerData,
+      )
       .then((response) => {
-        this.props.getQuestions();
+        console.log(this.props.getAnswers(this.state.questionIdOfQuestionToBeAnswered));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getAnswers() {
+    axios
+      .get(`api/qa/questions/?question_id=${this.state.questionIdOfQuestionToBeAnswered}/answers`)
+      .then((response) => {
+        this.setState({
+          answers: response.data,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -73,26 +91,26 @@ class QuestionsAndAnswers extends React.Component {
 
   // HANDLERS
 
-  //ModalImage
+  // ModalImage
 
   addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
     const photo = URL.createObjectURL(e.target.files[0]);
     photos.push(photo);
-      this.setState({
-        answerModalPhotos: photos,
-      });
+    this.setState({
+      answerModalPhotos: photos,
+    });
   }
 
   // removeAnswerPhoto(e) {
 
   // }
 
-  setQuestionBody(questionId, questionBody){
+  setQuestionBody(questionId, questionBody) {
     this.setState({
       questionToBeAnswered: questionBody,
       questionIdOfQuestionToBeAnswered: questionId,
-    })
+    });
   }
 
   resetAnswerForm() {
@@ -136,9 +154,8 @@ class QuestionsAndAnswers extends React.Component {
       this.setState({
         answerModalTextAreaValidation: true,
       });
-    };
+    }
 
-    debugger;
     const email = this.state.AnswerModalEmailInput;
 
     if (!/\S+@\S+\.\S+/.test(email)) {
@@ -150,33 +167,33 @@ class QuestionsAndAnswers extends React.Component {
       this.setState({
         answerModalEmailValidation: true,
       });
-    };
+    }
 
     if (!verified) {
       return null;
-    } else {
-      let answerDataToSend = {
-        body: this.state.AnswerModalTextAreaInput,
-        name: this.state.AnswerModalNameInput,
-        email: this.state.AnswersModalEmailInput,
-        photos: this.state.answerModalPhotos,
-      }
-
-      this.submitValidAnswerForm(answerDataToSend);
-
-      this.setState({
-        AnswerModalEmailInput: '',
-        AnswerModalNameInput: '',
-        AnswerModalTextAreaInput: '',
-        showAnswerModal: false,
-      });
     }
+    const answerDataToSend = {
+      body: this.state.AnswerModalTextAreaInput,
+      name: this.state.AnswerModalNameInput,
+      email: this.state.AnswersModalEmailInput,
+      photos: this.state.answerModalPhotos,
+    };
+
+    this.submitValidAnswerForm(answerDataToSend);
+
+    this.setState({
+      AnswerModalEmailInput: '',
+      AnswerModalNameInput: '',
+      AnswerModalTextAreaInput: '',
+      showAnswerModal: false,
+    });
   }
 
   verifyQuestionForm() {
+    const { QuestionModalTextArea, QuestionModalNameInput, QuestionModalEmailInput, selectedProductsQuestions } = this.state;
     let verified = true;
 
-    if (!this.state.QuestionModalNameInput || this.state.QuestionModalNameInput === '') {
+    if (!QuestionModalNameInput || QuestionModalNameInput === '') {
       verified = false;
       this.setState({
         questionFormNameValidation: false,
@@ -187,7 +204,7 @@ class QuestionsAndAnswers extends React.Component {
       });
     }
 
-    if (!this.state.QuestionModalTextArea || this.state.QuestionModalTextArea === '') {
+    if (!QuestionModalTextArea || QuestionModalTextArea === '') {
       verified = false;
       this.setState({
         questionFormQuestionValidation: false,
@@ -198,7 +215,7 @@ class QuestionsAndAnswers extends React.Component {
       });
     }
 
-    const email = this.state.QuestionModalEmailInput;
+    const email = QuestionModalEmailInput;
 
     if (!/\S+@\S+\.\S+/.test(email)) {
       verified = false;
@@ -216,10 +233,10 @@ class QuestionsAndAnswers extends React.Component {
     }
 
     const formDataToSend = {
-      body: this.state.QuestionModalTextArea,
-      name: this.state.QuestionModalNameInput,
-      email: this.state.QuestionModalEmailInput,
-      product_id: parseInt(this.props.selectedProductsQuestions.product_id),
+      body: QuestionModalTextArea,
+      name: QuestionModalNameInput,
+      email: QuestionModalEmailInput,
+      product_id: parseInt(selectedProductsQuestions.product_id, 10),
     };
 
     this.submitValidForm(formDataToSend);
@@ -257,8 +274,9 @@ class QuestionsAndAnswers extends React.Component {
   // QUESTION LIST HANDLERS
 
   findNumberOfQuestionsToRender() {
-    const numberOfQuestions = this.props.selectedProductsQuestions.results
-      ? this.props.selectedProductsQuestions.results.length
+    const { selectedProductsQuestions } = this.props;
+    const numberOfQuestions = selectedProductsQuestions.results
+      ? selectedProductsQuestions.results.length
       : undefined;
 
     if (numberOfQuestions === undefined) {
@@ -432,6 +450,7 @@ class QuestionsAndAnswers extends React.Component {
   componentDidMount() {
     this.findNumberOfQuestionsToRender();
     this.sortQuestions();
+    this.getAnswers();
   }
 
   render() {
