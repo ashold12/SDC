@@ -12,16 +12,16 @@ const ComponentFooter = function ({ questions, incrementQuestions, numberOfQuest
     return (
       <div>
         <div>
-          <button onClick={(e) => {onClick(e)}}>ADD A QUESTION +</button>
+          <button className="qa-componentFooter-buttons qa-componentFooter-buttons-effect" onClick={onClick}><span className="qa-componentFooter-button-spans">ADD A QUESTION +</span></button>
         </div>
       </div>
     );
   }
   return (
     <div>
-      <div>
-        <button onClick={incrementQuestions}>MORE ANSWERED QUESTIONS</button>
-        <button onClick={(e) => {onClick(e)}}>ADD A QUESTION +</button>
+      <div className="qa-componentFooter-buttons-container">
+        <button className="qa-componentFooter-buttons qa-componentFooter-buttons-effect" onClick={incrementQuestions}><span className="qa-componentFooter-button-spans">MORE ANSWERED QUESTIONS</span></button>
+        <button className="qa-componentFooter-buttons qa-componentFooter-buttons-effect" onClick={onClick}><span className="qa-componentFooter-button-spans">ADD A QUESTION +</span></button>
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ class App extends React.Component {
 
   getQuestions() {
     axios
-      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
+      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}&count=30`)
       .then((questions) => {
         this.setState({
           questions: questions.data,
@@ -69,6 +69,7 @@ class App extends React.Component {
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
             selectedProductsQuestions={this.state.questions}
+            getQuestions={this.getQuestions}
           />
         )}
         <RatingsReviews productData={selectedProduct} />
