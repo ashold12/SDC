@@ -4,16 +4,14 @@
 
 
 
-.rpo-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 250px));
-  gap: 3%;
-}
-
-
 /***** CARD ELEMENT DESIGNS BEGIN*****/
+.rpo-main-container {
+  // justify-self: center;
+}
 .rpo-image-div {
   height: 200px;
+  // border-top-right-radius: 10px;
+  // border-top-left-radius: 10px;
 }
 
 .rpo-product-image {
@@ -21,6 +19,8 @@
   height: 100%;
   object-fit: cover;
   box-sizing: border-box;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 .rpo-product-rating {
@@ -30,15 +30,26 @@
   align-items: center;
   background: #eeeeee;
   border-bottom: 2px solid #cccccc;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .rpo-card {
-  width: 250px;
+  width: 100%;
+  min-width: 25%;
   box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
   border-radius: 10px;
-  overflow: hidden;
+  margin: 10px;
   position: relative;
   transition: 0.5s ease-out;
+}
+
+.rpo-add-outfit-card {
+  width: 250px;
+  height: 400px;
+  background: #cccccc;
+  margin: auto;
+  position: relative;
 }
 
 .rpo-card:hover {
@@ -62,8 +73,68 @@
 
 .rpo-slashed-price {
   text-decoration: line-through;
-  // color: red;
 }
 /***** CARD ELEMENT DESIGNS end*****/
 
 /****** CAROUSEL DESIGN BEGIN ******/
+.rpo-card-carousel-container {
+
+  width: 700px;
+  // overflow: auto;
+  margin: auto;
+  padding: 1rem;
+}
+
+.rpo-card-carousel-main {
+  // overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 900px;
+  /* replace with alignself or something? */
+  margin: 0rem 2rem;
+  padding: 3px;
+  scroll-behavior: smooth;
+}
+
+.rpo-carousel-card-box {
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+  overflow-x: auto;
+  padding: 50px;
+}
+
+.btn {
+  // position: absolute;
+  margin: auto;
+  box-shadow: 0 0 6.1px 0.9px grey;
+  padding: 5px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: grey;
+  text-align: center;
+  color: white;
+  border-radius: 50%;
+}
+
+.prev {
+  left: 1rem;
+}
+
+.next {
+  right: 1rem;
+}
+
+
+// .rpo-card {
+// 	padding: 5px 20px;
+// 	background: #59eb97;
+// 	text-align: center;
+// 	width: 100%;
+// 	margin-right: 10px;
+// 	border-radius: 21px;
+// }
