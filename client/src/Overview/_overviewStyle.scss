@@ -5,14 +5,73 @@
   height: 700px;
   display: grid;
 }
-.o-imageGallery {
+
+.o-imageGallery-container {
   display: grid;
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 6;
-  height: 24em;
+  height: 43em;
   width: 45em;
+}
+
+.o-imageGallery {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  height: 43.5em;
+  width: 43.5em;
+}
+
+.o-imageGallery-thumbnail {
+  position: relative;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  top: 3em;
+  left: 1em;
+  height: 5em;
+  width: 5em;
+  z-index: 2;
+}
+
+.o-right-arrow {
+  display: grid;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  top: 22em;
+  right: 3em;
+  position: relative;
+  z-index: 20;
+}
+
+.o-left-arrow {
+  display: grid;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  top: 22em;
+  right: 35em;
+  position: relative;
+  z-index: 20;
+}
+
+.o-down-arrow {
+  position: relative;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  top: 40.5em;
+  left: 1.7em;
+  height: 3em;
+  width: 3em;
+  z-index: 50;
 }
 
 .o-productInfo {
