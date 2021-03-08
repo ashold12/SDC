@@ -88,7 +88,7 @@ class App extends React.Component {
             getQuestions={this.getQuestions}
           />
         )}
-        {/* <RatingsReviews productData={selectedProduct} /> */}
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
