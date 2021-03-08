@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const { apiKey } = require('../config.js');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
@@ -34,6 +35,18 @@ app.all('/api/*', (req, res) => {
 // need to write something to send product and the styles together
 app.get('/products/:id', (req, res) => {
   res.send('this route works');
+});
+
+app.post('/images', (req, res) => {
+  //data will be an array of blobs
+
+  fs.writeFile('../public/images/', req.body, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      res.send('Your image has been saved');
+    }
+  });
 });
 
 app.listen(port, () => {

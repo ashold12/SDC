@@ -27,6 +27,46 @@
   color: rgb(91, 84, 84);
 }
 
+//Photos
+
+.qa-answers-entry-photo-container {
+  width: 40vw;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1;
+}
+
+.qa-answer-entry-photo1 {
+  grid-column-start: 1;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo2 {
+  grid-column-start: 2;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo3 {
+  grid-column-start: 3;
+  grid-column-start: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo4 {
+  grid-column-start: 4;
+  grid-column-start: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo5 {
+  grid-column-start: 5;
+  grid-column-start: 6;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
 h2 {
   font-weight: bold;
   color: rgb(91, 84, 84);
@@ -354,6 +394,8 @@ mark {
   left: 75%;
   font-size: large;
   justify-content: left;
+  padding-right: 4px;
+  padding-top: 2px;
 }
 
 .qa-question-modal-griditem12:hover {

@@ -94,8 +94,12 @@ class QuestionsAndAnswers extends React.Component {
 
   // ModalImage
 
-  addAnswerPhotos(e) {
+  addAnswerPhotos(e, name) {
     const photos = this.state.answerModalPhotos;
+    // console.log(e);
+
+    // let photo = JSON.stringify(new File ([URL.createObjectURL(e.target.files[0])], name));
+
     const photo = URL.createObjectURL(e.target.files[0]);
     photos.push(photo);
     this.setState({
@@ -178,12 +182,20 @@ class QuestionsAndAnswers extends React.Component {
     if (!verified) {
       return null;
     }
-    const answerDataToSend = {
-      body: this.state.AnswerModalTextAreaInput,
-      name: this.state.AnswerModalNameInput,
-      email: this.state.AnswerModalEmailInput,
-      photos: this.state.answerModalPhotos,
-    };
+
+    // let file = new File (this.state.answerModalPhotos[0], 'Ronin');
+    // console.log(file);
+
+    let file = new File (this.state.answerModalPhotos, 'Ronin');
+    console.log(file);
+
+const answerDataToSend = {
+  body: this.state.AnswerModalTextAreaInput,
+  name: this.state.AnswerModalNameInput,
+  email: this.state.AnswerModalEmailInput,
+  photos: this.state.answerModalPhotos,
+};
+
     this.submitValidAnswerForm(answerDataToSend);
 
     this.setState({
