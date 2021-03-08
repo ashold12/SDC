@@ -122,8 +122,8 @@ class ReviewTile extends React.Component {
   }
 
   getRecommendedHTML() {
-    if (this.props.review.recommended) {
-      return <div className="rr-recommended">✓ I recommend this product.</div>;
+    if (this.props.review.recommend) {
+      return <div className="rr-recommended ">✓ I recommend this product.</div>;
     }
   }
 
