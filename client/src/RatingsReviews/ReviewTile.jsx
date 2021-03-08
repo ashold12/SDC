@@ -12,7 +12,6 @@ import dummyReviews from './dummyReviews';
 class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
-    debugger;
     // Single test review testing block.
     //let [testReview, testReview2] = dummyReviews.results;
     // Calculate star rating.
