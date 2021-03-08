@@ -26,11 +26,18 @@ class Overview extends React.Component {
 
   componentDidMount() {
     this.getProductStyles();
+    console.log(this.props.selectedProductId)
+  }
+
+  componentDidUpdate(prevsProp) {
+    if (this.props.selectedProduct !== prevsProp.selectedProduct) {
+      this.getProductStyles();
+    }
   }
 
   // get all the styles associated with the product - get product id as props through App component
   getProductStyles() {
-    axios.get('/api/products/17072/styles').then((product) => {
+    axios.get(`/api/products/${this.props.selectedProductId}/styles`).then((product) => {
       this.setState(
         {
           selectedProductStyles: product.data.results,
@@ -38,6 +45,7 @@ class Overview extends React.Component {
         },
         () => {
           this.checkOutOfStock();
+          this.props.changeSelectedStyle(product.data.results[0])
         }
       );
     });
@@ -68,6 +76,7 @@ class Overview extends React.Component {
   selectStyleThumbnail(style) {
     this.setState({ selectedStyle: style }, () => {
       this.checkOutOfStock();
+      this.props.changeSelectedStyle(this.state.selectedStyle)
       // need to check quantity too once we change a style
     });
   }

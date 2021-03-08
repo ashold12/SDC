@@ -8,42 +8,39 @@ class ImageGallery extends React.Component {
     super(props);
 
     this.state = {
-      styleIdToStartingPoint: {},
+      startingPoint: null,
     };
 
     this.handleDownArrowClick = this.handleDownArrowClick.bind(this);
   }
 
   handleDownArrowClick(key) {
-    this.state.styleIdToStartingPoint[key]++
     this.setState({
-      styleIdToStartingPoint: this.state.styleIdToStartingPoint,
+      startingPoint: this.state.startingPoint + 1,
     });
   }
 
   render() {
     const { selectedProductStyles, selectedStyle } = this.props;
-    const { styleIdToStartingPoint } = this.state;
+    const { startingPoint } = this.state;
 
+    if (this.oldSelectedStyle !== selectedStyle) {
+      // ok to set state in here bc the conidtion will stop
+      this.setState({ startingPoint: 0 });
+    }
+    this.oldSelectedStyle = selectedStyle; // this will save it on the component itself
     let increment = 3;
     let first7Images = [];
     let showDownArrow = true;
-    let startingPoint = 0;
-    let key = undefined;
 
     if (selectedStyle) {
-      key = selectedStyle.style_id;
-      if (styleIdToStartingPoint[key] === undefined) {
-        styleIdToStartingPoint[key] = 0
-      }
-      startingPoint = styleIdToStartingPoint[key]
       first7Images = selectedStyle.photos.filter(
         (photo, index) => index >= startingPoint && index <= startingPoint + 6
       );
       if (selectedStyle.photos.length - startingPoint <= 7) {
         showDownArrow = false;
       }
-      console.log(first7Images);
+      // console.log(first7Images);
     }
 
     if (selectedStyle) {
@@ -70,7 +67,7 @@ class ImageGallery extends React.Component {
           <FaArrowCircleLeft className="o-left-arrow" />
           <FaArrowCircleRight className="o-right-arrow" />
           {showDownArrow ? (
-            <MdExpandMore className="o-down-arrow" onClick={() => {this.handleDownArrowClick(key)}} />
+            <MdExpandMore className="o-down-arrow" onClick={this.handleDownArrowClick} />
           ) : null}
         </div>
       );

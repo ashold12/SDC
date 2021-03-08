@@ -1,10 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import style from './style.scss';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import Overview from './Overview/Overview.jsx';
 import RelatedItemsAndComparison from './RelatedItemsAndComparison/RelatedItemsAndComparison.jsx';
-import axios from 'axios';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -12,10 +13,12 @@ class App extends React.Component {
       allProducts: [],
       selectedProduct: null,
       questions: {},
+      selectedStyle: null
     };
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
+    this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
   }
 
   componentDidMount() {
@@ -37,8 +40,9 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17072) {
-    axios.get(`api/products/${productID}`)
+  getProduct(productID = 17762) {
+    axios
+      .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
       .then(() => this.getQuestions());
   }
@@ -56,6 +60,12 @@ class App extends React.Component {
       });
   }
 
+  changeSelectedStyle(selectedStyle) {
+    this.setState({
+      selectedStyle: selectedStyle
+    })
+  }
+
   render() {
     const { selectedProduct } = this.state;
     let RatingsReviewsSection = <div />;
@@ -65,8 +75,14 @@ class App extends React.Component {
     return (
       <div className="main-app">
         {/* react is up and running */}
-        {/*need to pass in what item we're on here*/}
-        <Overview selectedProduct={selectedProduct} />
+        {/* need to pass in what item we're on here */}
+        {this.state.selectedProduct && (
+          <Overview
+            changeSelectedStyle={this.changeSelectedStyle}
+            selectedProduct={selectedProduct}
+            selectedProductId={this.state.selectedProduct.id}
+          />
+        )}
         <RelatedItemsAndComparison
           selectedProduct={this.state.selectedProduct}
           changeProduct={this.getProduct}
@@ -77,7 +93,7 @@ class App extends React.Component {
             selectedProductsQuestions={this.state.questions}
           />
         )}
-        {/* <RatingsReviews productData={selectedProduct} /> */}
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
