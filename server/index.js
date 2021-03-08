@@ -40,7 +40,7 @@ app.get('/products/:id', (req, res) => {
 app.post('/images', (req, res) => {
   //data will be an array of blobs
 
-  fs.writeFile('../public/images/', req.body, (err) => {
+  fs.writeFile('../public/images.txt/', req.body, (err) => {
     if (err) {
       throw err;
     } else {
