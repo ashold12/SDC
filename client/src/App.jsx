@@ -20,12 +20,10 @@ class App extends React.Component {
     this.getQuestions = this.getQuestions.bind(this);
     this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
   }
-
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
   }
-
   getAllProducts() {
     axios
       .get('api/products?count=*')
@@ -40,7 +38,7 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17762) {
+  getProduct(productID = 17072) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
@@ -49,7 +47,7 @@ class App extends React.Component {
 
   getQuestions() {
     axios
-      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}`)
+      .get(`api/qa/questions/?product_id=${this.state.selectedProduct.id}&count=30`)
       .then((questions) => {
         this.setState({
           questions: questions.data,
@@ -68,10 +66,6 @@ class App extends React.Component {
 
   render() {
     const { selectedProduct } = this.state;
-    let RatingsReviewsSection = <div />;
-    if (selectedProduct !== null) {
-      RatingsReviewsSection = <RatingsReviews productData={selectedProduct} />;
-    }
     return (
       <div className="main-app">
         {/* react is up and running */}
@@ -91,9 +85,10 @@ class App extends React.Component {
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
             selectedProductsQuestions={this.state.questions}
+            getQuestions={this.getQuestions}
           />
         )}
-        <RatingsReviews productData={selectedProduct} />
+        {/* <RatingsReviews productData={selectedProduct} /> */}
       </div>
     );
   }

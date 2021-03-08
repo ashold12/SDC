@@ -37,6 +37,7 @@ class Overview extends React.Component {
 
   // get all the styles associated with the product - get product id as props through App component
   getProductStyles() {
+    console.log(this.props.selectedProductId)
     axios.get(`/api/products/${this.props.selectedProductId}/styles`).then((product) => {
       this.setState(
         {
@@ -45,7 +46,7 @@ class Overview extends React.Component {
         },
         () => {
           this.checkOutOfStock();
-          this.props.changeSelectedStyle(product.data.results[0])
+          this.props.changeSelectedStyle(product.data.results[0]);
         }
       );
     });
