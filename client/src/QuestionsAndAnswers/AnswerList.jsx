@@ -45,10 +45,11 @@ function AnswerList({
     return <div />;
   }
 
-  if (Object.values(answers).length === 1) {
+  if (Object.values(answers).length === 1 || Object.values(answers).length === 2) {
     return (
     <div>
       <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+      {renderHelper}
     </div>
     )
   }

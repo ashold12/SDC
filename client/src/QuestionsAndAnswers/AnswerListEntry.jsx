@@ -34,7 +34,7 @@ const AnswerListEntry = function ({ answer, date }) {
               </a>
             </span>
           </div>
-          <AnswerEntryPhotos />
+          <AnswerEntryPhotos photos={answer.photos}/>
     </div>
   );
 };

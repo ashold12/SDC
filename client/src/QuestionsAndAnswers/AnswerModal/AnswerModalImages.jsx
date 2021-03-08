@@ -1,6 +1,7 @@
 import React from 'react';
 
 const AnswerModalImages = function ({ photos, onChange, imageClose }) {
+
   if (photos.length >= 5) {
     return (
       <div className="qa-answer-modal-griditem13">

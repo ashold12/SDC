@@ -36,6 +36,13 @@ app.get('/products/:id', (req, res) => {
   res.send('this route works');
 });
 
+// app.post('/images/', data, ) {
+//   //data will be an array of blobs
+
+//   let file = new File(data, answerPhotoData)
+
+// }
+
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
 });
