@@ -1,6 +1,7 @@
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons';
 import axios from 'axios';
+// import Select from 'react-select'
 
 class AddToCart extends React.Component {
   constructor(props) {

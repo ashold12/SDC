@@ -31,14 +31,17 @@ class RatingBreakdown extends React.Component {
   }
 
   getReviewBar(indexNumber, starNumber) {
-    let numberOfVotes = this.state.ratings[starNumber];
+    let numberOfVotes = this.props.meta.ratings[starNumber];
     let percentage;
-
-    if (!this.state.ratings[starNumber]) {
+    let totalReviews = 0;
+    Object.keys(this.props.meta.ratings).forEach((key) => {
+      totalReviews += parseInt(this.props.meta.ratings[key], 10);
+    });
+    if (!this.props.meta.ratings[starNumber]) {
       percentage = 0;
       numberOfVotes = 0;
     } else {
-      percentage = (this.state.ratings[starNumber] / this.state.totalNumberOfReviews) * 100;
+      percentage = (this.props.meta.ratings[starNumber] / totalReviews) * 100;
     }
     const barStyling = {
       width: `${percentage}%`,

@@ -245,6 +245,7 @@ class RatingsReviews extends React.Component {
               changeFilter={this.sortByStars}
               filters={filters}
               meta={this.state.meta}
+              updateStars={this.props.updateStars}
             />
           </div>
           {/* <div className="rr-product-breakdown-container"> */}

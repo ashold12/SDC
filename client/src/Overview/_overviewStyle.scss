@@ -61,6 +61,19 @@
   z-index: 20;
 }
 
+.o-up-arrow {
+  position: relative;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  top: 0.5em;
+  left: 1.7em;
+  height: 3em;
+  width: 3em;
+  z-index: 50;
+}
+
 .o-down-arrow {
   position: relative;
   grid-column-start: 1;
@@ -71,6 +84,19 @@
   left: 1.7em;
   height: 3em;
   width: 3em;
+  z-index: 50;
+}
+
+.o-imageGallery-expand {
+  position: relative;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  top: 1.5em;
+  left: 40.5em;
+  height: 1.5em;
+  width: 1.5em;
   z-index: 50;
 }
 
