@@ -7,7 +7,7 @@ function AddOutfitCard({ addCurrentProductToOutfit }) {
 
   return (
     <div
-      className="rpo-addOutfit-card"
+      className="rpo-add-outfit-card"
       onClick={handleClick}
       role="button"
       tabIndex={0}
