@@ -61,10 +61,12 @@ class App extends React.Component {
         {/* react is up and running */}
         {/*need to pass in what item we're on here*/}
         <Overview selectedProduct={selectedProduct} />
-        <RelatedItemsAndComparison
-          selectedProduct={this.state.selectedProduct}
-          changeProduct={this.getProduct}
-        />
+        {this.state.selectedProduct && (
+          <RelatedItemsAndComparison
+            selectedProduct={this.state.selectedProduct}
+            changeProduct={this.getProduct}
+          />
+        )}
         {this.state.questions.results && (
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}

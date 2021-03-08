@@ -1,10 +1,10 @@
 import React from 'react';
+import CardCarousel from './CardCarousel.jsx';
 
 function YourOutfit({ cards }) {
   return (
-    <div>
-      <div className="rpo-title-div">Related Products</div>
-      <div className="rpo-card-container">{cards}</div>
+    <div className="rpo-card-carousel-container">
+      <CardCarousel cards={cards} />
     </div>
   );
 }
