@@ -9,9 +9,12 @@ class ImageGallery extends React.Component {
 
     this.state = {
       startingPoint: null,
+      selectedThumbnail: null
     };
 
     this.handleDownArrowClick = this.handleDownArrowClick.bind(this);
+    this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
+    this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
   }
 
   handleDownArrowClick(key) {
@@ -20,9 +23,23 @@ class ImageGallery extends React.Component {
     });
   }
 
+  handleThumbnailClick(thumbnailUrl) {
+    console.log(thumbnailUrl)
+    this.setState({selectedThumbnail: thumbnailUrl})
+
+  }
+
+  handleRightArrowClick() {
+
+  }
+
   render() {
     const { selectedProductStyles, selectedStyle } = this.props;
-    const { startingPoint } = this.state;
+    const { startingPoint, selectedThumbnail } = this.state;
+
+    if (selectedStyle) {
+
+    }
 
     if (this.oldSelectedStyle !== selectedStyle) {
       // ok to set state in here bc the conidtion will stop
@@ -40,13 +57,14 @@ class ImageGallery extends React.Component {
       if (selectedStyle.photos.length - startingPoint <= 7) {
         showDownArrow = false;
       }
+      this.state.selectedThumbnail = selectedStyle.photos[0].thumbnail_url
       // console.log(first7Images);
     }
 
     if (selectedStyle) {
       return (
         <div className="o-imageGallery-container">
-          <img className="o-imageGallery" src={`${selectedStyle.photos[0].thumbnail_url}`} />
+          <img className="o-imageGallery" src={`${selectedThumbnail}`} />
           {first7Images.map((photo) => {
             const styleCss = {
               position: 'relative',
@@ -62,7 +80,7 @@ class ImageGallery extends React.Component {
             };
             increment += 5.5;
             // debugger
-            return <img style={styleCss} src={photo.thumbnail_url} />;
+            return <img style={styleCss} src={photo.thumbnail_url} onClick={()=> {this.handleThumbnailClick(photo.thumbnail_url)}} />;
           })}
           <FaArrowCircleLeft className="o-left-arrow" />
           <FaArrowCircleRight className="o-right-arrow" />

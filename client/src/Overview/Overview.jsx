@@ -83,7 +83,7 @@ class Overview extends React.Component {
   }
 
   render() {
-    const { selectedProductStyles, selectedStyle, outOfStock, allSizes } = this.state;
+    const { selectedProductStyles, selectedStyle, outOfStock, allSizes, selectedSideThumbnail } = this.state;
     const { selectedProduct } = this.props;
     return (
       <div>
