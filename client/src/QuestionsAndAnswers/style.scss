@@ -27,6 +27,46 @@
   color: rgb(91, 84, 84);
 }
 
+//Photos
+
+.qa-answers-entry-photo-container {
+  width: 40vw;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1;
+}
+
+.qa-answer-entry-photo1 {
+  grid-column-start: 1;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo2 {
+  grid-column-start: 2;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo3 {
+  grid-column-start: 3;
+  grid-column-start: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo4 {
+  grid-column-start: 4;
+  grid-column-start: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.qa-answer-entry-photo5 {
+  grid-column-start: 5;
+  grid-column-start: 6;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
 h2 {
   font-weight: bold;
   color: rgb(91, 84, 84);
@@ -328,6 +368,8 @@ mark {
   grid-column-end: 10;
   grid-row-start: 9;
   grid-row-end: 10;
+
+  padding-left: 3px;
 }
 
 .qa-question-modal-griditem12 {
@@ -352,6 +394,8 @@ mark {
   left: 75%;
   font-size: large;
   justify-content: left;
+  padding-right: 4px;
+  padding-top: 2px;
 }
 
 .qa-question-modal-griditem12:hover {
@@ -524,6 +568,8 @@ mark {
 
   position: relative;
   left: 75%;
+
+  padding-left: 3px;
 }
 
 .qa-answer-modal-griditem12:hover {
@@ -536,9 +582,9 @@ mark {
 
 .qa-answer-modal-griditem13 {
   grid-column-start: 1;
-  grid-column-end: 7;
-  grid-row-start: 10;
-  grid-row-end: 14;
+  grid-column-end: 3;
+  grid-row-start: 11;
+  grid-row-end: 15;
 
   //display
   display: flex;
@@ -553,6 +599,24 @@ mark {
 .qa-answer-thumbnails {
   width: 100px;
   height: 100px;
+}
+
+.qa-answer-modal-remove-photo {
+  width: 90px;
+  background-color: rgb(239, 244, 239);
+  color: rgb(91, 84, 84);
+}
+.qa-answer-modal-remove-photo:hover {
+  width: 90px;
+  color: rgb(239, 244, 239);
+  background-color: rgb(91, 84, 84);
+}
+
+.qa-answer-imageUploadButton {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 14;
+  grid-row-end: 15;
 }
 
 //Component Footer

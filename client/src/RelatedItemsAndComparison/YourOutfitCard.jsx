@@ -3,9 +3,9 @@
 import React from 'react';
 
 /* pass in a check to see if its a star or not, then apply either a star or an x */
-function ItemCard({ productInfo, changeProduct }) {
-  const sale_price = productInfo.styles[1].sale_price;
-  const original_price = productInfo.styles[1].original_price
+function YourOutfitCard({ selectedProduct, selectedStyle }) {
+  const sale_price = selectedStyle.sale_price;
+  const original_price = selectedStyle.original_price;
 
   const price = sale_price ? (
     <p>
@@ -24,29 +24,24 @@ function ItemCard({ productInfo, changeProduct }) {
       </p>
     );
 
-  const handleClick = () => {
-    changeProduct(productInfo.id);
-  };
-
+  // const handleClick = () => {
+  //   changeProduct(productInfo.id);
+  // };
   return (
 
     <div
       className="rpo-card"
-      role="button"
-      tabIndex={0}
-      // onKeyPress={console.log('pressed')}
-      onClick={handleClick}
     >
       <div className="rpo-image-div">
         <img
           className="rpo-product-image"
-          src={productInfo.styles[0].photos[0].url}
-          alt={productInfo.name}
+          src={selectedStyle.photos[0].url}
+          alt={selectedProduct.name}
         />
       </div>
       <div className="rpo-product-info-div">
-        <p className="rpo-product-category">{productInfo.category}</p>
-        <p className="rpo-product-info">{productInfo.name}</p>
+        <p className="rpo-product-category">{selectedProduct.category}</p>
+        <p className="rpo-product-info">{selectedProduct.name}</p>
         {price}
         <div className="rpo-product-rating">
           Stars
@@ -57,4 +52,4 @@ function ItemCard({ productInfo, changeProduct }) {
   );
 }
 
-export default ItemCard;
+export default YourOutfitCard;

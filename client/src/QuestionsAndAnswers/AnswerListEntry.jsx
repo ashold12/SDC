@@ -1,4 +1,5 @@
 import React from 'react';
+import AnswerEntryPhotos from './AnswerEntryPhotos.jsx';
 
 const AnswerListEntry = function ({ answer, date }) {
   return (
@@ -33,6 +34,7 @@ const AnswerListEntry = function ({ answer, date }) {
               </a>
             </span>
           </div>
+          <AnswerEntryPhotos photos={answer.photos}/>
     </div>
   );
 };

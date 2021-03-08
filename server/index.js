@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const { apiKey } = require('../config.js');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
@@ -31,6 +32,18 @@ app.all('/api/*', (req, res) => {
     });
 });
 
+
+app.post('/images', (req, res) => {
+  //data will be an array of blobs
+
+  fs.writeFile('../public/images/', req.body, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      res.send('Your image has been saved');
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);

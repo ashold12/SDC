@@ -13,7 +13,7 @@ class App extends React.Component {
       allProducts: [],
       selectedProduct: null,
       questions: {},
-      selectedStyle: null
+      selectedStyle: null,
     };
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
@@ -60,8 +60,8 @@ class App extends React.Component {
 
   changeSelectedStyle(selectedStyle) {
     this.setState({
-      selectedStyle: selectedStyle
-    })
+      selectedStyle: selectedStyle,
+    });
   }
 
   render() {
@@ -77,10 +77,13 @@ class App extends React.Component {
             selectedProductId={this.state.selectedProduct.id}
           />
         )}
-        <RelatedItemsAndComparison
-          selectedProduct={this.state.selectedProduct}
-          changeProduct={this.getProduct}
-        />
+        {this.state.selectedProduct && (
+          <RelatedItemsAndComparison
+            selectedProduct={this.state.selectedProduct}
+            changeProduct={this.getProduct}
+            selectedStyle={this.state.selectedStyle}
+          />
+        )}
         {this.state.questions.results && (
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
