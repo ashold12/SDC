@@ -14,11 +14,14 @@ class App extends React.Component {
       selectedProduct: null,
       questions: {},
       selectedStyle: null,
+      starRatingLoaded: false,
+      starRating: null,
     };
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
+    this.updateProductStarRating = this.updateProductStarRating.bind(this);
   }
   componentDidMount() {
     this.getAllProducts();
@@ -64,6 +67,10 @@ class App extends React.Component {
     });
   }
 
+  updateProductStarRating(starRating) {
+    this.setState({ starRating, starRatingLoaded: true });
+  }
+
   render() {
     const { selectedProduct } = this.state;
     return (
@@ -88,7 +95,7 @@ class App extends React.Component {
             getQuestions={this.getQuestions}
           />
         )}
-        <RatingsReviews productData={selectedProduct} />
+        <RatingsReviews updateStars={this.updateProductStarRating} productData={selectedProduct} />
       </div>
     );
   }
