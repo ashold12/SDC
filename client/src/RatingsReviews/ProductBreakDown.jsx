@@ -26,15 +26,23 @@ class ProductBreakDown extends React.Component {
     const names = Object.keys(characteristics);
     for (let i = 0; i < names.length; i += 1) {
       const key = characteristics[names[i]].id;
-      const percentage = parseInt(characteristics[names[i]].value, 10).toFixed(0) * 20;
+
+      // Error checking for null
+      let percentage = 0;
+      let numberOfStars = 0;
+
+      if (characteristics[names[i]].value !== null) {
+        percentage = parseInt(characteristics[names[i]].value, 10).toFixed(0) * 20;
+        numberOfStars = parseInt(characteristics[names[i]].value, 10).toFixed(0);
+      }
 
       const inlineStyle = {
         width: `${percentage}%`,
-        // backgroundColor: '#2196F3',
       };
+
       bar.push(
         <div className="rr-product-overview-surroundtext">
-          {`${names[i]}: ${parseInt(characteristics[names[i]].value, 10).toFixed(0)} stars.`}
+          {`${names[i]}: ${numberOfStars} stars.`}
           <div key={key} className="rr-product-overview-bar-container">
             <div style={inlineStyle} className="rr-product-overview-review-bar">
               <b>{'⇓'}</b>

@@ -16,7 +16,9 @@ class ReviewTile extends React.Component {
     //let [testReview, testReview2] = dummyReviews.results;
     // Calculate star rating.
     let starRating = 0;
-    if (props.review && props.review.rating > 0) {
+    if (!props.review) {
+      starRating = 0;
+    } else if (props.review.rating > 0) {
       starRating = parseFloat((Math.round(props.review.rating * 4) / 4).toFixed(2));
     }
 
