@@ -163,7 +163,7 @@ class ImageGallery extends React.Component {
           {expandedGallery ? (
             <img style={expandedImageStyle} src={`${selectedThumbnail}`} />
           ) : (
-            <img className="o-imageGallery" src={`${selectedStyle.photos[startingIndex].url}`} />
+            <img className="o-imageGallery" src={`${selectedThumbnail}`} />
           )}
 
           {first7Images.map((photo) => {
