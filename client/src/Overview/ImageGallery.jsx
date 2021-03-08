@@ -9,7 +9,7 @@ class ImageGallery extends React.Component {
 
     this.state = {
       startingPoint: null,
-      selectedThumbnail: null
+      selectedThumbnail: null,
     };
 
     this.handleDownArrowClick = this.handleDownArrowClick.bind(this);
@@ -17,34 +17,38 @@ class ImageGallery extends React.Component {
     this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
   }
 
-  handleDownArrowClick(key) {
+  componentDidUpdate(prevsProp) {
+    const { selectedStyle } = this.props;
+
+    if (selectedStyle !== prevsProp.selectedStyle) {
+      this.setState({ selectedThumbnail: selectedStyle.photos[0].thumbnail_url });
+    }
+  }
+
+  handleDownArrowClick() {
     this.setState({
       startingPoint: this.state.startingPoint + 1,
     });
   }
 
   handleThumbnailClick(thumbnailUrl) {
-    console.log(thumbnailUrl)
-    this.setState({selectedThumbnail: thumbnailUrl})
-
+    this.setState({ selectedThumbnail: thumbnailUrl });
   }
 
-  handleRightArrowClick() {
-
-  }
+  handleRightArrowClick() {}
 
   render() {
     const { selectedProductStyles, selectedStyle } = this.props;
     const { startingPoint, selectedThumbnail } = this.state;
 
     if (selectedStyle) {
-
     }
 
     if (this.oldSelectedStyle !== selectedStyle) {
       // ok to set state in here bc the conidtion will stop
       this.setState({ startingPoint: 0 });
     }
+
     this.oldSelectedStyle = selectedStyle; // this will save it on the component itself
     let increment = 3;
     let first7Images = [];
@@ -57,7 +61,10 @@ class ImageGallery extends React.Component {
       if (selectedStyle.photos.length - startingPoint <= 7) {
         showDownArrow = false;
       }
-      this.state.selectedThumbnail = selectedStyle.photos[0].thumbnail_url
+      if (!this.state.selectedThumbnail) {
+        this.state.selectedThumbnail = selectedStyle.photos[0].thumbnail_url;
+      }
+
       // console.log(first7Images);
     }
 
@@ -80,7 +87,15 @@ class ImageGallery extends React.Component {
             };
             increment += 5.5;
             // debugger
-            return <img style={styleCss} src={photo.thumbnail_url} onClick={()=> {this.handleThumbnailClick(photo.thumbnail_url)}} />;
+            return (
+              <img
+                style={styleCss}
+                src={photo.thumbnail_url}
+                onClick={() => {
+                  this.handleThumbnailClick(photo.thumbnail_url);
+                }}
+              />
+            );
           })}
           <FaArrowCircleLeft className="o-left-arrow" />
           <FaArrowCircleRight className="o-right-arrow" />
