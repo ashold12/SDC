@@ -1,23 +1,37 @@
+/* eslint-disable camelcase */
 
 import React from 'react';
 
 /* pass in a check to see if its a star or not, then apply either a star or an x */
 function ItemCard({ productInfo, changeProduct, getRelated }) {
-  const price = productInfo.styles[0].sale_price
-    ? (
+  const sale_price = productInfo.styles[1].sale_price;
+  const original_price = productInfo.styles[1].original_price
+
+  const price = sale_price ? (
+    <p>
+      <span className="rpo-sale-price">
+        {sale_price}
+        {' '}
+      </span>
+      <span className="rpo-slashed-price">
+        {original_price}
+      </span>
+    </p>
+  )
+    : (
       <p>
-        {productInfo.styles[1].sale_price}
-        {productInfo.styles[1].original_price}
+        {original_price}
       </p>
-    )
-    : <p>{productInfo.styles[0].original_price}</p>;
+    );
 
   const handleClick = () => {
     console.log('we got here');
     changeProduct(productInfo.id);
     getRelated(productInfo.id);
   };
+      console.log(productInfo.styles[1].sale_price)
   return (
+
     <div
       className="rpo-card"
       role="button"
@@ -32,9 +46,9 @@ function ItemCard({ productInfo, changeProduct, getRelated }) {
         />
       </div>
       <div className="rpo-product-info-div">
-        <p className="rpo-product-info">{productInfo.category}</p>
+        <p className="rpo-product-category">{productInfo.category}</p>
         <p className="rpo-product-info">{productInfo.name}</p>
-        {price}
+          {price}
         <div className="rpo-product-rating">
           Stars
         </div>

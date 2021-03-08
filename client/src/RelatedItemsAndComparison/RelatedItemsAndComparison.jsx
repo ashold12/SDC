@@ -76,9 +76,7 @@ class RelatedItemsAndComparison extends Component {
   render() {
     return (
       <div className="rpo-main-container">
-        <div className="rpo-title-div">Related Products</div>
         <RelatedProducts cards={this.state.relatedProductCards} />
-        <div className="rpo-title-div">Your Outfit</div>
         <YourOutfit cards={this.state.relatedProductCards} />
       </div>
     );

@@ -1,55 +1,26 @@
-.rpo-main-container {
-  display: grid;
-  grid-template-rows: 10px 400px 10px 400px;
-  row-gap: 10px;
-  padding: 10px;
-}
+// $gray: #cccccc;
+// $white-ish: #eeeeee;
+// $another-gray: #fafafa;
 
-// .rpo-title-div {
-//   // margin: 5px;
-// }
+
+
 .rpo-card-container {
   display: grid;
-  margin: 0 auto; //centers card container on webpage
-  // max-height: 100%;
-  // max-width: 100%;
-
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px; //grid gap??
-  font-family: sans-serif;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 250px));
+  gap: 3%;
 }
 
+
+/***** CARD ELEMENT DESIGNS BEGIN*****/
 .rpo-image-div {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.rpo-card {
-  // display: grid;
-  // grid-template-rows:  70% 25%;
-  padding: 2px;
-  // max-width: 100%;
-  // max-height: 70%;
-  // min-width: 100%;
-  // min-height: 100%;
-  border: burlywood;
-  border-radius: 3px;
-  border-color: burlywood;
+  height: 200px;
 }
 
 .rpo-product-image {
   width: 100%;
-  max-height: 100%;
-  display: block;
-  margin: auto;
-  padding: 1px;
-}
-
-.rpo-product-info-div {
-  line-height: 1.5;
-  font-size: 0.9em;
-  padding: 5px;
-  background: #fafafa;
+  height: 100%;
+  object-fit: cover;
+  box-sizing: border-box;
 }
 
 .rpo-product-rating {
@@ -61,5 +32,38 @@
   border-bottom: 2px solid #cccccc;
 }
 
-.rpo-product-info {}
+.rpo-card {
+  width: 250px;
+  box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: 0.5s ease-out;
+}
 
+.rpo-card:hover {
+  transform: translateY(-20px);
+  transition: 0.5s ease-out;
+}
+
+.rpo-card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.5s ease-out;
+}
+//stack cards ontop of each other
+// .card:not(:first-child) {
+//   margin-left: -50px;
+// }
+
+.rpo-sale-price {
+  color:red;
+}
+
+.rpo-slashed-price {
+  text-decoration: line-through;
+  // color: red;
+}
+/***** CARD ELEMENT DESIGNS end*****/
+
+/****** CAROUSEL DESIGN BEGIN ******/
