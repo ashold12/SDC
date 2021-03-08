@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/Fa';
+import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 
-import { MdExpandMore } from 'react-icons/Md';
+import { MdExpandMore } from 'react-icons/md';
 
 class ImageGallery extends React.Component {
   constructor(props) {

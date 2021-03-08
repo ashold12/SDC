@@ -13,7 +13,7 @@ class App extends React.Component {
       allProducts: [],
       selectedProduct: null,
       questions: {},
-      selectedStyle: null
+      selectedStyle: null,
     };
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
@@ -38,7 +38,7 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17762) {
+  getProduct(productID = 17072) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
@@ -60,8 +60,8 @@ class App extends React.Component {
 
   changeSelectedStyle(selectedStyle) {
     this.setState({
-      selectedStyle: selectedStyle
-    })
+      selectedStyle: selectedStyle,
+    });
   }
 
   render() {
