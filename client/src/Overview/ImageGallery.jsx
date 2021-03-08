@@ -10,18 +10,26 @@ class ImageGallery extends React.Component {
     this.state = {
       startingPoint: null,
       selectedThumbnail: null,
+      onLastPhoto: false,
+      onFirstPhoto: true
     };
 
     this.handleDownArrowClick = this.handleDownArrowClick.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
+    this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
   }
 
   componentDidUpdate(prevsProp) {
     const { selectedStyle } = this.props;
 
     if (selectedStyle !== prevsProp.selectedStyle) {
-      this.setState({ selectedThumbnail: selectedStyle.photos[0].thumbnail_url });
+      this.setState({ selectedThumbnail: selectedStyle.photos[0].thumbnail_url, startingPoint: 0 }, () => {
+        this.handleRightArrowClick();
+        this.handleLeftArrowClick();
+
+      });
+
     }
   }
 
@@ -32,24 +40,48 @@ class ImageGallery extends React.Component {
   }
 
   handleThumbnailClick(thumbnailUrl) {
-    this.setState({ selectedThumbnail: thumbnailUrl });
+    this.setState({ selectedThumbnail: thumbnailUrl }, () => {
+      this.handleRightArrowClick();
+      this.handleLeftArrowClick();
+    });
   }
 
-  handleRightArrowClick() {}
+  handleRightArrowClick() {
+    const { selectedStyle } = this.props
+    const selectedStylePhotos = selectedStyle.photos
+    const selectedStyleLength = selectedStylePhotos.length;
+    const lastThumbnailUrl = selectedStylePhotos[selectedStyleLength - 1].thumbnail_url;
+
+    if (lastThumbnailUrl === this.state.selectedThumbnail) {
+      this.setState({onLastPhoto: true})
+    } else {
+      this.setState({onLastPhoto: false})
+    }
+  }
+
+  handleLeftArrowClick() {
+    const { selectedStyle } = this.props
+    const selectedStylePhotos = selectedStyle.photos
+    const firstThumbnailUrl = selectedStylePhotos[0].thumbnail_url;
+
+    if (firstThumbnailUrl === this.state.selectedThumbnail) {
+      this.setState({onFirstPhoto: true})
+    } else {
+      this.setState({onFirstPhoto: false})
+    }
+
+  }
 
   render() {
     const { selectedProductStyles, selectedStyle } = this.props;
-    const { startingPoint, selectedThumbnail } = this.state;
+    const { startingPoint, selectedThumbnail, onLastPhoto, onFirstPhoto } = this.state;
 
-    if (selectedStyle) {
-    }
+    // if (this.oldSelectedStyle !== selectedStyle) {
+    //   // ok to set state in here bc the conidtion will stop
+    //   this.setState({ startingPoint: 0 });
+    // }
 
-    if (this.oldSelectedStyle !== selectedStyle) {
-      // ok to set state in here bc the conidtion will stop
-      this.setState({ startingPoint: 0 });
-    }
-
-    this.oldSelectedStyle = selectedStyle; // this will save it on the component itself
+    // this.oldSelectedStyle = selectedStyle; // this will save it on the component itself
     let increment = 3;
     let first7Images = [];
     let showDownArrow = true;
@@ -97,8 +129,9 @@ class ImageGallery extends React.Component {
               />
             );
           })}
-          <FaArrowCircleLeft className="o-left-arrow" />
-          <FaArrowCircleRight className="o-right-arrow" />
+
+          {!onFirstPhoto && <FaArrowCircleLeft className="o-left-arrow" />}
+          {!onLastPhoto && <FaArrowCircleRight className="o-right-arrow" />}
           {showDownArrow ? (
             <MdExpandMore className="o-down-arrow" onClick={this.handleDownArrowClick} />
           ) : null}
