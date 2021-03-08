@@ -77,10 +77,13 @@ class App extends React.Component {
             selectedProductId={this.state.selectedProduct.id}
           />
         )}
-        <RelatedItemsAndComparison
-          selectedProduct={this.state.selectedProduct}
-          changeProduct={this.getProduct}
-        />
+        {this.state.selectedProduct && (
+          <RelatedItemsAndComparison
+            selectedProduct={this.state.selectedProduct}
+            changeProduct={this.getProduct}
+            selectedStyle={this.state.selectedStyle}
+          />
+        )}
         {this.state.questions.results && (
           <QuestionsAndAnswers
             selectedProduct={this.state.selectedProduct}
