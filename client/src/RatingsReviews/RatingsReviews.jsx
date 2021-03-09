@@ -23,6 +23,7 @@ class RatingsReviews extends React.Component {
     this.sortReviewsBy = this.sortReviewsBy.bind(this);
     this.sortByStars = this.sortByStars.bind(this);
     this.showMoreReviews = this.showMoreReviews.bind(this);
+    this.removeFilters = this.removeFilters.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +60,9 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidUpdate() {
+    if (!this.props.productData) {
+      return;
+    }
     if (this.props.productData.id !== this.state.product_id) {
       // get the meta data first, then get the reivew data based on review count.
       axios
@@ -139,6 +143,11 @@ class RatingsReviews extends React.Component {
       }
     }
     return reviews;
+  }
+
+  removeFilters() {
+    let reviews = this.generateReviewsArray(this.state.reviews);
+    this.setState({ filters: [], currentShownReviews: reviews });
   }
 
   sortByStars(filter) {
@@ -238,6 +247,7 @@ class RatingsReviews extends React.Component {
         </button>
       );
     }
+
     const { product_id, filters, meta } = this.state;
     return (
       <div className="rr-start-div">
@@ -254,6 +264,7 @@ class RatingsReviews extends React.Component {
             <RatingBreakdown
               productId={product_id}
               changeFilter={this.sortByStars}
+              removeFilters={this.removeFilters}
               filters={filters}
               meta={this.state.meta}
               updateStars={this.props.updateStars}
