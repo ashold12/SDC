@@ -14,7 +14,7 @@ const ReportedAnswerButton = function ({ answer, reportAnswer, state }) {
       </a>
     );
   }
-  return <span>Reported</span>;
+  return <span className="qa-reported-answer-button">Reported</span>;
 };
 
 export default ReportedAnswerButton;
