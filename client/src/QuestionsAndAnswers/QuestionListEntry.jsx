@@ -9,6 +9,8 @@ const QuestionListEntry = function ({
   date,
   onClick,
   setQuestionBody,
+  reportAnswer,
+  state
 }) {
 
   return (
@@ -51,6 +53,8 @@ const QuestionListEntry = function ({
           collapseAnswers={collapseAnswers}
           moreAnswersClicked={moreAnswersClicked}
           userWantsMoreAnswers={userWantsMoreAnswers}
+          reportAnswer={reportAnswer}
+          state={state}
         />
       </div>
     </div>

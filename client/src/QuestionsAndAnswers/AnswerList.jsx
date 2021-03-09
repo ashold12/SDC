@@ -11,6 +11,8 @@ function AnswerList({
   collapseAnswers,
   moreAnswersClicked,
   userWantsMoreAnswers,
+  reportAnswer,
+  state,
 }) {
 
 
@@ -35,7 +37,7 @@ function AnswerList({
       i--;
       return (
         <div className="qa-answer-entry">
-          <AnswerListEntry showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date}/>
+          <AnswerListEntry showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date} reportAnswer={reportAnswer} state={state}/>
         </div>
       );
     }
@@ -48,7 +50,7 @@ function AnswerList({
   if (Object.values(answers).length === 1 || Object.values(answers).length === 2) {
     return (
     <div>
-      <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+      <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date} reportAnswer={reportAnswer} state={state}/>
       {renderHelper}
     </div>
     )
@@ -60,7 +62,7 @@ function AnswerList({
   ) {
     return (
       <div className="qa-answer-entry">
-        <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+        <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date} reportAnswer={reportAnswer} state={state}/>
         {renderHelper}
         <a className="qa-al-load-more-button"
           href="#"

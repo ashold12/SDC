@@ -1,7 +1,8 @@
 import React from 'react';
 import AnswerEntryPhotos from './AnswerEntryPhotos.jsx';
+import ReportedAnswerButton from './ReportedAnswerButton.jsx';
 
-const AnswerListEntry = function ({ answer, date }) {
+const AnswerListEntry = function ({ answer, date, reportAnswer, state }) {
   return (
     <div>
       <span className="qa-answer-body"> {answer.body}</span>
@@ -24,14 +25,7 @@ const AnswerListEntry = function ({ answer, date }) {
               {' '}
               ({answer.helpfulness ? answer.helpfulness : 0})
               {' | '}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Report
-              </a>
+              <ReportedAnswerButton answer={answer} reportAnswer={reportAnswer} state={state}/>
             </span>
           </div>
           <AnswerEntryPhotos photos={answer.photos}/>

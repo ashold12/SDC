@@ -47,6 +47,7 @@ class QuestionsAndAnswers extends React.Component {
     this.resetAnswerForm = this.resetAnswerForm.bind(this);
     this.getAnswers = this.getAnswers.bind(this);
     this.removeAnswerPhoto = this.removeAnswerPhoto.bind(this);
+    this.reportAnswer = this.reportAnswer.bind(this);
   }
 
   // REQUESTS
@@ -76,6 +77,19 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
+  reportAnswer(answerId) {
+    axios.put(`api/qa/answers/${answerId}/report`)
+    .then((response) => {
+      console.log('this fired', JSON.stringify(response.data));
+      this.setState({
+        [`reportedAnswer${answerId}`]: true
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   getAnswers() {
     const { questionIdOfQuestionToBeAnswered } = this.state;
     axios
@@ -94,13 +108,9 @@ class QuestionsAndAnswers extends React.Component {
 
   // ModalImage
 
-  addAnswerPhotos(e, name) {
+  addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
-    // console.log(e);
-
-    // let photo = JSON.stringify(new File ([URL.createObjectURL(e.target.files[0])], name));
-
-    const photo = URL.createObjectURL(e.target.files[0]);
+    const photo = URL.createObjectURL(e.target);
     photos.push(photo);
     this.setState({
       answerModalPhotos: photos,
@@ -182,12 +192,6 @@ class QuestionsAndAnswers extends React.Component {
     if (!verified) {
       return null;
     }
-
-    // let file = new File (this.state.answerModalPhotos[0], 'Ronin');
-    // console.log(file);
-
-    let file = new File (this.state.answerModalPhotos, 'Ronin');
-    console.log(file);
 
 const answerDataToSend = {
   body: this.state.AnswerModalTextAreaInput,
@@ -476,7 +480,6 @@ const answerDataToSend = {
 
   render() {
     return (
-      <div className="qa-modal-main-container">
         <div className="qa-main-container">
           <h2 className="qa-qna-title">QUESTIONS & ANSWERS</h2>
           <SearchQuestions onChange={this.onChangeSearchHandler} />
@@ -515,6 +518,8 @@ const answerDataToSend = {
             date={this.getFormattedDate}
             onClick={this.answerModalClickHandler}
             setQuestionBody={this.setQuestionBody}
+            reportAnswer={this.reportAnswer}
+            state={this.state}
           />
           <ComponentFooter
             questions={
@@ -526,7 +531,6 @@ const answerDataToSend = {
             incrementQuestions={this.increaseNumberOfQuestionsToRender}
             onClick={this.questionModalClickHandler}
           />
-        </div>
       </div>
     );
   }

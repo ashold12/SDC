@@ -1,6 +1,7 @@
 import React from 'react';
+import ReportedAnswerButton from './ReportedAnswerButton.jsx';
 
-const MostHelpfulAnswer = function ({ answer, date }) {
+const MostHelpfulAnswer = function ({ answer, date, reportAnswer, state }) {
   return (
     <div>
       <span  className="qa-helpful-body"> <span id="qa-answerlist-title">A:</span> {' ' + answer.body}</span>
@@ -21,14 +22,7 @@ const MostHelpfulAnswer = function ({ answer, date }) {
               </a>{' '}
               ({answer.helpfulness ? answer.helpfulness : 0})
               {' | '}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Report
-              </a>
+              <ReportedAnswerButton answer={answer} reportAnswer={reportAnswer} state={state}/>
             </span>
           </div>
       </div>

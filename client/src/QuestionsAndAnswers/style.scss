@@ -5,8 +5,8 @@
 //Main
 
 .qa-main-container {
-  padding-left: 5px;
-  padding-right: 5px;
+  height: 70vh;
+  width: 70vw;
 }
 
 //Answer List Entry
@@ -233,19 +233,6 @@ mark {
 }
 
 //Modals
-
-// .qa-modal-main-container {
-//   top: 50%;
-//   left: 50%;
-//   height: 70vh;
-//   width: 70vw;
-//   margin-top: -35vh;
-//   margin-left: -35vw;
-
-//   visibility: visible;
-//   overflow: hidden;
-//   z-index: -1;
-// }
 
 .qa-modal-alert-text {
   color: red;
