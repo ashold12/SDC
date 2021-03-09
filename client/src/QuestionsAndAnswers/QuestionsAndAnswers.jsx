@@ -121,12 +121,15 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   updateAnswerHelpfulness(answerId) {
+    const { getQuestions } = this.props;
     axios
       .put(`api/qa/answers/${answerId}/helpful`)
       .then(
         this.setState({
           [`answer${answerId}Helpful`]: true,
-        }, this.props.getQuestions())
+        },
+        getQuestions()
+        )
       )
       .catch((error) => {
         console.log(error);
@@ -135,7 +138,7 @@ class QuestionsAndAnswers extends React.Component {
 
   // HANDLERS
 
-  // ModalImage
+  // ModalImages
 
   addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
@@ -163,6 +166,7 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
+//Forms
   resetAnswerForm() {
     this.setState({
       answerFormNameValidation: true,
@@ -179,12 +183,16 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
-  // tech debt code sniff
-
   verifyAnswerForm() {
+    const {
+      AnswerModalNameInput,
+      AnswerModalTextAreaInput,
+      AnswerModalEmailInput,
+      answerModalPhotos,
+    } = this.state;
     let verified = true;
 
-    if (!this.state.AnswerModalNameInput || this.state.AnswerModalNameInput === '') {
+    if (!AnswerModalNameInput || AnswerModalNameInput === '') {
       verified = false;
       this.setState({
         answerModalNameValidation: false,
@@ -195,7 +203,7 @@ class QuestionsAndAnswers extends React.Component {
       });
     }
 
-    if (!this.state.AnswerModalTextAreaInput || this.state.AnswerModalTextAreaInput === '') {
+    if (!AnswerModalTextAreaInput || AnswerModalTextAreaInput === '') {
       verified = false;
       this.setState({
         answerModalTextAreaValidation: false,
@@ -206,7 +214,7 @@ class QuestionsAndAnswers extends React.Component {
       });
     }
 
-    const email = this.state.AnswerModalEmailInput;
+    const email = AnswerModalEmailInput;
 
     if (!/\S+@\S+\.\S+/.test(email)) {
       verified = false;
@@ -223,10 +231,10 @@ class QuestionsAndAnswers extends React.Component {
     }
 
 const answerDataToSend = {
-  body: this.state.AnswerModalTextAreaInput,
-  name: this.state.AnswerModalNameInput,
-  email: this.state.AnswerModalEmailInput,
-  photos: this.state.answerModalPhotos,
+  body: AnswerModalTextAreaInput,
+  name: AnswerModalNameInput,
+  email: AnswerModalEmailInput,
+  photos: answerModalPhotos,
 };
 
     this.submitValidAnswerForm(answerDataToSend);
