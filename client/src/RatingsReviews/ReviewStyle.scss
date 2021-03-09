@@ -290,10 +290,13 @@
   grid-column: span 5;
   width: 70%;
   margin: auto;
+  display: flex;
 }
 .rr-product-thumbnail {
   max-height: 100px;
   max-width: 100px;
+  padding: 3px;
+  border-radius: 10px;
 }
 .rr-tile-checkmark {
   grid-column: 4 span;
