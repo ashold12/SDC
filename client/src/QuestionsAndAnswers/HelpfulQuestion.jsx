@@ -21,12 +21,12 @@ const HelpfulQuestion = function({question, updateQuestionHelpfulness, state}) {
     );
   } else {
     return (
-       <span>  {' '}
+       <React.Fragment>  {' '}
              Helpful?{' '}
 
                 Yes!{' '}
               (
-  {question.question_helpfulness ? question.question_helpfulness : 0})</span>
+  {question.question_helpfulness ? question.question_helpfulness : 0})</React.Fragment>
 
     )
 
