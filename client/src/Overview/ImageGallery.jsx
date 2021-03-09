@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 
-import { MdExpandMore, MdExpandLess } from 'react-icons/Md';
-import { IoMdExpand } from 'react-icons/Io';
+import { MdExpandMore, MdExpandLess } from 'react-icons/md';
+import { IoMdExpand } from 'react-icons/io';
 
 class ImageGallery extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class ImageGallery extends React.Component {
       onLastPhoto: false,
       onFirstPhoto: true,
       expandedGallery: false,
-      selectedStylePhotoIndex: 0
+      selectedStylePhotoIndex: 0,
     };
 
     this.handleDownArrowClick = this.handleDownArrowClick.bind(this);
@@ -31,7 +31,11 @@ class ImageGallery extends React.Component {
 
     if (selectedStyle !== prevsProp.selectedStyle) {
       this.setState(
-        { selectedThumbnail: selectedStyle.photos[0].url, startingPoint: 0, selectedStylePhotoIndex: 0 },
+        {
+          selectedThumbnail: selectedStyle.photos[0].url,
+          startingPoint: 0,
+          selectedStylePhotoIndex: 0,
+        },
         () => {
           this.checkLastPhoto();
           this.checkFirstPhoto();
@@ -93,8 +97,7 @@ class ImageGallery extends React.Component {
   }
 
   handleExpandClick() {
-    this.setState({expandedGallery: !this.state.expandedGallery})
-
+    this.setState({ expandedGallery: !this.state.expandedGallery });
   }
 
   render() {
@@ -111,7 +114,7 @@ class ImageGallery extends React.Component {
     let increment = 3;
     let first7Images = [];
     let showDownArrow = true;
-    let startingIndex = this.state.selectedStylePhotoIndex
+    let startingIndex = this.state.selectedStylePhotoIndex;
 
     if (selectedStyle) {
       first7Images = selectedStyle.photos.filter(
@@ -153,7 +156,9 @@ class ImageGallery extends React.Component {
     if (selectedStyle) {
       return (
         <div className="o-imageGallery-container">
-          {startingPoint === 0 ? null : <MdExpandLess className="o-up-arrow" onClick={this.handleUpArrowClick} />}
+          {startingPoint === 0 ? null : (
+            <MdExpandLess className="o-up-arrow" onClick={this.handleUpArrowClick} />
+          )}
           {expandedGallery ? (
             <IoMdExpand style={expandedStyle} onClick={this.handleExpandClick} />
           ) : (
@@ -193,7 +198,9 @@ class ImageGallery extends React.Component {
           })}
 
           {!onFirstPhoto && <FaArrowCircleLeft className="o-left-arrow" />}
-          {!onLastPhoto && <FaArrowCircleRight className="o-right-arrow" onClick={this.handleRightArrowClick}/>}
+          {!onLastPhoto && (
+            <FaArrowCircleRight className="o-right-arrow" onClick={this.handleRightArrowClick} />
+          )}
           {showDownArrow ? (
             <MdExpandMore className="o-down-arrow" onClick={this.handleDownArrowClick} />
           ) : null}

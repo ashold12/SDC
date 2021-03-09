@@ -43,10 +43,15 @@ class RatingBreakdown extends React.Component {
     } else {
       percentage = (this.props.meta.ratings[starNumber] / totalReviews) * 100;
     }
-    const barStyling = {
+    let barStyling = {
       width: `${percentage}%`,
       backgroundColor: '#2be255',
     };
+
+    if (percentage === 0) {
+      barStyling.color = '#dddddd';
+    }
+
     return (
       <div key={indexNumber} className="rr-review-bar-star-count">
         # Stars {indexNumber} With {numberOfVotes} votes.
@@ -83,13 +88,9 @@ class RatingBreakdown extends React.Component {
       100
     ).toFixed(0);
     this.setState({
-      characteristics: this.props.meta.characteristics,
-      ratings: this.props.meta.ratings,
-      product_id: this.product_id,
-      recommended: this.props.meta.recommended,
       starRating: toNearestDecimal,
       totalNumberOfReviews: totalNumberOfRatings,
-      usersRecommendedPercentage: usersRecommendedPercentage,
+      usersRecommendedPercentage,
       loaded: true,
     });
   }
