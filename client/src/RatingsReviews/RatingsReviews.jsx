@@ -26,35 +26,36 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.productData) {
-      axios
-        .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
-        .then((data) => {
-          // Calculate the total number of reviews.
-          let totalNumberOfReviews;
-          this.setState({ meta: data.data, loadedMeta: true });
-          axios
-            .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
-            .then((data) => {
-              const reviews = [];
-              for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
-                reviews.push(data.data.results[i]);
-              }
-              this.setState({
-                loadedReviews: true,
-                product_id: this.props.productData.id,
-                reviews: data.data.results,
-                currentShownReviews: reviews,
-              });
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
+    // if (this.props.productData) {
+    //   axios
+    //     .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
+    //     .then((data) => {
+    //       // Calculate the total number of reviews.
+    //       let totalNumberOfReviews;
+    //       debugger;
+    //       this.setState({ meta: data.data, loadedMeta: true });
+    //       axios
+    //         .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+    //         .then((data) => {
+    //           const reviews = [];
+    //           for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+    //             reviews.push(data.data.results[i]);
+    //           }
+    //           this.setState({
+    //             loadedReviews: true,
+    //             product_id: this.props.productData.id,
+    //             reviews: data.data.results,
+    //             currentShownReviews: reviews,
+    //           });
+    //         })
+    //         .catch((e) => {
+    //           console.log(e);
+    //         });
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // }
   }
 
   componentDidUpdate() {
@@ -63,8 +64,14 @@ class RatingsReviews extends React.Component {
       axios
         .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
         .then((data) => {
+          let totalReviews = 0;
+          Object.keys(data.data.ratings).forEach((rating) => {
+            totalReviews += parseInt(data.data.ratings[rating], 10);
+          });
           axios
-            .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+            .get(
+              `/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=${totalReviews}`
+            )
             .then((data) => {
               const reviews = [];
               for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
