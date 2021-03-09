@@ -1,7 +1,9 @@
 import React from 'react';
 import AnswerEntryPhotos from './AnswerEntryPhotos.jsx';
+import ReportedAnswerButton from './ReportedAnswerButton.jsx';
+import HelpfulAnswer from './HelpfulAnswer.jsx';
 
-const AnswerListEntry = function ({ answer, date }) {
+const AnswerListEntry = function ({ answer, date, reportAnswer, state, updateAnswerHelpfulness }) {
   return (
     <div>
       <span className="qa-answer-body"> {answer.body}</span>
@@ -10,28 +12,8 @@ const AnswerListEntry = function ({ answer, date }) {
             {` ${  answer.answerer_name}`}
 ,{` ${date(answer.date)} | `}
             <span>
-              {' '}
-              Helpful?
-              {' '}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Yes?
-              </a>
-              {' '}
-              ({answer.helpfulness ? answer.helpfulness : 0})
-              {' | '}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Report
-              </a>
+            <HelpfulAnswer answer={answer} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness} />
+              <ReportedAnswerButton answer={answer} reportAnswer={reportAnswer} state={state}/>
             </span>
           </div>
           <AnswerEntryPhotos photos={answer.photos}/>

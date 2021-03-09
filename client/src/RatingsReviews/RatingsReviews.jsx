@@ -28,26 +28,28 @@ class RatingsReviews extends React.Component {
   componentDidMount() {
     if (this.props.productData) {
       axios
-        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
-        .then((data) => {
-          const reviews = [];
-          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
-            reviews.push(data.data.results[i]);
-          }
-          this.setState({
-            loadedReviews: true,
-            product_id: this.props.productData.id,
-            reviews: data.data.results,
-            currentShownReviews: reviews,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      axios
         .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
         .then((data) => {
+          // Calculate the total number of reviews.
+          let totalNumberOfReviews;
           this.setState({ meta: data.data, loadedMeta: true });
+          axios
+            .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+            .then((data) => {
+              const reviews = [];
+              for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+                reviews.push(data.data.results[i]);
+              }
+              this.setState({
+                loadedReviews: true,
+                product_id: this.props.productData.id,
+                reviews: data.data.results,
+                currentShownReviews: reviews,
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
         .catch((e) => {
           console.log(e);
@@ -57,26 +59,28 @@ class RatingsReviews extends React.Component {
 
   componentDidUpdate() {
     if (this.props.productData.id !== this.state.product_id) {
-      axios
-        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
-        .then((data) => {
-          const reviews = [];
-          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
-            reviews.push(data.data.results[i]);
-          }
-          this.setState({
-            loadedReviews: true,
-            product_id: this.props.productData.id,
-            reviews: data.data.results,
-            currentShownReviews: reviews,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      // get the meta data first, then get the reivew data based on review count.
       axios
         .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
         .then((data) => {
+          axios
+            .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+            .then((data) => {
+              const reviews = [];
+              for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+                reviews.push(data.data.results[i]);
+              }
+              this.setState({
+                loadedReviews: true,
+                product_id: this.props.productData.id,
+                reviews: data.data.results,
+                currentShownReviews: reviews,
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+
           this.setState({ meta: data.data, loadedMeta: true });
         })
         .catch((e) => {
