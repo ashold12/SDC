@@ -189,7 +189,7 @@ class RatingsReviews extends React.Component {
 
   sortReviewsBy(incomingChage) {
     axios
-      .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=${incomingChage}&count=30`)
+      .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=${incomingChage}&count=400`)
       .then((data) => {
         const reviewsArray = this.generateReviewsArray(data.data.results);
         this.setState({ reviews: data.data.results, currentShownReviews: reviewsArray });
