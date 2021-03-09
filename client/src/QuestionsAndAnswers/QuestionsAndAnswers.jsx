@@ -126,7 +126,7 @@ class QuestionsAndAnswers extends React.Component {
       .then(
         this.setState({
           [`answer${answerId}Helpful`]: true,
-        })
+        }, this.props.getQuestions())
       )
       .catch((error) => {
         console.log(error);

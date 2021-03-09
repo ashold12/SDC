@@ -35,31 +35,22 @@ app.all('/api/*', (req, res) => {
     });
 });
 
-app.post('/images', (req, res) => {
-  //data will be an array of blobs
-  console.log(req.body.image)
-  console.log(req.body.buffer)
+// app.post('/images', (req, res) => {
+//   //data will be an array of blobs
+//   console.log(req.body.image)
+//   console.log(req.body.buffer)
 
-  let data = req.body.image.slice(5);
-  console.log(data)
+//   let data = req.body.image.slice(5);
+//   console.log(data)
 
-  fs.writeFile(path.join(__dirname, '/images.jpg'), data, (err) => {
-    if (err) {
-      throw err;
-    } else {
-      res.send('Your image has been saved');
-    }
-  });
-});
-
-
-// "blob:http://localhost:3000/7574da71-80a1-4031-89dd-1e5fc13845d4", "blob:http://localhost:3000/3a22aa85-f109-4d40-8acb-3e9864c67229", "blob:http://localhost:3000/a5d05c07-8b9f-4830-9e7b-34200189f9ba"
-
-// app.get('/images', (req, res) => {
-
-//   fs.readFile()
-
-// })
+//   fs.writeFile(path.join(__dirname, '/images.jpg'), data, (err) => {
+//     if (err) {
+//       throw err;
+//     } else {
+//       res.send('Your image has been saved');
+//     }
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
