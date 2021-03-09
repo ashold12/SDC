@@ -151,7 +151,7 @@ class ReviewTile extends React.Component {
     if (!helpfulClicked) {
       return (
         <div className="rr-helpfulness">
-          Was this review helpful?
+          helpful?
           {/*eslint-disable*/
           /*using link as button per spec*/}
           <a href="#!" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
