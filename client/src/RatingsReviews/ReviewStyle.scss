@@ -160,6 +160,10 @@
 .rr-review-bar-star-rating {
   grid-row-start: 1;
   grid-column-start: 1;
+  text-decoration: underline;
+}
+.rr-review-bar-star-rating:hover {
+  color: green;
 }
 
 .rr-review-bar-star-count {

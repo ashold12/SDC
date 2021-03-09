@@ -44,7 +44,14 @@ class RatingBreakdown extends React.Component {
 
     return (
       <div key={indexNumber} className="rr-review-bar-star-count">
-        <div className="rr-review-bar-star-rating">{indexNumber} Stars</div>
+        <div
+          className="rr-review-bar-star-rating"
+          onClick={(e) => {
+            this.props.changeFilter(indexNumber);
+          }}
+        >
+          {indexNumber} Stars
+        </div>
 
         <div className="rr-review-bar-container">
           <div
