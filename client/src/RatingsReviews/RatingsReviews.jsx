@@ -252,7 +252,10 @@ class RatingsReviews extends React.Component {
     return (
       <div className="rr-start-div">
         Ratings and Reviews.
-        <ReviewFilterSelector passChangeToRR={this.sortReviewsBy} />
+        <ReviewFilterSelector
+          ratings={this.state.meta.ratings}
+          passChangeToRR={this.sortReviewsBy}
+        />
         <div className="rr-parent" id="overview-link">
           {/* <div className="rr-rating-big" /> */}
           <div className="rr-tiles-container">

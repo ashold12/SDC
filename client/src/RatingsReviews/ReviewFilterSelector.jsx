@@ -15,11 +15,16 @@ class ReviewFilterSelector extends React.Component {
   }
 
   render() {
+    const { ratings } = this.props;
+    let totalReviews = 0;
+    Object.keys(ratings).forEach((key) => {
+      totalReviews += parseInt(ratings[key], 10);
+    });
     return (
       <div className="rr-selector-form-container">
         <form>
           <label htmlFor="rr-select">
-            {'Sort on: '}
+            {`${totalReviews} reviews sorted by: `}
             <select id="rr-select" value={this.state.value} onChange={this.changeHandler}>
               <option disabled>Sort on:</option>
               <option value="relevant">Relevant</option>
