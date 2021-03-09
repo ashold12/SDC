@@ -108,29 +108,30 @@ class QuestionsAndAnswers extends React.Component {
   updateQuestionHelpfulness(questionId) {
     axios
       .put(`api/qa/questions/${questionId}/helpful`)
-      .then((response) => {
-        console.log(JSON.stringify(response.data))
+      .then(() => {
         this.setState({
           [`answer${questionId}Helpful`]: true,
-        }, this.props.getQuestions())
-      }
+        });}
       )
+      .then(() => {
+        this.props.getQuestions();
+      })
       .catch((error) => {
         console.log(error);
       });
   }
 
   updateAnswerHelpfulness(answerId) {
-    const { getQuestions } = this.props;
     axios
       .put(`api/qa/answers/${answerId}/helpful`)
-      .then(
+      .then(() => {
         this.setState({
           [`answer${answerId}Helpful`]: true,
-        },
-        getQuestions()
-        )
+        });}
       )
+      .then(() => {
+        this.props.getQuestions()
+      })
       .catch((error) => {
         console.log(error);
       });

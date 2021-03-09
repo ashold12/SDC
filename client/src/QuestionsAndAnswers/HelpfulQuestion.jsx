@@ -2,7 +2,17 @@ import React from 'react';
 
 const HelpfulQuestion = function({question, updateQuestionHelpfulness, state}) {
 
-  if (state[`answer${question.question_id}Helpful`] === undefined) {
+  if (state[`answer${question.question_id}Helpful`]) {
+    return (
+      <React.Fragment>  {' '}
+            Helpful?{' '}
+
+               Yes!{' '}
+             (
+ {question.question_helpfulness ? question.question_helpfulness : 0})</React.Fragment>
+
+   )
+  } else {
     return (
       <React.Fragment>
         {' '}
@@ -19,16 +29,7 @@ const HelpfulQuestion = function({question, updateQuestionHelpfulness, state}) {
   {question.question_helpfulness ? question.question_helpfulness : 0})
   </React.Fragment>
     );
-  } else {
-    return (
-       <React.Fragment>  {' '}
-             Helpful?{' '}
 
-                Yes!{' '}
-              (
-  {question.question_helpfulness ? question.question_helpfulness : 0})</React.Fragment>
-
-    )
 
   }
 
