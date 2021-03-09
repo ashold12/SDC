@@ -107,11 +107,13 @@ class QuestionsAndAnswers extends React.Component {
 
   updateQuestionHelpfulness(questionId) {
     axios
-      .put(`api/qa/questions/${questionId}/report`)
-      .then(
+      .put(`api/qa/questions/${questionId}/helpful`)
+      .then((response) => {
+        console.log(JSON.stringify(response.data))
         this.setState({
           [`answer${questionId}Helpful`]: true,
-        })
+        }, this.props.getQuestions())
+      }
       )
       .catch((error) => {
         console.log(error);
@@ -120,7 +122,7 @@ class QuestionsAndAnswers extends React.Component {
 
   updateAnswerHelpfulness(answerId) {
     axios
-      .put(`api/qa/answers/${answerId}/report`)
+      .put(`api/qa/answers/${answerId}/helpful`)
       .then(
         this.setState({
           [`answer${answerId}Helpful`]: true,
