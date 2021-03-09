@@ -5,6 +5,7 @@ import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import ProductOverview from './ProductOverview.jsx';
+import Header from './Header.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -99,6 +100,7 @@ class Overview extends React.Component {
     const { selectedProduct } = this.props;
     return (
       <div>
+        <Header />
         <div className="o-overView">
           <ImageGallery
             selectedProductStyles={selectedProductStyles}

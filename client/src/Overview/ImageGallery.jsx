@@ -86,7 +86,7 @@ class ImageGallery extends React.Component {
   }
 
   handleThumbnailClick(thumbnailUrl, photo) {
-    debugger;
+
     const { selectedStyle } = this.props;
     // get the thumbnail index
     // reset the selectedStylePhotoIdnex to that index
@@ -149,6 +149,7 @@ class ImageGallery extends React.Component {
       onFirstPhoto,
       expandedGallery,
       selectedStylePhotoIndex,
+      selectedThumbnail,
       showRightArrow,
     } = this.state;
 
@@ -249,12 +250,39 @@ class ImageGallery extends React.Component {
               height: '5em',
               width: '5em',
               zIndex: 2,
+              borderBottom: '3.5px solid rgb(21, 182, 218)',
             };
+
+            const otherCss = {
+              position: 'relative',
+              gridColumnStart: 1,
+              gridColumnEnd: 2,
+              gridRowStart: 1,
+              gridRowEnd: 6,
+              top: `${increment}em`,
+              left: '1em',
+              height: '5em',
+              width: '5em',
+              zIndex: 2,
+              // borderBottom: "3px solid black",
+            };
+
             increment += 5.5;
             // debugger
+            if (selectedThumbnail === photo.url) {
+              return (
+                <img
+                  style={styleCss}
+                  src={photo.url}
+                  onClick={() => {
+                    this.handleThumbnailClick(photo.url, photo);
+                  }}
+                />
+              );
+            }
             return (
               <img
-                style={styleCss}
+                style={otherCss}
                 src={photo.url}
                 onClick={() => {
                   this.handleThumbnailClick(photo.url, photo);
