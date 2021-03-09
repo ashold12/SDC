@@ -117,7 +117,7 @@ class RatingsReviews extends React.Component {
           });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
       axios
         .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
@@ -125,7 +125,7 @@ class RatingsReviews extends React.Component {
           this.setState({ meta: data.data, loadedMeta: true });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }

@@ -42,7 +42,7 @@ class ProductBreakDown extends React.Component {
 
       bar.push(
         <div className="rr-product-overview-surroundtext">
-          {`${names[i]}: ${numberOfStars} stars.`}
+          {`${names[i]}`}
           <div key={key} className="rr-product-overview-bar-container">
             <div style={inlineStyle} className="rr-product-overview-review-bar">
               <b>{'⇓'}</b>
