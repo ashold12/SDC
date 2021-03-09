@@ -3,6 +3,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 
 import { MdExpandMore, MdExpandLess } from 'react-icons/Md';
 import { IoMdExpand } from 'react-icons/Io';
+import Zoom from './Zoom.jsx';
 
 class ImageGallery extends React.Component {
   constructor(props) {
@@ -11,10 +12,13 @@ class ImageGallery extends React.Component {
     this.state = {
       startingPoint: null,
       selectedThumbnail: null,
+      selectedThumbnailUrl: null,
       onLastPhoto: false,
       onFirstPhoto: true,
       expandedGallery: false,
-      selectedStylePhotoIndex: 0
+      selectedStylePhotoIndex: 0,
+      showRightArrow: true,
+      showLeftArrow: false,
     };
 
     this.handleDownArrowClick = this.handleDownArrowClick.bind(this);
@@ -24,6 +28,7 @@ class ImageGallery extends React.Component {
     this.handleExpandClick = this.handleExpandClick.bind(this);
     this.handleUpArrowClick = this.handleUpArrowClick.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
+    this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
   }
 
   componentDidUpdate(prevsProp) {
@@ -31,7 +36,11 @@ class ImageGallery extends React.Component {
 
     if (selectedStyle !== prevsProp.selectedStyle) {
       this.setState(
-        { selectedThumbnail: selectedStyle.photos[0].url, startingPoint: 0, selectedStylePhotoIndex: 0 },
+        {
+          selectedThumbnail: selectedStyle.photos[0].url,
+          startingPoint: 0,
+          selectedStylePhotoIndex: 0,
+        },
         () => {
           this.checkLastPhoto();
           this.checkFirstPhoto();
@@ -55,16 +64,51 @@ class ImageGallery extends React.Component {
   }
 
   handleRightArrowClick() {
+    const lastPhoto = this.props.selectedStyle.photos.length;
+    if (this.state.selectedStylePhotoIndex === lastPhoto - 2) {
+      this.setState({ showRightArrow: false });
+    }
     this.setState({
       selectedStylePhotoIndex: this.state.selectedStylePhotoIndex + 1,
     });
   }
 
-  handleThumbnailClick(thumbnailUrl) {
-    this.setState({ selectedThumbnail: thumbnailUrl }, () => {
+  handleLeftArrowClick() {
+    // if (this.state.selectedStylePhotoIndex !== 0) {
+    //   this.setState({showLeftArrow: true})
+    // }
+    if (this.state.selectedStylePhotoIndex === 1) {
+      this.setState({ onFirstPhoto: true });
+    }
+    this.setState({
+      selectedStylePhotoIndex: this.state.selectedStylePhotoIndex - 1,
+    });
+  }
+
+  handleThumbnailClick(thumbnailUrl, photo) {
+    debugger;
+    const { selectedStyle } = this.props;
+    // get the thumbnail index
+    // reset the selectedStylePhotoIdnex to that index
+    // just need edge case if you click on the last photo
+    let index;
+
+    for (let i = 0; i < selectedStyle.photos.length; i++) {
+      const currentPhoto = selectedStyle.photos[i];
+      if (JSON.stringify(currentPhoto) === JSON.stringify(photo)) {
+        index = i;
+      }
+    }
+
+    this.setState({ selectedThumbnail: thumbnailUrl, selectedStylePhotoIndex: index }, () => {
       this.checkLastPhoto();
       this.checkFirstPhoto();
     });
+
+    const lastPhoto = selectedStyle.photos.length;
+    if (this.state.selectedStylePhotoIndex !== lastPhoto - 2) {
+      this.setState({ showRightArrow: true });
+    }
   }
 
   checkLastPhoto() {
@@ -93,25 +137,25 @@ class ImageGallery extends React.Component {
   }
 
   handleExpandClick() {
-    this.setState({expandedGallery: !this.state.expandedGallery})
-
+    this.setState({ expandedGallery: !this.state.expandedGallery });
+    this.props.checkExpandedGallery();
   }
 
   render() {
     const { selectedProductStyles, selectedStyle } = this.props;
     const {
       startingPoint,
-      selectedThumbnail,
       onLastPhoto,
       onFirstPhoto,
       expandedGallery,
       selectedStylePhotoIndex,
+      showRightArrow,
     } = this.state;
 
     let increment = 3;
     let first7Images = [];
     let showDownArrow = true;
-    let startingIndex = this.state.selectedStylePhotoIndex
+    // let startingIndex = this.state.selectedStylePhotoIndex
 
     if (selectedStyle) {
       first7Images = selectedStyle.photos.filter(
@@ -120,6 +164,7 @@ class ImageGallery extends React.Component {
       if (selectedStyle.photos.length - startingPoint <= 7) {
         showDownArrow = false;
       }
+      // start the selected thumbnail as the first photo
       if (!this.state.selectedThumbnail) {
         this.state.selectedThumbnail = selectedStyle.photos[0].url;
       }
@@ -132,7 +177,7 @@ class ImageGallery extends React.Component {
       gridRowStart: 1,
       gridRowEnd: 6,
       top: '1.5em',
-      left: '80em',
+      left: '67em',
       height: '1.5em',
       width: '1.5em',
       zIndex: 50,
@@ -147,13 +192,25 @@ class ImageGallery extends React.Component {
       gridRowStart: 1,
       gridRowEnd: 6,
       height: '44.5em',
-      width: '83.5em',
+      width: '70em',
+    };
+
+    const leftArrowExpandedStyle = {
+      display: 'grid',
+      gridRowStart: 1,
+      gridRowEnd: 6,
+      top: '22em',
+      right: '62em',
+      position: 'relative',
+      zIndex: 20,
     };
 
     if (selectedStyle) {
       return (
         <div className="o-imageGallery-container">
-          {startingPoint === 0 ? null : <MdExpandLess className="o-up-arrow" onClick={this.handleUpArrowClick} />}
+          {startingPoint === 0 ? null : (
+            <MdExpandLess className="o-up-arrow" onClick={this.handleUpArrowClick} />
+          )}
           {expandedGallery ? (
             <IoMdExpand style={expandedStyle} onClick={this.handleExpandClick} />
           ) : (
@@ -161,9 +218,23 @@ class ImageGallery extends React.Component {
           )}
 
           {expandedGallery ? (
-            <img style={expandedImageStyle} src={`${selectedThumbnail}`} />
+            // <Zoom
+            //   img={selectedStyle.photos[selectedStylePhotoIndex].url}
+            //   zoomScale={3}
+            //   width={1600}
+            //   height={600}
+            //   style={{willChange: "transform"}}
+            //   className="o-imageGalery"
+            // />
+            <img
+              style={expandedImageStyle}
+              src={`${selectedStyle.photos[selectedStylePhotoIndex].url}`}
+            />
           ) : (
-            <img className="o-imageGallery" src={`${selectedThumbnail}`} />
+            <img
+              className="o-imageGallery"
+              src={`${selectedStyle.photos[selectedStylePhotoIndex].url}`}
+            />
           )}
 
           {first7Images.map((photo) => {
@@ -186,14 +257,21 @@ class ImageGallery extends React.Component {
                 style={styleCss}
                 src={photo.url}
                 onClick={() => {
-                  this.handleThumbnailClick(photo.url);
+                  this.handleThumbnailClick(photo.url, photo);
                 }}
               />
             );
           })}
 
-          {!onFirstPhoto && <FaArrowCircleLeft className="o-left-arrow" />}
-          {!onLastPhoto && <FaArrowCircleRight className="o-right-arrow" onClick={this.handleRightArrowClick}/>}
+          {!onFirstPhoto && !expandedGallery && (
+            <FaArrowCircleLeft className="o-left-arrow" onClick={this.handleLeftArrowClick} />
+          )}
+          {!onFirstPhoto && expandedGallery && (
+            <FaArrowCircleLeft style={leftArrowExpandedStyle} onClick={this.handleLeftArrowClick} />
+          )}
+          {!onLastPhoto && showRightArrow && (
+            <FaArrowCircleRight className="o-right-arrow" onClick={this.handleRightArrowClick} />
+          )}
           {showDownArrow ? (
             <MdExpandMore className="o-down-arrow" onClick={this.handleDownArrowClick} />
           ) : null}
