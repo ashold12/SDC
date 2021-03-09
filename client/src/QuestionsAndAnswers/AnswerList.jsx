@@ -80,11 +80,11 @@ function AnswerList({
 
   return (
     <div>
-      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date} />
+      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness}/>
       {orderedAnswers.map((answer) => (
         <div className="qa-answer-entry">
 
-          <AnswerListEntry answer={answer} key={answer.id} date={date}/>
+          <AnswerListEntry answer={answer} key={answer.id} date={date} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness}/>
         </div>
       ))}
       <a
