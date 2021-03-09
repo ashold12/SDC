@@ -11,6 +11,9 @@ function AnswerList({
   collapseAnswers,
   moreAnswersClicked,
   userWantsMoreAnswers,
+  reportAnswer,
+  state,
+  updateAnswerHelpfulness
 }) {
 
 
@@ -35,7 +38,7 @@ function AnswerList({
       i--;
       return (
         <div className="qa-answer-entry">
-          <AnswerListEntry showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date}/>
+          <AnswerListEntry showAnswerModal={showAnswerModal} answer={answer} key={answer.id} date={date} reportAnswer={reportAnswer} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness} />
         </div>
       );
     }
@@ -48,7 +51,7 @@ function AnswerList({
   if (Object.values(answers).length === 1 || Object.values(answers).length === 2) {
     return (
     <div>
-      <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+      <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date} reportAnswer={reportAnswer} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness}/>
       {renderHelper}
     </div>
     )
@@ -60,7 +63,7 @@ function AnswerList({
   ) {
     return (
       <div className="qa-answer-entry">
-        <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date}/>
+        <MostHelpfulAnswer showAnswerModal={showAnswerModal} answer={mostHelpful} key={mostHelpful.id} date={date} reportAnswer={reportAnswer} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness}/>
         {renderHelper}
         <a className="qa-al-load-more-button"
           href="#"
@@ -77,11 +80,11 @@ function AnswerList({
 
   return (
     <div>
-      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date} />
+      <MostHelpfulAnswer answer={mostHelpful} key={mostHelpful.id} date={date} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness}/>
       {orderedAnswers.map((answer) => (
         <div className="qa-answer-entry">
 
-          <AnswerListEntry answer={answer} key={answer.id} date={date}/>
+          <AnswerListEntry answer={answer} key={answer.id} date={date} state={state} updateAnswerHelpfulness={updateAnswerHelpfulness}/>
         </div>
       ))}
       <a

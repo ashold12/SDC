@@ -14,14 +14,11 @@ class App extends React.Component {
       selectedProduct: null,
       questions: {},
       selectedStyle: null,
-      starRatingLoaded: false,
-      starRating: null,
     };
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
-    this.updateProductStarRating = this.updateProductStarRating.bind(this);
   }
   componentDidMount() {
     this.getAllProducts();
@@ -41,7 +38,7 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17072) {
+  getProduct(productID = 17762) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
@@ -65,10 +62,6 @@ class App extends React.Component {
     this.setState({
       selectedStyle: selectedStyle,
     });
-  }
-
-  updateProductStarRating(starRating) {
-    this.setState({ starRating, starRatingLoaded: true });
   }
 
   render() {
@@ -98,7 +91,7 @@ class App extends React.Component {
             getQuestions={this.getQuestions}
           />
         )}
-        <RatingsReviews updateStars={this.updateProductStarRating} productData={selectedProduct} />
+        <RatingsReviews productData={selectedProduct} />
       </div>
     );
   }
