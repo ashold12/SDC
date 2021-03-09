@@ -3,7 +3,7 @@ import QuestionListEntry from './QuestionListEntry.jsx';
 import QuestionModal from './QuestionModal/QuestionModal.jsx'
 
 const QuestionList = function ({
- questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick, setQuestionBody, getAnswers, reportAnswer, state
+ questions, collapseAnswers, numberOfQuestionsToRender, moreAnswersClicked, userWantsMoreAnswers, date, productName, onClick, setQuestionBody, getAnswers, reportAnswer, state, updateAnswerHelpfulness, updateQuestionHelpfulness
 }) {
 
   if (numberOfQuestionsToRender === 0) {
@@ -28,6 +28,8 @@ const QuestionList = function ({
               setQuestionBody={setQuestionBody}
               reportAnswer={reportAnswer}
               state={state}
+              updateQuestionHelpfulness={updateQuestionHelpfulness}
+              updateAnswerHelpfulness={updateAnswerHelpfulness}
             />
           );
         }

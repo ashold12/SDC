@@ -48,6 +48,8 @@ class QuestionsAndAnswers extends React.Component {
     this.getAnswers = this.getAnswers.bind(this);
     this.removeAnswerPhoto = this.removeAnswerPhoto.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+    this.updateQuestionHelpfulness = this.updateQuestionHelpfulness.bind(this);
+    this.updateAnswerHelpfulness = this.updateAnswerHelpfulness.bind(this);
   }
 
   // REQUESTS
@@ -79,15 +81,14 @@ class QuestionsAndAnswers extends React.Component {
 
   reportAnswer(answerId) {
     axios.put(`api/qa/answers/${answerId}/report`)
-    .then((response) => {
-      console.log('this fired', JSON.stringify(response.data));
-      this.setState({
-        [`reportedAnswer${answerId}`]: true
+      .then(() => {
+        this.setState({
+          [`reportedAnswer${answerId}`]: true,
+        });
       })
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getAnswers() {
@@ -99,6 +100,32 @@ class QuestionsAndAnswers extends React.Component {
           answers: response.data,
         });
       })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  updateQuestionHelpfulness(questionId) {
+    axios
+      .put(`api/qa/questions/${questionId}/report`)
+      .then(
+        this.setState({
+          [`answer${questionId}Helpful`]: true,
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  updateAnswerHelpfulness(answerId) {
+    axios
+      .put(`api/qa/answers/${answerId}/report`)
+      .then(
+        this.setState({
+          [`answer${answerId}Helpful`]: true,
+        })
+      )
       .catch((error) => {
         console.log(error);
       });
@@ -520,6 +547,8 @@ const answerDataToSend = {
             setQuestionBody={this.setQuestionBody}
             reportAnswer={this.reportAnswer}
             state={this.state}
+            updateQuestionHelpfulness={this.updateQuestionHelpfulness}
+            updateAnswerHelpfulness={this.updateAnswerHelpfulness}
           />
           <ComponentFooter
             questions={

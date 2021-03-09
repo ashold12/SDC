@@ -1,7 +1,7 @@
 import React from 'react';
 import ReportedAnswerButton from './ReportedAnswerButton.jsx';
 
-const MostHelpfulAnswer = function ({ answer, date, reportAnswer, state }) {
+const MostHelpfulAnswer = function ({ answer, date, reportAnswer, state, updateAnswerHelpfulness={updateAnswerHelpfulness}}) {
   return (
     <div>
       <span  className="qa-helpful-body"> <span id="qa-answerlist-title">A:</span> {' ' + answer.body}</span>

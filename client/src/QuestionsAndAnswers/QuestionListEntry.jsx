@@ -1,5 +1,6 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
+import HelpfulQuestion from './HelpfulQuestion.jsx'
 
 const QuestionListEntry = function ({
   question,
@@ -10,7 +11,9 @@ const QuestionListEntry = function ({
   onClick,
   setQuestionBody,
   reportAnswer,
-  state
+  state,
+  updateQuestionHelpfulness,
+  updateAnswerHelpfulness
 }) {
 
   return (
@@ -20,18 +23,7 @@ const QuestionListEntry = function ({
           Q:
           <span className="qa-question-text-only">{' ' + question.question_body}</span>
           <span className="qa-question-side-links">
-            {' '}
-            Helpful?{' '}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            >
-              Yes?
-            </a>{' '}
-            (
-{question.question_helpfulness ? question.question_helpfulness : 0})
+            <HelpfulQuestion question={question} updateQuestionHelpfulness={updateQuestionHelpfulness} state={state}/>
 {'   |   '}
             <a
               href="#"
@@ -55,6 +47,7 @@ const QuestionListEntry = function ({
           userWantsMoreAnswers={userWantsMoreAnswers}
           reportAnswer={reportAnswer}
           state={state}
+          updateAnswerHelpfulness={updateAnswerHelpfulness}
         />
       </div>
     </div>
