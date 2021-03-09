@@ -19,11 +19,15 @@ class App extends React.Component {
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
+    this.getMetaInformation = this.getMetaInformation.bind(this);
   }
+
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
+    this.getMetaInformation();
   }
+
   getAllProducts() {
     axios
       .get('api/products?count=*')
@@ -38,7 +42,34 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17762) {
+  getMetaInformation() {
+    let product;
+    if (!this.state.selectedProduct) {
+      product = 17072;
+    } else {
+      product = this.state.selectedProduct;
+    }
+
+    axios
+      .get(`/api/reviews/meta?product_id=${product}`)
+      .then((data) => {
+        let totalRatingScore = 0;
+        let totalNumberOfRatings = 0;
+        const { ratings, recommended } = data.data;
+        Object.keys(ratings).forEach((key) => {
+          totalRatingScore += parseInt(key, 10) * ratings[key];
+          totalNumberOfRatings += parseInt(ratings[key], 10);
+        });
+        let toNearestDecimal = (totalRatingScore / totalNumberOfRatings).toFixed(2);
+        // Calculate the recommended amount and the number of reviewers.
+        this.setState({ meta: data.data, starRating: toNearestDecimal, starRatingLoaded: true });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  getProduct(productID = 17072) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
