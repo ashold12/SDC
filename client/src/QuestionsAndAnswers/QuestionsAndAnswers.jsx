@@ -47,6 +47,9 @@ class QuestionsAndAnswers extends React.Component {
     this.resetAnswerForm = this.resetAnswerForm.bind(this);
     this.getAnswers = this.getAnswers.bind(this);
     this.removeAnswerPhoto = this.removeAnswerPhoto.bind(this);
+    this.reportAnswer = this.reportAnswer.bind(this);
+    this.updateQuestionHelpfulness = this.updateQuestionHelpfulness.bind(this);
+    this.updateAnswerHelpfulness = this.updateAnswerHelpfulness.bind(this);
   }
 
   // REQUESTS
@@ -76,6 +79,18 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
+  reportAnswer(answerId) {
+    axios.put(`api/qa/answers/${answerId}/report`)
+      .then(() => {
+        this.setState({
+          [`reportedAnswer${answerId}`]: true,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   getAnswers() {
     const { questionIdOfQuestionToBeAnswered } = this.state;
     axios
@@ -90,17 +105,45 @@ class QuestionsAndAnswers extends React.Component {
       });
   }
 
+  updateQuestionHelpfulness(questionId) {
+    axios
+      .put(`api/qa/questions/${questionId}/helpful`)
+      .then(() => {
+        this.setState({
+          [`answer${questionId}Helpful`]: true,
+        });}
+      )
+      .then(() => {
+        this.props.getQuestions();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  updateAnswerHelpfulness(answerId) {
+    axios
+      .put(`api/qa/answers/${answerId}/helpful`)
+      .then(() => {
+        this.setState({
+          [`answer${answerId}Helpful`]: true,
+        });}
+      )
+      .then(() => {
+        this.props.getQuestions()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   // HANDLERS
 
-  // ModalImage
+  // ModalImages
 
-  addAnswerPhotos(e, name) {
+  addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
-    // console.log(e);
-
-    // let photo = JSON.stringify(new File ([URL.createObjectURL(e.target.files[0])], name));
-
-    const photo = URL.createObjectURL(e.target.files[0]);
+    const photo = URL.createObjectURL(e.target);
     photos.push(photo);
     this.setState({
       answerModalPhotos: photos,
@@ -124,6 +167,7 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
+//Forms
   resetAnswerForm() {
     this.setState({
       answerFormNameValidation: true,
@@ -140,12 +184,16 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
-  // tech debt code sniff
-
   verifyAnswerForm() {
+    const {
+      AnswerModalNameInput,
+      AnswerModalTextAreaInput,
+      AnswerModalEmailInput,
+      answerModalPhotos,
+    } = this.state;
     let verified = true;
 
-    if (!this.state.AnswerModalNameInput || this.state.AnswerModalNameInput === '') {
+    if (!AnswerModalNameInput || AnswerModalNameInput === '') {
       verified = false;
       this.setState({
         answerModalNameValidation: false,
@@ -156,7 +204,7 @@ class QuestionsAndAnswers extends React.Component {
       });
     }
 
-    if (!this.state.AnswerModalTextAreaInput || this.state.AnswerModalTextAreaInput === '') {
+    if (!AnswerModalTextAreaInput || AnswerModalTextAreaInput === '') {
       verified = false;
       this.setState({
         answerModalTextAreaValidation: false,
@@ -167,7 +215,7 @@ class QuestionsAndAnswers extends React.Component {
       });
     }
 
-    const email = this.state.AnswerModalEmailInput;
+    const email = AnswerModalEmailInput;
 
     if (!/\S+@\S+\.\S+/.test(email)) {
       verified = false;
@@ -183,17 +231,11 @@ class QuestionsAndAnswers extends React.Component {
       return null;
     }
 
-    // let file = new File (this.state.answerModalPhotos[0], 'Ronin');
-    // console.log(file);
-
-    let file = new File (this.state.answerModalPhotos, 'Ronin');
-    console.log(file);
-
 const answerDataToSend = {
-  body: this.state.AnswerModalTextAreaInput,
-  name: this.state.AnswerModalNameInput,
-  email: this.state.AnswerModalEmailInput,
-  photos: this.state.answerModalPhotos,
+  body: AnswerModalTextAreaInput,
+  name: AnswerModalNameInput,
+  email: AnswerModalEmailInput,
+  photos: answerModalPhotos,
 };
 
     this.submitValidAnswerForm(answerDataToSend);
@@ -476,7 +518,6 @@ const answerDataToSend = {
 
   render() {
     return (
-      <div className="qa-modal-main-container">
         <div className="qa-main-container">
           <h2 className="qa-qna-title">QUESTIONS & ANSWERS</h2>
           <SearchQuestions onChange={this.onChangeSearchHandler} />
@@ -515,6 +556,10 @@ const answerDataToSend = {
             date={this.getFormattedDate}
             onClick={this.answerModalClickHandler}
             setQuestionBody={this.setQuestionBody}
+            reportAnswer={this.reportAnswer}
+            state={this.state}
+            updateQuestionHelpfulness={this.updateQuestionHelpfulness}
+            updateAnswerHelpfulness={this.updateAnswerHelpfulness}
           />
           <ComponentFooter
             questions={
@@ -526,7 +571,6 @@ const answerDataToSend = {
             incrementQuestions={this.increaseNumberOfQuestionsToRender}
             onClick={this.questionModalClickHandler}
           />
-        </div>
       </div>
     );
   }

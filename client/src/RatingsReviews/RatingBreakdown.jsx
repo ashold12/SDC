@@ -11,16 +11,6 @@ class RatingBreakdown extends React.Component {
   }
 
   componentDidMount() {
-    // const { productId } = this.props;
-    // // Get meta data.
-    // axios
-    //   .get(`/api/reviews/meta?product_id=${productId}`)
-    //   .then((data) => {
-    //     this.setInitialState(data.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
     this.setInitialState(this.props.meta);
   }
 
@@ -31,22 +21,31 @@ class RatingBreakdown extends React.Component {
   }
 
   getReviewBar(indexNumber, starNumber) {
-    let numberOfVotes = this.state.ratings[starNumber];
+    let numberOfVotes = this.props.meta.ratings[starNumber];
     let percentage;
-
-    if (!this.state.ratings[starNumber]) {
+    let totalReviews = 0;
+    Object.keys(this.props.meta.ratings).forEach((key) => {
+      totalReviews += parseInt(this.props.meta.ratings[key], 10);
+    });
+    if (!this.props.meta.ratings[starNumber]) {
       percentage = 0;
       numberOfVotes = 0;
     } else {
-      percentage = (this.state.ratings[starNumber] / this.state.totalNumberOfReviews) * 100;
+      percentage = (this.props.meta.ratings[starNumber] / totalReviews) * 100;
     }
     const barStyling = {
       width: `${percentage}%`,
       backgroundColor: '#2be255',
     };
+
+    if (percentage === 0) {
+      barStyling.color = '#dddddd';
+    }
+
     return (
       <div key={indexNumber} className="rr-review-bar-star-count">
-        # Stars {indexNumber} With {numberOfVotes} votes.
+        <div className="rr-review-bar-star-rating">{indexNumber} Stars</div>
+
         <div className="rr-review-bar-container">
           <div
             className="rr-review-bar"
@@ -62,13 +61,13 @@ class RatingBreakdown extends React.Component {
     );
   }
 
-  setInitialState(data) {
+  setInitialState() {
     // Iterate through the object keys, pull their values and multiply the key times value.\
     // Star calculating formula
     // AR = 1 * (1 star ratings) + 2 * (two star ratings) + ... / 5
     let totalRatingScore = 0;
     let totalNumberOfRatings = 0;
-    const { ratings } = this.props.meta;
+    const { ratings, recommended } = this.props.meta;
     Object.keys(ratings).forEach((key) => {
       totalRatingScore += parseInt(key, 10) * ratings[key];
       totalNumberOfRatings += parseInt(ratings[key], 10);
@@ -76,17 +75,13 @@ class RatingBreakdown extends React.Component {
     const toNearestDecimal = (totalRatingScore / totalNumberOfRatings).toFixed(1);
     // Calculate the recommended amount and the number of reviewers.
     const usersRecommendedPercentage = (
-      (parseInt(this.props.meta.recommended.true, 10) / totalNumberOfRatings) *
+      (parseInt(recommended.true, 10) / totalNumberOfRatings) *
       100
     ).toFixed(0);
     this.setState({
-      characteristics: this.props.meta.characteristics,
-      ratings: this.props.meta.ratings,
-      product_id: this.product_id,
-      recommended: this.props.meta.recommended,
       starRating: toNearestDecimal,
       totalNumberOfReviews: totalNumberOfRatings,
-      usersRecommendedPercentage: usersRecommendedPercentage,
+      usersRecommendedPercentage,
       loaded: true,
     });
   }
@@ -115,15 +110,20 @@ class RatingBreakdown extends React.Component {
     }
     return (
       <div className="rr-breakdown">
-        Average Rating: {starRating} {this.state.usersRecommendedPercentage}% of reviews recommend
-        this product.
-        <div
-          className="Stars"
-          style={{ '--rating': starRating }}
-          aria-label="Rating of this product is {starRating} out of 5."
-        />
-        <div className="rr-filters-applied">{filterString}</div>
-        Number of Reviews: {totalNumberOfReviews}
+        <div className="rr-breakdown-module-1">
+          <div className="rr-breakdown-big-font">
+            <b>{starRating}</b>
+          </div>
+          <div className="rr-breakdown-review-percentage">
+            {this.state.usersRecommendedPercentage}% of reviews recommend this product.
+          </div>
+          <div
+            className="Stars rr-breakdown-big-stars"
+            style={{ '--rating': starRating }}
+            aria-label="Rating of this product is {starRating} out of 5."
+          />
+          <div className="rr-filters-applied">{filterString}</div>
+        </div>
         <div className="rr-reviews-bar-container">{ratingBars}</div>
         <hr className="rr-line-break" />
       </div>

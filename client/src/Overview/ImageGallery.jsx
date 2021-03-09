@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 
-import { MdExpandMore, MdExpandLess } from 'react-icons/Md';
-import { IoMdExpand } from 'react-icons/Io';
+import { MdExpandMore, MdExpandLess } from 'react-icons/md';
+import { IoMdExpand } from 'react-icons/io';
 import Zoom from './Zoom.jsx';
 
 class ImageGallery extends React.Component {
