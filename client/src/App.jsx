@@ -98,7 +98,7 @@ class App extends React.Component {
       body.style.color = 'black';
     } else {
       body.style.background = 'black';
-      body.style.color = 'grey';
+      body.style.color = 'white';
     }
     this.darkMode = !this.darkMode;
   }

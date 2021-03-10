@@ -126,7 +126,7 @@
 
 /* Review bar */
 .rr-product-breakdown {
-  background-color: white;
+  // commented background-color: white;
 }
 .rr-product-overview-text {
   display: flex;
@@ -145,7 +145,7 @@
   border-radius: 10px;
 }
 .rr-product-overview-bar-container h2 {
-  color: black;
+  //commented color: black;
   font-size: 30px;
   position: relative;
   top: 0px;
@@ -205,15 +205,15 @@
 /* Review bar ends */
 
 .rr-check-square {
-  color: rgb(0, 0, 0);
+  //commented color: rgb(0, 0, 0);
 }
 
 .rr-parent {
-  color: black;
+  //commented color: black;
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-rows: 300px;
-  background-color: white;
+  //commented background-color: white;
   gap: 10px;
   height: 600px;
 }
@@ -225,7 +225,7 @@
 }
 
 .rr-rating-breakdown {
-  background-color: #ffffff;
+  //commented background-color: #ffffff;
   grid-column: 1;
   grid-row: 1;
 }
