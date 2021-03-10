@@ -548,7 +548,7 @@ mark {
   width: 10px;
 
   //decoration
-  color: white; //this isn't working and I can't see where it is inheriting from
+  color: white !important; //this isn't working and I can't see where it is inheriting from
 
   //border
   border: solid;
@@ -567,12 +567,13 @@ mark {
   grid-row-end: 2;
 
   position: relative;
-  left: 75%;
+  left: 95%;
 
   padding-left: 3px;
 }
 
 .qa-answer-modal-griditem12:hover {
+  color: greenyellow;
   border-top-color: rgb(239, 244, 239);
   border-bottom-color: rgb(239, 244, 239);
   border-left-color: rgb(187, 178, 178);
