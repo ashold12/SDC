@@ -250,7 +250,7 @@ class ImageGallery extends React.Component {
               height: '5em',
               width: '5em',
               zIndex: 2,
-              borderBottom: '3.5px solid rgb(21, 182, 218)',
+              borderBottom: '3.5px solid greenYellow',
             };
 
             const otherCss = {
