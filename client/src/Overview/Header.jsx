@@ -29,10 +29,12 @@ class Header extends React.Component {
   }
 
   render() {
+    let style = {paddingRight: "35px"}
     const { show } = this.state;
     return (
       <div className="main-header">
-        <div className="main-logo">HAMILTON</div>
+        <span className="main-logo">HAMILTON</span>
+        <span id="main-categories"><span style={style}>New Releases</span><span style={style}>Mens</span> <span style={style}>Women</span> <span style={style}>Children</span>  Sale</span>
         <div className="main-sale">
           <span>
             {/* <MdKeyboardArrowLeft id="main-header-left" onClick={this.handleArrowClick} /> */}
