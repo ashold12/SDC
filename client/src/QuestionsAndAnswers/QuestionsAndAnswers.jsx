@@ -143,7 +143,7 @@ class QuestionsAndAnswers extends React.Component {
 
   addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
-    const photo = URL.createObjectURL(e.target);
+    const photo = URL.createObjectURL(e.target.files[0]);
     photos.push(photo);
     this.setState({
       answerModalPhotos: photos,
@@ -253,7 +253,6 @@ const answerDataToSend = {
       QuestionModalTextArea,
       QuestionModalNameInput,
       QuestionModalEmailInput,
-      selectedProductsQuestions,
     } = this.state;
     let verified = true;
 
@@ -300,7 +299,7 @@ const answerDataToSend = {
       body: QuestionModalTextArea,
       name: QuestionModalNameInput,
       email: QuestionModalEmailInput,
-      product_id: parseInt(selectedProductsQuestions.product_id, 10),
+      product_id: parseInt(this.props.selectedProductsQuestions.product_id, 10),
     };
 
     this.submitValidForm(formDataToSend);
