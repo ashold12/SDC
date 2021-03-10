@@ -204,6 +204,8 @@ class ImageGallery extends React.Component {
       right: '62em',
       position: 'relative',
       zIndex: 20,
+      backgroundColor: "rgb(197, 195, 199)",
+      borderRadius: "50%",
     };
 
     if (selectedStyle) {
