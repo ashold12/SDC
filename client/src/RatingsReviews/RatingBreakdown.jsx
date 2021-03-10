@@ -44,7 +44,14 @@ class RatingBreakdown extends React.Component {
 
     return (
       <div key={indexNumber} className="rr-review-bar-star-count">
-        <div className="rr-review-bar-star-rating">{indexNumber} Stars</div>
+        <div
+          className="rr-review-bar-star-rating"
+          onClick={(e) => {
+            this.props.changeFilter(indexNumber);
+          }}
+        >
+          {indexNumber} Stars
+        </div>
 
         <div className="rr-review-bar-container">
           <div
@@ -96,9 +103,20 @@ class RatingBreakdown extends React.Component {
     if (this.props.filters.length > 0) {
       filterString += 'Filtering by:';
       this.props.filters.forEach((filter) => {
-        filterString += ` ${filter}`;
-        filterString += ' star reviews.';
+        filterString += ` ${filter}, `;
       });
+      filterString = filterString.slice(0, filterString.length - 2);
+      filterString += ' star reviews.';
+    }
+    let removeDiv;
+    if (filterString !== '') {
+      removeDiv = (
+        <div onClick={this.props.removeFilters} className="rr-filter-string-remove-div">
+          Remove Filters
+        </div>
+      );
+    } else {
+      removeDiv = '';
     }
 
     const { starRating, totalNumberOfReviews } = this.state;
@@ -123,6 +141,7 @@ class RatingBreakdown extends React.Component {
             aria-label="Rating of this product is {starRating} out of 5."
           />
           <div className="rr-filters-applied">{filterString}</div>
+          {removeDiv}
         </div>
         <div className="rr-reviews-bar-container">{ratingBars}</div>
         <hr className="rr-line-break" />

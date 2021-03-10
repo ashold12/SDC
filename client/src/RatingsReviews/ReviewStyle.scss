@@ -103,18 +103,19 @@
 }
 .rr-breakdown-module-1 {
   display: grid;
-  grid-template-rows: 33% 33% 33%;
+  //grid-template-rows: 33% 33% 33%;
   grid-template-columns: 13% 25% 25% 25%;
 }
 
 .rr-breakdown-big-stars {
   font-size: 140%;
+  margin-left: 10px;
 }
 
 .rr-breakdown-big-font {
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: xx-large;
+  font-size: xxx-large;
 }
 
 .rr-breakdown-review-percentage {
@@ -125,7 +126,7 @@
 
 /* Review bar */
 .rr-product-breakdown {
-  background-color: white;
+  // commented background-color: white;
 }
 .rr-product-overview-text {
   display: flex;
@@ -144,7 +145,7 @@
   border-radius: 10px;
 }
 .rr-product-overview-bar-container h2 {
-  color: black;
+  //commented color: black;
   font-size: 30px;
   position: relative;
   top: 0px;
@@ -160,6 +161,10 @@
 .rr-review-bar-star-rating {
   grid-row-start: 1;
   grid-column-start: 1;
+  text-decoration: underline;
+}
+.rr-review-bar-star-rating:hover {
+  color: green;
 }
 
 .rr-review-bar-star-count {
@@ -167,6 +172,19 @@
   grid-template-rows: auto;
   grid-template-columns: 15% 85%;
   padding: 1%;
+}
+
+.rr-filters-applied {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  margin-top: 10px;
+}
+.rr-filter-string-remove-div {
+  grid-row-start: 5;
+  grid-column-start: 3;
+  grid-column-end: 5;
+  color: brown;
 }
 
 .rr-review-bar {
@@ -187,20 +205,27 @@
 /* Review bar ends */
 
 .rr-check-square {
-  color: rgb(0, 0, 0);
+  //commented color: rgb(0, 0, 0);
 }
 
 .rr-parent {
-  color: black;
+  //commented color: black;
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-rows: 300px;
-  background-color: white;
+  //commented background-color: white;
   gap: 10px;
   height: 600px;
 }
+.rr-select {
+  font-weight: bold;
+}
+.rr-selector-form-container {
+  margin-left: 41%;
+}
+
 .rr-rating-breakdown {
-  background-color: #ffffff;
+  //commented background-color: #ffffff;
   grid-column: 1;
   grid-row: 1;
 }
@@ -258,17 +283,20 @@
 }
 .rr-recommended {
   grid-row-start: 4;
-  grid-column: 4/6;
+  grid-column: 1;
 }
 .rr-photos-div {
   grid-row-start: 6;
   grid-column: span 5;
   width: 70%;
   margin: auto;
+  display: flex;
 }
 .rr-product-thumbnail {
   max-height: 100px;
   max-width: 100px;
+  padding: 3px;
+  border-radius: 10px;
 }
 .rr-tile-checkmark {
   grid-column: 4 span;
