@@ -4,7 +4,7 @@
   "description": "Front end capstone.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "nodemon server -w ",
     "build": "webpack -w"
   },
