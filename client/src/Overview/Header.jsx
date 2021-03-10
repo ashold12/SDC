@@ -6,6 +6,8 @@ import {
   MdKeyboardArrowLeft,
 } from 'react-icons/md';
 
+import { BsSearch } from 'react-icons/bs'
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -33,12 +35,13 @@ class Header extends React.Component {
         <div className="main-logo">HAMILTON</div>
         <div className="main-sale">
           <span>
-            <MdKeyboardArrowLeft id="main-header-left" onClick={this.handleArrowClick} />
+            {/* <MdKeyboardArrowLeft id="main-header-left" onClick={this.handleArrowClick} /> */}
 
             {show && <span id="main-sale-text">FREE SHIPPING & 60 DAY FREE RETURNS!</span>}
 
             {!show && <span id="main-sale-text">HURRY BEFORE SALE ENDS!</span>}
-            <MdKeyboardArrowRight id="main-header-right"onClick={this.handleArrowClick} />
+            {/* <MdKeyboardArrowRight id="main-header-right"onClick={this.handleArrowClick} /> */}
+            <span id="main-search"><BsSearch/> <input id="main-searchbar" placeholder="Search"></input></span>
           </span>
         </div>
       </div>

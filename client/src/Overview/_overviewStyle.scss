@@ -262,15 +262,14 @@
 .main-header {
   // background-color: white;
   font-family: 'Roboto', sans-serif;
-  border: 1px solid rgb(255, 0, 0);
-  height: 100px;
-  display: grid;
-  grid-template-rows: 60% 40%;
-  grid-template-columns: 100;
+  // border: 1px solid rgb(255, 0, 0);
+  height: 80px;
+  // display: grid;
+  // grid-template-rows: 60% 40%;
+  // grid-template-columns: 100;
 }
 .main-logo {
-  // background-color: rgb(105, 104, 102);
-  // color: white;
+  font-size: 20px;
 }
 
 #main-header-left {
@@ -279,11 +278,16 @@
   // left: 450px;
 }
 
-#main-header-right {
-  position: relative;
-  font-size: 35px;
+#main-search {
+  position: absolute;
+  font-size: 25px;
   // border: 2px solid black;
-  // right: 450px;
+  right: 300px;
+}
+
+#main-searchbar {
+  font-size: 18px;
+  border-radius: 10px;
 }
 
 .main-sale {
