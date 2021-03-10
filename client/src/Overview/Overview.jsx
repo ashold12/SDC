@@ -97,7 +97,7 @@ class Overview extends React.Component {
       selectedSideThumbnail,
       expandedGallery,
     } = this.state;
-    const { selectedProduct } = this.props;
+    const { selectedProduct, starRating } = this.props;
     return (
       <div>
         <Header />
@@ -108,7 +108,7 @@ class Overview extends React.Component {
             checkExpandedGallery={this.checkExpandedGallery}
           />
           {!expandedGallery && (
-            <ProductInfo selectedStyle={selectedStyle} selectedProduct={selectedProduct} />
+            <ProductInfo selectedStyle={selectedStyle} selectedProduct={selectedProduct} starRating={starRating} />
           )}
           {!expandedGallery && (
             <StyleSelector
