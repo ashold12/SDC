@@ -4,9 +4,9 @@ import ProductPrice from './ProductPrice.jsx';
 import ProductCategory from './ProductCategory.jsx';
 import ReadAllReviews from './ReadAllReviews.jsx';
 
-const ProductInfo = ({ selectedStyle, selectedProduct }) => (
+const ProductInfo = ({ selectedStyle, selectedProduct, starRating }) => (
   <div className="o-productInfo">
-    <ReadAllReviews />
+    <ReadAllReviews starRating={starRating} />
     <ProductCategory selectedProduct={selectedProduct} />
     <ProuductName selectedProduct={selectedProduct} />
     <ProductPrice selectedStyle={selectedStyle} />

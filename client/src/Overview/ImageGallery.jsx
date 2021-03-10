@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 
-import { MdExpandMore, MdExpandLess } from 'react-icons/md';
+import { MdExpandMore, MdExpandLess, MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import { IoMdExpand } from 'react-icons/io';
 import Zoom from './Zoom.jsx';
 
@@ -204,6 +204,8 @@ class ImageGallery extends React.Component {
       right: '62em',
       position: 'relative',
       zIndex: 20,
+      backgroundColor: "rgb(197, 195, 199)",
+      borderRadius: "50%",
     };
 
     if (selectedStyle) {
@@ -250,7 +252,7 @@ class ImageGallery extends React.Component {
               height: '5em',
               width: '5em',
               zIndex: 2,
-              borderBottom: '3.5px solid rgb(21, 182, 218)',
+              borderBottom: '3.5px solid greenYellow',
             };
 
             const otherCss = {
@@ -292,13 +294,13 @@ class ImageGallery extends React.Component {
           })}
 
           {!onFirstPhoto && !expandedGallery && (
-            <FaArrowCircleLeft className="o-left-arrow" onClick={this.handleLeftArrowClick} />
+            <MdKeyboardArrowLeft className="o-left-arrow" onClick={this.handleLeftArrowClick} />
           )}
           {!onFirstPhoto && expandedGallery && (
-            <FaArrowCircleLeft style={leftArrowExpandedStyle} onClick={this.handleLeftArrowClick} />
+            <MdKeyboardArrowLeft style={leftArrowExpandedStyle} onClick={this.handleLeftArrowClick} />
           )}
           {!onLastPhoto && showRightArrow && (
-            <FaArrowCircleRight className="o-right-arrow" onClick={this.handleRightArrowClick} />
+            <MdKeyboardArrowRight className="o-right-arrow" onClick={this.handleRightArrowClick} />
           )}
           {showDownArrow ? (
             <MdExpandMore className="o-down-arrow" onClick={this.handleDownArrowClick} />

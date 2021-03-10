@@ -71,7 +71,7 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17762) {
+  getProduct(productID = 17072) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
@@ -116,8 +116,9 @@ class App extends React.Component {
         <div onClick={this.toggleDarkMode}>Toggle DarkMode</div>
         {/* react is up and running */}
         {/* need to pass in what item we're on here */}
-        {this.state.selectedProduct && (
+        {this.state.selectedProduct && this.state.starRating && (
           <Overview
+            starRating={this.state.starRating}
             changeSelectedStyle={this.changeSelectedStyle}
             selectedProduct={selectedProduct}
             selectedProductId={this.state.selectedProduct.id}
