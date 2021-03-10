@@ -93,6 +93,7 @@ class App extends React.Component {
 
   toggleDarkMode() {
     const body = document.getElementById('bod');
+    this.darkMode = !this.darkMode;
     if (!this.darkMode) {
       body.style.background = 'white';
       body.style.color = 'black';
@@ -100,7 +101,6 @@ class App extends React.Component {
       body.style.background = 'black';
       body.style.color = 'white';
     }
-    this.darkMode = !this.darkMode;
   }
 
   changeSelectedStyle(selectedStyle) {
