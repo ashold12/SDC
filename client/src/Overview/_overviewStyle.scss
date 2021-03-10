@@ -1,6 +1,6 @@
 .o-overView {
   padding-top: 20px;
-  background-color: white;
+  // background-color: white;
   // border: 1px solid rgb(255, 0, 0);
   height: 700px;
   display: grid;
@@ -49,10 +49,14 @@
   right: 3em;
   position: relative;
   z-index: 20;
+  background-color: rgb(197, 195, 199);
+  border-radius: 50%;
 }
 
 .o-left-arrow {
   display: grid;
+  background-color: rgb(197, 195, 199);
+  border-radius: 50%;
   grid-row-start: 1;
   grid-row-end: 6;
   top: 22em;
@@ -136,17 +140,19 @@
 }
 
 #o-selected-style {
-  border: 2px solid rgb(21, 182, 218);
+  border: 2px solid greenyellow;
 }
 
 #o-size-selector {
   display: grid;
+  border-radius: 28px;
   grid-column-start: 1;
   grid-column-end: 2;
 }
 
 #o-quantity-selector {
   display: grid;
+  border-radius: 28px;
   grid-column-start: 2;
   grid-column-end: 3;
 }
@@ -154,6 +160,7 @@
 #o-add-to-bag-button {
   background-color: black;
   color: white;
+  border-radius: 28px;
 }
 
 .o-productOverview {
@@ -235,4 +242,25 @@
 
 .main-sale {
   text-align: center;
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times; // make sure ★ appears correctly
+  line-height: 1;
+
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--star-background) var(--percent),
+      var(--star-color) var(--percent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
