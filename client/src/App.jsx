@@ -9,6 +9,7 @@ import RelatedItemsAndComparison from './RelatedItemsAndComparison/RelatedItemsA
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.darkMode = false;
     this.state = {
       allProducts: [],
       selectedProduct: null,
@@ -19,11 +20,16 @@ class App extends React.Component {
     this.getProduct = this.getProduct.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
+    this.getMetaInformation = this.getMetaInformation.bind(this);
+    this.toggleDarkMode = this.toggleDarkMode.bind(this);
   }
+
   componentDidMount() {
     this.getAllProducts();
     this.getProduct();
+    this.getMetaInformation();
   }
+
   getAllProducts() {
     axios
       .get('api/products?count=*')
@@ -35,6 +41,33 @@ class App extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  getMetaInformation() {
+    let product;
+    if (!this.state.selectedProduct) {
+      product = 17072;
+    } else {
+      product = this.state.selectedProduct;
+    }
+
+    axios
+      .get(`/api/reviews/meta?product_id=${product}`)
+      .then((data) => {
+        let totalRatingScore = 0;
+        let totalNumberOfRatings = 0;
+        const { ratings, recommended } = data.data;
+        Object.keys(ratings).forEach((key) => {
+          totalRatingScore += parseInt(key, 10) * ratings[key];
+          totalNumberOfRatings += parseInt(ratings[key], 10);
+        });
+        let toNearestDecimal = (totalRatingScore / totalNumberOfRatings).toFixed(2);
+        // Calculate the recommended amount and the number of reviewers.
+        this.setState({ meta: data.data, starRating: toNearestDecimal, starRatingLoaded: true });
+      })
+      .catch((e) => {
+        console.log(e);
       });
   }
 
@@ -58,6 +91,18 @@ class App extends React.Component {
       });
   }
 
+  toggleDarkMode() {
+    const body = document.getElementById('bod');
+    this.darkMode = !this.darkMode;
+    if (!this.darkMode) {
+      body.style.background = 'white';
+      body.style.color = 'black';
+    } else {
+      body.style.background = 'black';
+      body.style.color = 'white';
+    }
+  }
+
   changeSelectedStyle(selectedStyle) {
     this.setState({
       selectedStyle: selectedStyle,
@@ -68,6 +113,7 @@ class App extends React.Component {
     const { selectedProduct } = this.state;
     return (
       <div className="main-app">
+        <div onClick={this.toggleDarkMode}>Toggle DarkMode</div>
         {/* react is up and running */}
         {/* need to pass in what item we're on here */}
         {this.state.selectedProduct && (
@@ -91,7 +137,7 @@ class App extends React.Component {
             getQuestions={this.getQuestions}
           />
         )}
-        <RatingsReviews productData={selectedProduct} />
+        {/* <RatingsReviews productData={selectedProduct} /> */}
       </div>
     );
   }

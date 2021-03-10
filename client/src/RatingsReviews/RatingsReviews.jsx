@@ -23,60 +23,75 @@ class RatingsReviews extends React.Component {
     this.sortReviewsBy = this.sortReviewsBy.bind(this);
     this.sortByStars = this.sortByStars.bind(this);
     this.showMoreReviews = this.showMoreReviews.bind(this);
+    this.removeFilters = this.removeFilters.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.productData) {
-      axios
-        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
-        .then((data) => {
-          const reviews = [];
-          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
-            reviews.push(data.data.results[i]);
-          }
-          this.setState({
-            loadedReviews: true,
-            product_id: this.props.productData.id,
-            reviews: data.data.results,
-            currentShownReviews: reviews,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      axios
-        .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
-        .then((data) => {
-          this.setState({ meta: data.data, loadedMeta: true });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
+    // if (this.props.productData) {
+    //   axios
+    //     .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
+    //     .then((data) => {
+    //       // Calculate the total number of reviews.
+    //       let totalNumberOfReviews;
+    //       debugger;
+    //       this.setState({ meta: data.data, loadedMeta: true });
+    //       axios
+    //         .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
+    //         .then((data) => {
+    //           const reviews = [];
+    //           for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+    //             reviews.push(data.data.results[i]);
+    //           }
+    //           this.setState({
+    //             loadedReviews: true,
+    //             product_id: this.props.productData.id,
+    //             reviews: data.data.results,
+    //             currentShownReviews: reviews,
+    //           });
+    //         })
+    //         .catch((e) => {
+    //           console.log(e);
+    //         });
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // }
   }
 
   componentDidUpdate() {
+    if (!this.props.productData) {
+      return;
+    }
     if (this.props.productData.id !== this.state.product_id) {
-      axios
-        .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=30`)
-        .then((data) => {
-          const reviews = [];
-          for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
-            reviews.push(data.data.results[i]);
-          }
-          this.setState({
-            loadedReviews: true,
-            product_id: this.props.productData.id,
-            reviews: data.data.results,
-            currentShownReviews: reviews,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      // get the meta data first, then get the reivew data based on review count.
       axios
         .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
         .then((data) => {
+          let totalReviews = 0;
+          Object.keys(data.data.ratings).forEach((rating) => {
+            totalReviews += parseInt(data.data.ratings[rating], 10);
+          });
+          axios
+            .get(
+              `/api/reviews/?product_id=${this.props.productData.id}&sort=relevant&count=${totalReviews}`
+            )
+            .then((data) => {
+              const reviews = [];
+              for (let i = 0; i < this.state.numberOfReviewsShowing; i += 1) {
+                reviews.push(data.data.results[i]);
+              }
+              this.setState({
+                loadedReviews: true,
+                product_id: this.props.productData.id,
+                reviews: data.data.results,
+                currentShownReviews: reviews,
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+
           this.setState({ meta: data.data, loadedMeta: true });
         })
         .catch((e) => {
@@ -102,7 +117,7 @@ class RatingsReviews extends React.Component {
           });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
       axios
         .get(`/api/reviews/meta?product_id=${this.props.productData.id}`)
@@ -110,7 +125,7 @@ class RatingsReviews extends React.Component {
           this.setState({ meta: data.data, loadedMeta: true });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }
@@ -128,6 +143,11 @@ class RatingsReviews extends React.Component {
       }
     }
     return reviews;
+  }
+
+  removeFilters() {
+    let reviews = this.generateReviewsArray(this.state.reviews);
+    this.setState({ filters: [], currentShownReviews: reviews });
   }
 
   sortByStars(filter) {
@@ -169,7 +189,7 @@ class RatingsReviews extends React.Component {
 
   sortReviewsBy(incomingChage) {
     axios
-      .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=${incomingChage}&count=30`)
+      .get(`/api/reviews/?product_id=${this.props.productData.id}&sort=${incomingChage}&count=400`)
       .then((data) => {
         const reviewsArray = this.generateReviewsArray(data.data.results);
         this.setState({ reviews: data.data.results, currentShownReviews: reviewsArray });
@@ -227,11 +247,15 @@ class RatingsReviews extends React.Component {
         </button>
       );
     }
+
     const { product_id, filters, meta } = this.state;
     return (
       <div className="rr-start-div">
         Ratings and Reviews.
-        <ReviewFilterSelector passChangeToRR={this.sortReviewsBy} />
+        <ReviewFilterSelector
+          ratings={this.state.meta.ratings}
+          passChangeToRR={this.sortReviewsBy}
+        />
         <div className="rr-parent" id="overview-link">
           {/* <div className="rr-rating-big" /> */}
           <div className="rr-tiles-container">
@@ -243,6 +267,7 @@ class RatingsReviews extends React.Component {
             <RatingBreakdown
               productId={product_id}
               changeFilter={this.sortByStars}
+              removeFilters={this.removeFilters}
               filters={filters}
               meta={this.state.meta}
               updateStars={this.props.updateStars}

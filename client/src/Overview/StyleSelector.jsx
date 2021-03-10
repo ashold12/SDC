@@ -18,13 +18,13 @@ const StyleSelector = ({selectedStyle, selectedProductStyles, selectStyleThumbna
           // put checkmark on the thumbnail if clicked
           if (selectedStyle.style_id === style.style_id) {
             return (<div key={style.style_id}>
-              <BiCheckCircle/>
-              <img key={style.style_id} className="o-items" src={style.photos[0].thumbnail_url} onClick={()=>{selectStyleThumbnail(style)}}></img>
+              {/* <BiCheckCircle /> */}
+              <img key={style.style_id} className="o-items" id="o-selected-style"src={style.photos[0].thumbnail_url} onClick={()=>{selectStyleThumbnail(style)}}></img>
             </div>)
           }
           // if the thumbnail is not selected, don't include the checkmark
           else {
-            return <img key={style.style_id} className="o-items" src={style.photos[0].thumbnail_url} onClick={()=>{selectStyleThumbnail(style)}}></img>
+            return <img id="o-item-photo" key={style.style_id} className="o-items" src={style.photos[0].thumbnail_url} onClick={()=>{selectStyleThumbnail(style)}}></img>
           }
         })}
       </div>

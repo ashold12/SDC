@@ -1,6 +1,6 @@
 import React from 'react';
+import axios from 'axios';
 import RRModal from './PhotoModal.jsx';
-import dummyReviews from './dummyReviews';
 
 // TODO: Fix technical debt. A11y issues, general formatting.
 // Tile needs to be a fixed size.
@@ -16,17 +16,20 @@ class ReviewTile extends React.Component {
     //let [testReview, testReview2] = dummyReviews.results;
     // Calculate star rating.
     let starRating = 0;
+    let helpfulness = 0;
     if (!props.review) {
       starRating = 0;
+      helpfulness = 0;
     } else if (props.review.rating > 0) {
       starRating = parseFloat((Math.round(props.review.rating * 4) / 4).toFixed(2));
+      helpfulness = this.props.review.helpfulness;
     }
-
     this.state = {
       starRating,
       showModal: false,
       modalURL: '',
       helpfulClicked: false,
+      helpfulness: helpfulness,
     };
     this.showMoreReview = this.showMoreReview.bind(this);
     this.showPhotoModal = this.showPhotoModal.bind(this);
@@ -143,12 +146,12 @@ class ReviewTile extends React.Component {
   }
 
   getHelpfulHTML() {
-    const { helpfulClicked } = this.state;
+    const { helpfulClicked, reported } = this.state;
     const { helpfulness } = this.props.review;
     if (!helpfulClicked) {
       return (
         <div className="rr-helpfulness">
-          Was this review helpful?
+          helpful?
           {/*eslint-disable*/
           /*using link as button per spec*/}
           <a href="#!" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
@@ -158,13 +161,17 @@ class ReviewTile extends React.Component {
           </a>
           {' | '}
           <a href="#!" className="rr-helpfulness-link" onClick={this.changeHelpfulness}>
-            No
+            Report
           </a>
           {/* eslint-enable */}
         </div>
       );
     }
-    return <div className="rr-helpfulness">{helpfulness} users found this review helpful.</div>;
+    if (reported) {
+      return <div className="rr-helpfulness">This review has been reported.</div>;
+    }
+
+    return <div className="rr-helpfulness">You found this review helpful.</div>;
   }
 
   showMoreReview() {
@@ -180,11 +187,11 @@ class ReviewTile extends React.Component {
   changeHelpfulness(e) {
     let { helpfulness } = this.props.review;
     if (e.target.innerText.includes('Yes')) {
-      // FIXME: hit the api and adjust the rating.
-      this.setState({ helpfulness: (helpfulness += 1), helpfulClicked: true });
-    } else {
-      // FIXME: According to docs we don't remove helpfulness only update and increment it.
+      axios.put(`/api/reviews/${this.props.review.review_id}/helpful`);
       this.setState({ helpfulClicked: true });
+    } else {
+      axios.put(`/api/reviews/${this.props.review.review_id}/report`);
+      this.setState({ helpfulClicked: true, reported: true });
     }
   }
 

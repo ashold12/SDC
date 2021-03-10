@@ -135,6 +135,10 @@
   gap: 10px;
 }
 
+#o-selected-style {
+  border: 2px solid rgb(21, 182, 218);
+}
+
 #o-size-selector {
   display: grid;
   grid-column-start: 1;
@@ -196,6 +200,10 @@
   border-radius: 50%;
 }
 
+.o-items:hover {
+  border: 2px solid black;
+}
+
 #o-hide {
   display: none;
 }
@@ -210,4 +218,21 @@
 
 #o-category {
   font-size: 1.2em;
+}
+
+.main-header {
+  background-color: white;
+  border: 1px solid rgb(255, 0, 0);
+  height: 100px;
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-template-columns: 100;
+}
+.main-logo {
+  background-color: rgb(105, 104, 102);
+  color: white;
+}
+
+.main-sale {
+  text-align: center;
 }
