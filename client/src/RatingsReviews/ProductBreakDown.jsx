@@ -25,7 +25,8 @@ class ProductBreakDown extends React.Component {
     const { characteristics } = this.props;
     const names = Object.keys(characteristics);
     for (let i = 0; i < names.length; i += 1) {
-      const key = characteristics[names[i]].id;
+      // const key = characteristics[names[i]].id;
+      //let key = characteristics[names[i]];
 
       // Error checking for null
       let percentage = 0;
@@ -35,24 +36,28 @@ class ProductBreakDown extends React.Component {
         percentage = parseInt(characteristics[names[i]].value, 10).toFixed(0) * 20;
         numberOfStars = parseInt(characteristics[names[i]].value, 10).toFixed(0);
       }
-
+      let key = Date.now();
       const inlineStyle = {
         width: `${percentage}%`,
       };
 
       bar.push(
-        <div className="rr-product-overview-surroundtext">
-          {`${names[i]}: ${numberOfStars} stars.`}
-          <div key={key} className="rr-product-overview-bar-container">
-            <div style={inlineStyle} className="rr-product-overview-review-bar">
+        <div key={(key += Math.random() * 100)} className="rr-product-overview-surroundtext">
+          {`${names[i]}`}
+          <div key={(key += Math.random() * 100)} className="rr-product-overview-bar-container">
+            <div
+              key={(key += Math.random() * 100)}
+              style={inlineStyle}
+              className="rr-product-overview-review-bar"
+            >
               <b>{'⇓'}</b>
             </div>
           </div>
-          <div className="rr-product-overview-text">
-            <div className="rr-product-overview-left-text">
+          <div key={(key += Math.random() * 100)} className="rr-product-overview-text">
+            <div key={(key += Math.random() * 100)} className="rr-product-overview-left-text">
               {characteristicsToScale[names[i]][0]}
             </div>
-            <div className="rr-product-overview-right-text">
+            <div key={(key += Math.random() * 100)} className="rr-product-overview-right-text">
               {characteristicsToScale[names[i]][1]}
             </div>
           </div>
