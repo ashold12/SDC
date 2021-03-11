@@ -98,7 +98,7 @@ class App extends React.Component {
       body.style.background = 'white';
       body.style.color = 'black';
     } else {
-      body.style.background = 'black';
+      body.style.background = 'rgb(35,35,35)';
       body.style.color = 'white';
     }
   }
