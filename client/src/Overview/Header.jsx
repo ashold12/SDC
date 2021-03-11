@@ -35,7 +35,6 @@ class Header extends React.Component {
       <div className="main-header">
         <div className="main-logo">HAMILTON</div>
         <div id="mystuff">
-        {/* <span className="main-logo">HAMILTON</span> */}
         <span id="main-categories"><span style={style}>New Releases</span><span style={style}>Mens</span> <span style={style}>Women</span> <span style={style}>Children</span>  <b>Sale</b> </span>
         </div>
         <div className="main-sale">
