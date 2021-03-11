@@ -47,7 +47,7 @@ class App extends React.Component {
   getMetaInformation() {
     let product;
     if (!this.state.selectedProduct) {
-      product = 17070;
+      product = 17072;
     } else {
       product = this.state.selectedProduct;
     }
@@ -71,7 +71,7 @@ class App extends React.Component {
       });
   }
 
-  getProduct(productID = 17091) {
+  getProduct(productID = 17072) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
