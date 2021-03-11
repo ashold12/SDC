@@ -6,7 +6,7 @@
 //Main
 
 .qa-main-container {
-  height: 70vh;
+  height: 85vh;
   width: 70vw;
 }
 
@@ -68,12 +68,11 @@
 
 h2 {
   font-weight: bold;
-  text-shadow: 2px 2px 3px rgb(16.86%, 88.63%, 33.33%);
 }
 
 #qa-answerlist-title {
   font-weight: bold;
-  text-shadow: 1rem 1rem 1rem rgb(16.86%, 88.63%, 33.33%);
+
 }
 
 //Most Helpful
@@ -109,7 +108,8 @@ h2 {
   font-size: 30;
   font-weight: bold;
   display: block;
-  text-shadow: 1px 1px rgb(16.86%, 88.63%, 33.33%);
+
+  text-shadow: 1px 1px rgb(192, 192, 192);
 }
 
 //Question List
@@ -204,6 +204,8 @@ h2 {
 }
 
 .qa-search-exactMatch {
+  background-color: rgb(16.86%, 88.63%, 33.33%);
+
   color: rgb(83.14, 11.37, 66.66);
 }
 
@@ -214,6 +216,9 @@ h2 {
 // }
 
 mark {
+  background-color: rgb(16.86%, 88.63%, 33.33%);
+
+
   color: rgb(83.14, 11.37, 66.66);
 }
 
@@ -246,7 +251,7 @@ mark {
   opacity: 1;
   visibility: visible;
   overflow: hidden;
-  z-index: 1;
+  z-index: 51;
 
   border: solid;
   border-width: thick;
@@ -255,7 +260,9 @@ mark {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+
+  background-color: rgb(192, 192, 192);
+
 
   display: block;
 }
@@ -370,14 +377,11 @@ mark {
 }
 //Submit Button
 .qa-question-modal-griditem11 {
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(239, 244, 239);
-  border: solid;
-  border-width: thick;
-  border-top-color: rgb(187, 178, 178);
-  border-bottom-color: rgb(91, 84, 84);
-  border-left-color: rgb(239, 244, 239);
-  border-right-color: rgb(239, 244, 239);
+
+  background-color: black;
+  color: white;
+  border-radius: 28px;
+
   grid-column-start: 9;
   grid-column-end: 10;
   grid-row-start: 9;
@@ -386,12 +390,11 @@ mark {
   padding-left: 3px;
 }
 .qa-question-modal-griditem11:hover {
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(16.86%, 88.63%, 33.33%);
-  border-top-color: rgb(199, 190, 190);
-  border-bottom-color: rgb(104, 97, 97);
-  border-left-color: rgb(244, 249, 244);
-  border-right-color: rgb(244, 249, 244);
+
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
+
 }
 
 //close button?
@@ -400,7 +403,9 @@ button.qa-question-modal-griditem12 {
   height: 25px;
   width: 25px;
   border: none;
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+
+  background-color: rgb(192, 192, 192);
+
 
   //border
 
@@ -419,7 +424,9 @@ button.qa-question-modal-griditem12:hover {
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  background-color: rgb(83.14, 11.37, 66.66);
+
+  background-color: black;
+
   transition: cubic-bezier(1, 0.6, 0.9, 1);
   padding: 0px 0px;
 }
@@ -456,7 +463,9 @@ button.qa-question-modal-griditem12:hover {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+
+  background-color: rgb(192, 192, 192);
+
 
   display: block;
 }
@@ -478,20 +487,28 @@ button.qa-question-modal-griditem12:hover {
 }
 //Title
 .qa-answer-modal-griditem1 {
-  grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
   grid-row-end: 3;
 }
 //Subtitle
 .qa-answer-modal-griditem2 {
-  grid-column-start: 4;
+  grid-column-start: 3;
   grid-column-end: 7;
-  grid-row-start: 2;
+  grid-row-start: 1;
   grid-row-end: 3;
 }
 //Label for TextArea
 .qa-answer-modal-griditem3 {
+  position: relative;
+  top: 50%;
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+.qa-answer-modal-griditem3-alert {
   grid-column-start: 2;
   grid-column-end: 6;
   grid-row-start: 4;
@@ -506,6 +523,15 @@ button.qa-question-modal-griditem12:hover {
 }
 //Label for Nickname
 .qa-answer-modal-griditem5 {
+  position: relative;
+  top: 50%;
+  grid-column-start: 8;
+  grid-column-end: 11;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.qa-answer-modal-griditem5-alert {
   grid-column-start: 8;
   grid-column-end: 11;
   grid-row-start: 2;
@@ -525,6 +551,14 @@ button.qa-question-modal-griditem12:hover {
   grid-row-end: 6;
 }
 .qa-answer-modal-griditem8 {
+  position: relative;
+  top: 75%;
+  grid-column-start: 8;
+  grid-column-end: 10;
+  grid-row-start: 7;
+  grid-row-end: 9;
+}
+.qa-answer-modal-griditem8-alert {
   grid-column-start: 8;
   grid-column-end: 10;
   grid-row-start: 7;
@@ -545,63 +579,57 @@ button.qa-question-modal-griditem12:hover {
 
 //Submit button
 .qa-answer-modal-griditem11 {
-  border: solid;
-  border-width: thick;
-  border-top-color: rgb(187, 178, 178);
-  border-bottom-color: rgb(91, 84, 84);
-  border-left-color: rgb(239, 244, 239);
-  border-right-color: rgb(239, 244, 239);
-  background-color: rgb(53, 47, 47);
-  border-radius: 2%;
+
+  background-color: black;
+  color: white;
+  border-radius: 28px;
   grid-column-start: 10;
   grid-column-end: 10;
   grid-row-start: 14;
   grid-row-end: 15;
+
+  padding-left: 3px;
+}
+.qa-answer-modal-griditem11:hover {
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 //Close Button
 
-.qa-answer-modal-griditem12 {
-  //size
-  height: 10px;
-  width: 10px;
+button.qa-answer-modal-griditem12 {
+  padding: 0px 0px;
+  height: 25px;
+  width: 25px;
+  border: none;
+  background-color: rgb(192, 192, 192);
 
-  //decoration
 
-  //border
-  border: solid;
-  border-radius: 50%;
-  border-width: thick;
-  border-top-color: rgb(187, 178, 178);
-  border-bottom-color: rgb(91, 84, 84);
-  border-left-color: rgb(239, 244, 239);
-  border-right-color: rgb(239, 244, 239);
-
-  //position
   grid-column-start: 10;
   grid-column-end: 11;
   grid-row-start: 1;
   grid-row-end: 2;
 
   position: relative;
-  left: 95%;
-
-  padding-left: 3px;
+  left: 90%;
+  font-size: large;
 }
 
-.qa-answer-modal-griditem12:hover {
-  color: greenyellow;
-  border-top-color: rgb(239, 244, 239);
-  border-bottom-color: rgb(239, 244, 239);
-  border-left-color: rgb(187, 178, 178);
-  border-right-color: rgb(91, 84, 84);
+button.qa-answer-modal-griditem12:hover {
+  color: rgb(239, 244, 239);
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: black;
   transition: cubic-bezier(1, 0.6, 0.9, 1);
+  padding: 0px 0px;
 }
 
 .qa-answer-modal-griditem13 {
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row-start: 11;
+  grid-row-start: 10;
   grid-row-end: 15;
 
   //display
@@ -614,20 +642,27 @@ button.qa-question-modal-griditem12:hover {
   flex-grow: 1;
 }
 
-.qa-answer-thumbnails {
+img.qa-answer-thumbnails {
   width: 100px;
   height: 100px;
+  border: solid;
+  border-width: 2px;
+  border-color: rgb(187, 178, 178);
 }
 
-.qa-answer-modal-remove-photo {
-  width: 90px;
-  background-color: rgb(239, 244, 239);
-  color: rgb(91, 84, 84);
+button.qa-answer-modal-remove-photo {
+  padding: 0px 0px;
+  width: 104px;
+  background-color: black;
+  color: white;
+  border-radius: 28px;
 }
-.qa-answer-modal-remove-photo:hover {
-  width: 90px;
-  color: rgb(239, 244, 239);
-  background-color: rgb(91, 84, 84);
+button.qa-answer-modal-remove-photo:hover {
+  padding: 0px 0px;
+  width: 104px;
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 .qa-answer-imageUploadButton {
@@ -642,64 +677,25 @@ button.qa-question-modal-griditem12:hover {
 //Buttons
 
 .a-componentFooter-buttons-container {
-  background-color: rgb(91, 84, 84);
+  background-color: rgb(83.14, 11.37, 66.66);
 }
 
 .qa-componentFooter-buttons {
+  padding-top: 5px;
+  margin-right: 105px;
+  margin-top: 10px;
+  height: 50px;
   cursor: pointer;
   font-size: normal;
   font-weight: 500;
-  text-shadow: 2px 2px 3px rgb(182, 176, 176);
-  text-transform: uppercase;
+  background-color: black;
+  color: white;
+  border-radius: 28px;
 }
 .qa-componentFooter-buttons:hover {
-  text-decoration: none;
-}
-
-.qa-componentFooter-buttons-effect {
-  color: rgb(239, 244, 239);
-  border: 4px solid rgb(91, 84, 84);
-  box-shadow: 0 0 0 1px rgb(91, 84, 84) inset;
-  background-color: rgb(91, 84, 84);
-  overflow: hidden;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-.qa-componentFooter-buttons-effect:hover {
-  border: 4px solid rgb(182, 176, 176);
-  background-color: whitesmoke;
-  box-shadow: 0px 0px 0px 4px rgb(239, 244, 239) inset;
-}
-
-.qa-componentFooter-buttons-effect .qa-componentFooter-button-spans {
-  transition: all 0.2s ease-out;
-  z-index: 1;
-}
-.qa-componentFooter-buttons-effect:hover .qa-componentFooter-button-spans {
-  color: rgb(91, 84, 84);
-}
-.qa-componentFooter-buttons-effect:after {
-  background: white;
-  border: 0px solid rgb(91, 84, 84);
-  content: '';
-  height: 155px;
-  left: -75px;
-  opacity: 0.8;
-  position: absolute;
-  top: -50px;
-  -webkit-transform: rotate(35deg);
-  transform: rotate(35deg);
-  width: 50px;
-  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  z-index: 1;
-}
-.qa-componentFooter-buttons-effect:hover:after {
-  background: whitesmoke;
-  border: 20px solid rgb(91, 84, 84);
-  opacity: 0;
-  left: 120%;
-  -webkit-transform: rotate(40deg);
-  transform: rotate(40deg);
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 //ReportedAnswerButton
