@@ -56,9 +56,15 @@ class RelatedItemsAndComparison extends Component {
     this.setState({ loading: true });
     axios
       .get(`/api/products/${productID}/related`, {
-        cancelToken: cancelTokenSource.token
+        cancelToken: cancelTokenSource.token,
       })
-      .then((related) => this.setState({ relatedID: related.data }))
+      .then((related) => {
+        const tempRelatedID = new Set(related.data);
+        if (tempRelatedID.has(this.state.currentProduct)) {
+          tempRelatedID.delete(this.state.currentProduct);
+        }
+        this.setState({ relatedID: [...tempRelatedID] });
+      })
       .then(() => this.getRelatedStyles(this.state.relatedID))
       .then((styles) => this.setState({ productStyles: styles }))
       .then(() => this.getRelatedInfo(this.state.relatedID))
@@ -109,7 +115,7 @@ class RelatedItemsAndComparison extends Component {
     } else if (!this.state.yourOutfit.hasOwnProperty(this.props.selectedProduct.id)) {
       const currentOutfit = { ...this.state.yourOutfit };
       currentOutfit[this.props.selectedProduct.id] = this.makeCardForOutfit();
-      this.setState({ yourOutfit: currentOutfit })
+      this.setState({ yourOutfit: currentOutfit });
     }
   }
 
@@ -132,7 +138,7 @@ class RelatedItemsAndComparison extends Component {
         <RelatedProducts cards={this.state.relatedProductCards} />
         <YourOutfit
           cards={this.state.yourOutfit}
-          addOutfitCard={<AddOutfitCard addCurrentProductToOutfit={this.updateYourOutfit} />}
+          addCurrentProductToOutfit={this.updateYourOutfit}
         />
       </div>
     );

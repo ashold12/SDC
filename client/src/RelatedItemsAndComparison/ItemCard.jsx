@@ -4,9 +4,9 @@ import React from 'react';
 
 /* pass in a check to see if its a star or not, then apply either a star or an x */
 function ItemCard({ productInfo, changeProduct }) {
-  const sale_price = productInfo.styles[1].sale_price;
-  const original_price = productInfo.styles[1].original_price
-
+  const sale_price = productInfo.styles[0].sale_price;
+  const original_price = productInfo.styles[0].original_price
+  // debugger;
   const price = sale_price ? (
     <p>
       <span className="rpo-sale-price">

@@ -4,7 +4,10 @@ import CardCarousel from './CardCarousel.jsx';
 function RelatedProducts({ cards }) {
   return (
     <div className="rpo-card-carousel-container">
-      <CardCarousel cards={cards} />
+      <CardCarousel
+        cards={cards}
+        displayNum={4}
+      />
     </div>
   );
 }
