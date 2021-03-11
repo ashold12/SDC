@@ -9,10 +9,15 @@ const RRModal = ({ displayModal, closeModal, image }) => {
   return (
     <div className={modalClassName}>
       <section className="rr-modal-main">
-        <img alt="Product shown very large." className="rr-modal-image" src={image} />
-        <button type="button" onClick={closeModal}>
+        <img
+          alt="Product shown very large."
+          className="rr-modal-image"
+          onClick={closeModal}
+          src={image}
+        />
+        {/* <button type="button" onClick={closeModal}>
           Close
-        </button>
+        </button> */}
       </section>
     </div>
   );
