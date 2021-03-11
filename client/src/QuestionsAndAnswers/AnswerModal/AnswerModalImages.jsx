@@ -7,7 +7,7 @@ const AnswerModalImages = function ({ photos, onChange, imageClose }) {
       <div className="qa-answer-modal-griditem13">
       {photos.map((photo) => (
         <div className="qa-answer-modal-photos" key={photos.indexOf(photo)}>
-          <input type="click" className="qa-answer-modal-remove-photo" onClick={imageClose} placeholder="Remove Image"/>
+          <button type="button" className="qa-answer-modal-remove-photo" onClick={imageClose}>Remove Image</button>
           <img className="qa-answer-thumbnails" src={photo} alt="Image you just uploaded" />
         </div >
       ))}
@@ -19,7 +19,7 @@ const AnswerModalImages = function ({ photos, onChange, imageClose }) {
     <div className="qa-answer-modal-griditem13">
       {photos.map((photo) => (
         <div className="qa-answer-modal-photos" key={photos.indexOf(photo)}>
-          <input type="click" className="qa-answer-modal-remove-photo" onClick={imageClose} placeholder="Remove Image"/>
+          <button type="button" className="qa-answer-modal-remove-photo" onClick={imageClose}>Remove Image</button>
           <img className="qa-answer-thumbnails" src={photo} alt="Image you just uploaded" />
           </div>
       ))}
