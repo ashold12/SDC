@@ -47,7 +47,7 @@ class App extends React.Component {
   getMetaInformation() {
     let product;
     if (!this.state.selectedProduct) {
-      product = 17075;
+      product = 17070;
     } else {
       product = this.state.selectedProduct;
     }
