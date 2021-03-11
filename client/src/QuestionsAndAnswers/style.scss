@@ -204,6 +204,7 @@ h2 {
 }
 
 .qa-search-exactMatch {
+  background-color: rgb(16.86%, 88.63%, 33.33%);
   color: rgb(83.14, 11.37, 66.66);
 }
 
@@ -214,6 +215,7 @@ h2 {
 // }
 
 mark {
+  background-color: rgb(16.86%, 88.63%, 33.33%);
   color: rgb(83.14, 11.37, 66.66);
 }
 
@@ -255,7 +257,7 @@ mark {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+  background-color: rgb(192, 192, 192);
 
   display: block;
 }
@@ -370,14 +372,9 @@ mark {
 }
 //Submit Button
 .qa-question-modal-griditem11 {
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(239, 244, 239);
-  border: solid;
-  border-width: thick;
-  border-top-color: rgb(187, 178, 178);
-  border-bottom-color: rgb(91, 84, 84);
-  border-left-color: rgb(239, 244, 239);
-  border-right-color: rgb(239, 244, 239);
+  background-color: black;
+  color: white;
+  border-radius: 28px;
   grid-column-start: 9;
   grid-column-end: 10;
   grid-row-start: 9;
@@ -386,12 +383,9 @@ mark {
   padding-left: 3px;
 }
 .qa-question-modal-griditem11:hover {
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(16.86%, 88.63%, 33.33%);
-  border-top-color: rgb(199, 190, 190);
-  border-bottom-color: rgb(104, 97, 97);
-  border-left-color: rgb(244, 249, 244);
-  border-right-color: rgb(244, 249, 244);
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 //close button?
@@ -400,7 +394,7 @@ button.qa-question-modal-griditem12 {
   height: 25px;
   width: 25px;
   border: none;
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+  background-color: rgb(192, 192, 192);
 
   //border
 
@@ -419,7 +413,7 @@ button.qa-question-modal-griditem12:hover {
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  background-color: rgb(83.14, 11.37, 66.66);
+  background-color: black;
   transition: cubic-bezier(1, 0.6, 0.9, 1);
   padding: 0px 0px;
 }
@@ -456,7 +450,7 @@ button.qa-question-modal-griditem12:hover {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+  background-color: rgb(192, 192, 192);
 
   display: block;
 }
@@ -570,14 +564,9 @@ button.qa-question-modal-griditem12:hover {
 
 //Submit button
 .qa-answer-modal-griditem11 {
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(239, 244, 239);
-  border: solid;
-  border-width: thick;
-  border-top-color: rgb(187, 178, 178);
-  border-bottom-color: rgb(91, 84, 84);
-  border-left-color: rgb(239, 244, 239);
-  border-right-color: rgb(239, 244, 239);
+  background-color: black;
+  color: white;
+  border-radius: 28px;
   grid-column-start: 10;
   grid-column-end: 10;
   grid-row-start: 14;
@@ -586,12 +575,9 @@ button.qa-question-modal-griditem12:hover {
   padding-left: 3px;
 }
 .qa-answer-modal-griditem11:hover {
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(16.86%, 88.63%, 33.33%);
-  border-top-color: rgb(199, 190, 190);
-  border-bottom-color: rgb(104, 97, 97);
-  border-left-color: rgb(244, 249, 244);
-  border-right-color: rgb(244, 249, 244);
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 //Close Button
@@ -601,7 +587,7 @@ button.qa-answer-modal-griditem12 {
   height: 25px;
   width: 25px;
   border: none;
-  background-color: rgb(16.86%, 88.63%, 33.33%);
+  background-color: rgb(192, 192, 192);
 
   //border
 
@@ -620,7 +606,7 @@ button.qa-answer-modal-griditem12:hover {
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  background-color: rgb(83.14, 11.37, 66.66);
+  background-color: black;
   transition: cubic-bezier(1, 0.6, 0.9, 1);
   padding: 0px 0px;
 }
@@ -652,25 +638,16 @@ img.qa-answer-thumbnails {
 button.qa-answer-modal-remove-photo {
   padding: 0px 0px;
   width: 104px;
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(239, 244, 239);
-  border: solid;
-  border-width: thick;
-  border-top-color: rgb(187, 178, 178);
-  border-bottom-color: rgb(91, 84, 84);
-  border-left-color: rgb(239, 244, 239);
-  border-right-color: rgb(239, 244, 239);
+  background-color: black;
+  color: white;
+  border-radius: 28px;
 }
 button.qa-answer-modal-remove-photo:hover {
   padding: 0px 0px;
   width: 104px;
-  //border and backgroun
-  background-color: rgb(83.14, 11.37, 66.66);
-  color: rgb(16.86%, 88.63%, 33.33%);
-  border-top-color: rgb(199, 190, 190);
-  border-bottom-color: rgb(104, 97, 97);
-  border-left-color: rgb(244, 249, 244);
-  border-right-color: rgb(244, 249, 244);
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 .qa-answer-imageUploadButton {
@@ -685,64 +662,21 @@ button.qa-answer-modal-remove-photo:hover {
 //Buttons
 
 .a-componentFooter-buttons-container {
-  background-color: rgb(91, 84, 84);
+  background-color: rgb(83.14, 11.37, 66.66);
 }
 
 .qa-componentFooter-buttons {
   cursor: pointer;
   font-size: normal;
   font-weight: 500;
-  text-shadow: 2px 2px 3px rgb(182, 176, 176);
-  text-transform: uppercase;
+  background-color: black;
+  color: white;
+  border-radius: 28px;
 }
 .qa-componentFooter-buttons:hover {
-  text-decoration: none;
-}
-
-.qa-componentFooter-buttons-effect {
-  color: rgb(239, 244, 239);
-  border: 4px solid rgb(91, 84, 84);
-  box-shadow: 0 0 0 1px rgb(91, 84, 84) inset;
-  background-color: rgb(91, 84, 84);
-  overflow: hidden;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-.qa-componentFooter-buttons-effect:hover {
-  border: 4px solid rgb(182, 176, 176);
-  background-color: whitesmoke;
-  box-shadow: 0px 0px 0px 4px rgb(239, 244, 239) inset;
-}
-
-.qa-componentFooter-buttons-effect .qa-componentFooter-button-spans {
-  transition: all 0.2s ease-out;
-  z-index: 1;
-}
-.qa-componentFooter-buttons-effect:hover .qa-componentFooter-button-spans {
-  color: rgb(91, 84, 84);
-}
-.qa-componentFooter-buttons-effect:after {
-  background: white;
-  border: 0px solid rgb(91, 84, 84);
-  content: '';
-  height: 155px;
-  left: -75px;
-  opacity: 0.8;
-  position: absolute;
-  top: -50px;
-  -webkit-transform: rotate(35deg);
-  transform: rotate(35deg);
-  width: 50px;
-  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  z-index: 1;
-}
-.qa-componentFooter-buttons-effect:hover:after {
-  background: whitesmoke;
-  border: 20px solid rgb(91, 84, 84);
-  opacity: 0;
-  left: 120%;
-  -webkit-transform: rotate(40deg);
-  transform: rotate(40deg);
+  background-color: greenyellow;
+  color: black;
+  border-radius: 28px;
 }
 
 //ReportedAnswerButton
