@@ -9,6 +9,7 @@ import RelatedItemsAndComparison from './RelatedItemsAndComparison/RelatedItemsA
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.darkMode = false;
     this.state = {
       allProducts: [],
       selectedProduct: null,
@@ -20,6 +21,7 @@ class App extends React.Component {
     this.getQuestions = this.getQuestions.bind(this);
     this.changeSelectedStyle = this.changeSelectedStyle.bind(this);
     this.getMetaInformation = this.getMetaInformation.bind(this);
+    this.toggleDarkMode = this.toggleDarkMode.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +91,18 @@ class App extends React.Component {
       });
   }
 
+  toggleDarkMode() {
+    const body = document.getElementById('bod');
+    this.darkMode = !this.darkMode;
+    if (!this.darkMode) {
+      body.style.background = 'white';
+      body.style.color = 'black';
+    } else {
+      body.style.background = 'rgb(35,35,35)';
+      body.style.color = 'white';
+    }
+  }
+
   changeSelectedStyle(selectedStyle) {
     this.setState({
       selectedStyle: selectedStyle,
@@ -99,10 +113,12 @@ class App extends React.Component {
     const { selectedProduct } = this.state;
     return (
       <div className="main-app">
+        <div onClick={this.toggleDarkMode}>Toggle DarkMode</div>
         {/* react is up and running */}
         {/* need to pass in what item we're on here */}
-        {this.state.selectedProduct && (
+        {this.state.selectedProduct && this.state.starRating && (
           <Overview
+            starRating={this.state.starRating}
             changeSelectedStyle={this.changeSelectedStyle}
             selectedProduct={selectedProduct}
             selectedProductId={this.state.selectedProduct.id}

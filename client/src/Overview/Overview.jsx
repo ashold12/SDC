@@ -5,6 +5,7 @@ import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import ProductOverview from './ProductOverview.jsx';
+import Header from './Header.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -16,17 +17,18 @@ class Overview extends React.Component {
       selectedStyle: null, // set the first style as default
       outOfStock: false,
       allSizes: [],
-
+      expandedGallery: false,
     };
 
     this.getProductStyles = this.getProductStyles.bind(this);
     this.selectStyleThumbnail = this.selectStyleThumbnail.bind(this);
     this.checkOutOfStock = this.checkOutOfStock.bind(this);
+    this.checkExpandedGallery = this.checkExpandedGallery.bind(this);
   }
 
   componentDidMount() {
     this.getProductStyles();
-    console.log(this.props.selectedProductId)
+    console.log(this.props.selectedProductId);
   }
 
   componentDidUpdate(prevsProp) {
@@ -37,7 +39,7 @@ class Overview extends React.Component {
 
   // get all the styles associated with the product - get product id as props through App component
   getProductStyles() {
-    console.log(this.props.selectedProductId)
+    console.log(this.props.selectedProductId);
     axios.get(`/api/products/${this.props.selectedProductId}/styles`).then((product) => {
       this.setState(
         {
@@ -73,38 +75,57 @@ class Overview extends React.Component {
     }
   }
 
+  checkExpandedGallery() {
+    this.setState({ expandedGallery: !this.state.expandedGallery });
+  }
+
   // change the state of the selectedStyle once we click on a thumbnail
   selectStyleThumbnail(style) {
     this.setState({ selectedStyle: style }, () => {
       this.checkOutOfStock();
-      this.props.changeSelectedStyle(this.state.selectedStyle)
+      this.props.changeSelectedStyle(this.state.selectedStyle);
       // need to check quantity too once we change a style
     });
   }
 
   render() {
-    const { selectedProductStyles, selectedStyle, outOfStock, allSizes, selectedSideThumbnail } = this.state;
-    const { selectedProduct } = this.props;
+    const {
+      selectedProductStyles,
+      selectedStyle,
+      outOfStock,
+      allSizes,
+      selectedSideThumbnail,
+      expandedGallery,
+    } = this.state;
+    const { selectedProduct, starRating } = this.props;
     return (
       <div>
+        <Header />
         <div className="o-overView">
           <ImageGallery
             selectedProductStyles={selectedProductStyles}
             selectedStyle={selectedStyle}
+            checkExpandedGallery={this.checkExpandedGallery}
           />
-          <ProductInfo selectedStyle={selectedStyle} selectedProduct={selectedProduct} />
-          <StyleSelector
-            selectedProductStyles={selectedProductStyles}
-            selectedStyle={selectedStyle}
-            selectStyleThumbnail={this.selectStyleThumbnail}
-          />
-          <AddToCart
-            outOfStock={outOfStock}
-            selectedProductStyles={selectedProductStyles}
-            selectedStyle={selectedStyle}
-            selectedProduct={selectedProduct}
-            allSizes={allSizes}
-          />
+          {!expandedGallery && (
+            <ProductInfo selectedStyle={selectedStyle} selectedProduct={selectedProduct} starRating={starRating} />
+          )}
+          {!expandedGallery && (
+            <StyleSelector
+              selectedProductStyles={selectedProductStyles}
+              selectedStyle={selectedStyle}
+              selectStyleThumbnail={this.selectStyleThumbnail}
+            />
+          )}
+          {!expandedGallery && (
+            <AddToCart
+              outOfStock={outOfStock}
+              selectedProductStyles={selectedProductStyles}
+              selectedStyle={selectedStyle}
+              selectedProduct={selectedProduct}
+              allSizes={allSizes}
+            />
+          )}
         </div>
         <ProductOverview selectedProduct={selectedProduct} />
       </div>

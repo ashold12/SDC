@@ -1,9 +1,12 @@
 import React from 'react';
 
-const ReadAllReviews = (props) => { // insert the stars here as well
+const ReadAllReviews = ({starRating}) => { // insert the stars here as well
   return (
     <div className="o-read-all-reviews">
-      * * * * * <span><a href='#overview-link'>Read all reviews</a></span>
+      <div className="Stars"
+      style={{'--rating': starRating}}>
+
+        </div> <span><a href='#overview-link'>Read all reviews</a></span>
     </div>
   );
 };
