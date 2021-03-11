@@ -107,6 +107,7 @@
 
 .o-productInfo {
   display: grid;
+  font-weight: bold;
   grid-column-start: 4;
   grid-column-end: 11;
   grid-row-start: 1;
@@ -207,7 +208,7 @@
 
 .o-productOverviewChecks {
   padding-left: 30px;
-  border-left: 2px solid black;
+  border-left: 2px solid rgb(192, 192, 192);
   display: grid;
   grid-column-start: 2;
   grid-column-end: 3;
@@ -262,15 +263,17 @@
 .main-header {
   // background-color: white;
   font-family: 'Roboto', sans-serif;
-  border: 1px solid rgb(255, 0, 0);
-  height: 100px;
-  display: grid;
-  grid-template-rows: 60% 40%;
-  grid-template-columns: 100;
+  // border: 1px solid rgb(255, 0, 0);
+  height: 80px;
+  margin-bottom: 30px;
+  // display: grid;
+  // grid-template-rows: 60% 40%;
+  // grid-template-columns: 100;
 }
 .main-logo {
-  // background-color: rgb(105, 104, 102);
-  // color: white;
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #main-header-left {
@@ -279,19 +282,41 @@
   // left: 450px;
 }
 
-#main-header-right {
-  position: relative;
-  font-size: 35px;
-  // border: 2px solid black;
-  // right: 450px;
+#main-search {
+  position: absolute;
+  font-size: 20px;
+  right: 300px;
+}
+
+#main-searchbar {
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+#main-searchbar:hover {
+  border: 2px solid rgb(192, 192, 192);
 }
 
 .main-sale {
+  margin-top: 20px;
   text-align: center;
   font-size: 20px;
 }
 
+#main-categories {
+  display: inline-block;
+  // text-align: center;
+  font-size: 20px;
+  // padding-left: 250px;
+}
+
+#mystuff {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 #main-sale-text {
+  font-weight: bold;
   // padding-bottom: 10px;
   // margin-bottom: 10px;
   // border: 2px solid black;
