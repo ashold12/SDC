@@ -238,12 +238,8 @@ class RatingsReviews extends React.Component {
     let ReviewButton = <div />;
     if (numberOfReviewsShowing <= reviews.length) {
       ReviewButton = (
-        <button
-          type="button"
-          className="rr-button button-color-change"
-          onClick={this.showMoreReviews}
-        >
-          Show More Reviews
+        <button type="button" className="rr-button-pretty" onClick={this.showMoreReviews}>
+          <span>More Reviews</span>
         </button>
       );
     }
@@ -287,10 +283,11 @@ class RatingsReviews extends React.Component {
           <div className="rr-review-footer">
             <button
               type="button"
-              className="rr-button button-color-change"
+              // id="o-add-to-bag-button"
+              className="rr-button-pretty"
               onClick={this.showReviewModal}
             >
-              Add Review
+              <span>Add Review</span>
             </button>
             {ReviewButton}
           </div>
