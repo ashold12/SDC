@@ -209,6 +209,12 @@ class ReviewForm extends React.Component {
       return <div />;
     }
 
+    if (this.props.showModal) {
+      document.getElementById('bod').style.overflow = 'hidden';
+    } else {
+      document.getElementById('bod').style.overflow = 'auto';
+    }
+
     const characteristicRB = Object.keys(this.metaData.characteristics).map((char) => (
       <CharacteristicsRadioButtonSet
         characteristic={char}
@@ -271,7 +277,6 @@ class ReviewForm extends React.Component {
               />
             </div>
             <div className="rr-review-modal-reviewbody">
-              Review:
               <textarea
                 type="textarea"
                 cols="40"
@@ -281,16 +286,21 @@ class ReviewForm extends React.Component {
                 onChange={this.onChange}
                 name="reviewBody"
                 value={reviewBody}
+                className="rr-review-modal-text-area"
               />
               {reviewBodyCounterText}
             </div>
             <div className="rr-modal-photo-thumbnails-container">{photosJSX}</div>
             <div className="rr-modal-photo-upload">{submitPhotoButton}</div>
           </form>
-          <button name="submitButton" onClick={this.postReview} type="button">
-            Submit
-          </button>
-          <button onClick={this.props.closeModal}>Close</button>
+          <div className="rr-review-modal-buttons">
+            <button name="submitButton" onClick={this.postReview} type="button">
+              Submit
+            </button>
+            <button type="button" onClick={this.props.closeModal}>
+              Close
+            </button>
+          </div>
           {formError}
         </section>
       </div>
