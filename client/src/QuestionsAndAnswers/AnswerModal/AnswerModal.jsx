@@ -31,7 +31,7 @@ const AnswerModal = function ({
           {' ' + productName}: {state.questionToBeAnswered}
         </h4>
 
-        <label htmlFor="answerModalTextArea" className="qa-answer-modal-griditem3">
+        <label htmlFor="answerModalTextArea" className={state.answerModalTextAreaValidation === false ? "qa-answer-modal-griditem3-alert": "qa-answer-modal-griditem3"}>
           {state.answerModalTextAreaValidation === false ? (
             <span className="qa-modal-alert-text">You must submit an Answer! </span>
           ) : (
@@ -48,7 +48,7 @@ const AnswerModal = function ({
           rows="10"
           cols="50"
         />
-        <label htmlFor="AnswerModalNameInput" className="qa-answer-modal-griditem5">
+        <label htmlFor="AnswerModalNameInput" className={state.answerModalTextAreaValidation === false ? "qa-answer-modal-griditem5-alert": "qa-answer-modal-griditem5"}>
           {state.answerModalNameValidation
  === false ? (
             <span className="qa-modal-alert-text">You must enter a NickName! </span>
@@ -70,10 +70,10 @@ const AnswerModal = function ({
           For privacy reasons, do not use your full name or email address
         </div>
 
-        <label htmlFor="AnswerModalEmailInput" className="qa-answer-modal-griditem8">
+        <label htmlFor="AnswerModalEmailInput" className={state.answerModalTextAreaValidation === false ? "qa-answer-modal-griditem8-alert": "qa-answer-modal-griditem8"}>
           {state.answerModalEmailValidation === false ? (
             <span className="qa-modal-alert-text">
-              The email address provided is not in correct email format
+              The email address provided is not in correct email format!
             </span>
           ) : (
             'Your Email*'
@@ -97,16 +97,15 @@ const AnswerModal = function ({
         <AnswerModalImages photos={state.answerModalPhotos} onChange={addAnswerPhotos} imageClose={imageClose}/>
 
         <input type="submit" className="qa-answer-modal-griditem11" name="submitAnswerModal" />
-        <input
-          type="click"
+        <button
+          type="button"
           name="closeAnswerModal"
           onClick={(e) => {
             onClick(e);
             resetForm();
           }}
-          placeholder="X"
           className="qa-answer-modal-griditem12"
-        />
+        >X</button>
       </form>
     </div>
   )
