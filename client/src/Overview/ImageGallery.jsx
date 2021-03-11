@@ -153,7 +153,7 @@ class ImageGallery extends React.Component {
       showRightArrow,
     } = this.state;
 
-    let increment = 3;
+    let increment = 6;
     let first7Images = [];
     let showDownArrow = true;
     // let startingIndex = this.state.selectedStylePhotoIndex
@@ -182,6 +182,7 @@ class ImageGallery extends React.Component {
       height: '1.5em',
       width: '1.5em',
       zIndex: 50,
+      // objectFit: "contain",
     };
 
     const expandedImageStyle = {
