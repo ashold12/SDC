@@ -1,5 +1,5 @@
 import React from 'react';
-import { SiPluscodes, TiPlusOutline, BiAddToQueue, TiPlus } from 'react-icons/ti';
+import { TiPlus } from 'react-icons/ti';
 
 function AddOutfitCard({ addCurrentProductToOutfit, darkMode }) {
   const handleClick = () => {
@@ -12,6 +12,7 @@ function AddOutfitCard({ addCurrentProductToOutfit, darkMode }) {
   const setDarkMode = {
     backgroundColor: '#2e3033',
   };
+
   return (
     <div
       className="rpo-add-card-function"
