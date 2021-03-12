@@ -164,6 +164,7 @@ class RelatedItemsAndComparison extends Component {
         <YourOutfit
           cards={this.state.yourOutfit}
           addCurrentProductToOutfit={this.updateYourOutfit}
+          darkMode={this.props.darkMode}
         />
       </div>
     );

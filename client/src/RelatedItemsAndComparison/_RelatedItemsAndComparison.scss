@@ -71,7 +71,9 @@
 .rpo-add-card-function:hover {
   color: greenyellow;
   transition: 1.5s ease-out;
-  box-shadow: 0 2px 30px #2F4F4F;
+  // box-shadow: 0 2px 30px #2F4F4F;
+  box-shadow: 0 2px 30px greenyellow;
+
   // border: 0 solid transparent;
   // box-sizing: border-box;
   // content: '';
@@ -80,7 +82,7 @@
 
 
 .rpo-add-card-function {
-  // background-color: #2e3033;
+  background-color: #2e3033;
   width: 180px;
   height: 250px;
   box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
@@ -93,7 +95,7 @@
   align-items: center;
   justify-content: space-evenly;
 
-  background: #eeeeee;
+  // background: #eeeeee;
   border-bottom: 2px solid #cccccc;
 }
 

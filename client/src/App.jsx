@@ -15,6 +15,7 @@ class App extends React.Component {
       selectedProduct: null,
       questions: {},
       selectedStyle: null,
+      darkMode: false,
     };
     this.getAllProducts = this.getAllProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
@@ -94,6 +95,11 @@ class App extends React.Component {
   toggleDarkMode() {
     const body = document.getElementById('bod');
     this.darkMode = !this.darkMode;
+
+    this.setState((prevState) => ({
+      darkMode: !prevState.darkMode,
+    }));
+
     if (!this.darkMode) {
       body.style.background = 'white';
       body.style.color = 'black';
@@ -130,6 +136,7 @@ class App extends React.Component {
             changeProduct={this.getProduct}
             selectedStyle={this.state.selectedStyle}
             starRating={this.state.starRating}
+            darkMode={this.state.darkMode}
           />
         )}
         {this.state.questions.results && (
