@@ -95,11 +95,9 @@ class App extends React.Component {
   toggleDarkMode() {
     const body = document.getElementById('bod');
     this.darkMode = !this.darkMode;
-
     this.setState((prevState) => ({
       darkMode: !prevState.darkMode,
     }));
-
     if (!this.darkMode) {
       body.style.background = 'white';
       body.style.color = 'black';
