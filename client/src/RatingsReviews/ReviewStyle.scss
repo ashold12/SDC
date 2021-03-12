@@ -21,6 +21,10 @@
 .rr-review-modal-main::-webkit-scrollbar-track {
   background: #b1aeae4d; /* color of the tracking area */
 }
+.rr-star-font {
+  font-size: 30px;
+  margin-top: -18%;
+}
 
 .rr-review-modal-main::-webkit-scrollbar-thumb {
   background-color: #2be25536;
@@ -449,6 +453,7 @@ a.rr-helpfulness-link {
   flex-direction: column;
   border-style: groove;
   border-radius: 10px;
+  padding-left: 2%;
 }
 
 .rr-review-modal h2 {
@@ -497,7 +502,7 @@ a.rr-helpfulness-link {
   /* the hidden clearer */
 }
 .rr-star-modal-group * {
-  font-size: 1rem;
+  font-size: 30px;
 }
 .rr-star-modal-group > input {
   display: none;
