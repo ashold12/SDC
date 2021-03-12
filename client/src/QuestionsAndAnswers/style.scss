@@ -213,7 +213,7 @@ mark {
 //Modals
 
 .qa-modal-alert-text {
-  color: white;
+  color: red;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
@@ -650,11 +650,16 @@ button.qa-answer-modal-remove-photo:hover {
 
 //Component Footer
 
+.qa-componentFooter-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 //Buttons
 
 .qa-componentFooter-button2 {
   display: inline-block;
-  right: 60%;
+  justify-content: right;
   border-radius: 28px;
   background-color: black;
   border: none;
@@ -667,7 +672,7 @@ button.qa-answer-modal-remove-photo:hover {
   width: 225px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 0px;
+  margin: 20px;
 }
 
 .qa-componentFooter-button2 span {
