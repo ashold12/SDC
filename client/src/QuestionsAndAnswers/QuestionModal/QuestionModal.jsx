@@ -20,13 +20,13 @@ const QuestionModal = function ({
           e.preventDefault(), verifyForm();
         }}
       >
-        <h3 className="qa-question-modal-griditem1">Ask Your Question</h3>
+        <h3 className="qa-question-modal-griditem1">Ask Your Question {' '}</h3>
         <h4 className="qa-question-modal-griditem2">
           About
           {productName}
         </h4>
 
-        <label htmlFor="QuestionModalTextArea" className="qa-question-modal-griditem3">
+        <label htmlFor="QuestionModalTextArea" className={state.questionFormQuestionValidation === false ? "qa-question-modal-griditem3-alert": "qa-question-modal-griditem3"}>
           {state.questionFormQuestionValidation === false ? (
             <span className="qa-modal-alert-text">You must enter a Question! </span>
           ) : (
@@ -43,7 +43,7 @@ const QuestionModal = function ({
           rows="10"
           cols="50"
         />
-        <label htmlFor="QuestionModalNameInput" className="qa-question-modal-griditem5">
+        <label htmlFor="QuestionModalNameInput" className={state.questionFormQuestionValidation === false ? "qa-question-modal-griditem5-alert": "qa-question-modal-griditem5"}>
           {state.questionFormNameValidation === false ? (
             <span className="qa-modal-alert-text">You must enter a NickName! </span>
           ) : (
@@ -64,10 +64,10 @@ const QuestionModal = function ({
           For privacy reasons, do not use your full name or email address
         </div>
 
-        <label htmlFor="QuestionModalEmailInput" className="qa-question-modal-griditem8">
+        <label htmlFor="QuestionModalEmailInput" className={state.questionFormQuestionValidation === false ? "qa-question-modal-griditem8-alert": "qa-question-modal-griditem8"}>
           {state.questionFormEmailValidation === false ? (
             <span className="qa-modal-alert-text">
-              The email address provided is not in correct email format
+              The email address provided is not in correct email format!
             </span>
           ) : (
             'Your Email*'
@@ -88,16 +88,15 @@ const QuestionModal = function ({
         </div>
 
         <input type="submit" className="qa-question-modal-griditem11" name="closeQuestionModal" />
-        <input
-          type="click"
+        <button
+          type="button"
           name="closeQuestionModal"
           onClick={(e) => {
             onClick(e);
             resetForm();
           }}
-          placeholder="X"
           className="qa-question-modal-griditem12"
-        />
+        >X</button>
       </form>
     </div>
   );

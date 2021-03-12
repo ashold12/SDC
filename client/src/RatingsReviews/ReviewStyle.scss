@@ -1,6 +1,21 @@
 /*****************************/
 /*Ratings and Reviews Section*/
 /*****************************/
+.rr-tiles-container::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+.rr-tiles-container::-webkit-scrollbar-track {
+  background: #b1aeae4d; /* color of the tracking area */
+}
+
+.rr-tiles-container::-webkit-scrollbar-thumb {
+  background-color: #2be25536;
+  border-radius: 20px;
+}
+
+/* RR Selector */
+
 /* RR buttons */
 .button-color-change {
   border-radius: 5px;
@@ -25,6 +40,57 @@
   margin-right: auto;
 }
 
+.rr-button-pretty {
+  display: inline-block;
+  border-radius: 28px;
+  background-color: black;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 0px;
+}
+
+.rr-button-pretty span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.rr-button-pretty span:after {
+  content: '+';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.rr-button-pretty:hover span {
+  padding-right: 25px;
+  color: black;
+}
+
+.rr-button-pretty:hover {
+  background: greenyellow;
+}
+
+.rr-button-pretty:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.rr-button-d:hover {
+  background: greenyellow;
+  color: black;
+}
+
 .button-color-change:hover {
   color: #575757;
   border: 1px solid #78ffa5;
@@ -42,23 +108,26 @@
   width: 20px;
 }
 
-.rr-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 50%;
-  background: rgba(255, 0, 0, 0.6);
-}
+// .rr-modal {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 50%;
+//   height: 50%;
+//   background: rgba(255, 0, 0, 0.6);
+// }
 
 .rr-modal-main {
   position: fixed;
-  background: white;
+  background: #ffffff00;
   width: 70%;
-  height: 50%;
+  height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  backdrop-filter: blur(5px);
+  justify-content: center;
 }
 
 .rr-display-block {
@@ -98,6 +167,12 @@
   }
 }
 /* Stars settings ends */
+
+.rr-start-div {
+  padding-top: 40px;
+  font-family: 'Lato', sans-serif;
+}
+
 .rr-breakdown {
   grid-row: 1;
 }
@@ -109,7 +184,7 @@
 
 .rr-breakdown-big-stars {
   font-size: 140%;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .rr-breakdown-big-font {
@@ -127,22 +202,27 @@
 /* Review bar */
 .rr-product-breakdown {
   // commented background-color: white;
+  font-family: ‘Roboto’, sans-serif;
+  width: 90%;
 }
 .rr-product-overview-text {
   display: flex;
   justify-content: space-between;
 }
+.rr-product-overview-surroundtext {
+  margin-top: 2%;
+}
+
 .rr-product-overview-bar-container {
-  width: 100%;
   background-color: #dddddd;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .rr-product-overview-review-bar {
   text-align: right;
-  color: green;
-  background-color: #2be255;
+
+  //background-color: #2be255;
   height: 1%;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .rr-product-overview-bar-container h2 {
   //commented color: black;
@@ -151,17 +231,20 @@
   top: 0px;
   left: 1.5%;
 }
-
+.rr-reviews-bar-container {
+  font-family: ‘Roboto’, sans-serif;
+}
 .rr-review-bar-container {
   width: 100%;
   background-color: #dddddd;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .rr-review-bar-star-rating {
   grid-row-start: 1;
   grid-column-start: 1;
   text-decoration: underline;
+  cursor: pointer;
 }
 .rr-review-bar-star-rating:hover {
   color: green;
@@ -172,6 +255,7 @@
   grid-template-rows: auto;
   grid-template-columns: 15% 85%;
   padding: 1%;
+  width: 90%;
 }
 
 .rr-filters-applied {
@@ -194,7 +278,7 @@
   border-style: solid;
   border-width: 10px;
   color: #2be255;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .rr-review-bar:hover {
@@ -283,7 +367,7 @@
 }
 .rr-recommended {
   grid-row-start: 4;
-  grid-column: 1;
+  grid-column: 1 / span 5;
 }
 .rr-photos-div {
   grid-row-start: 6;
@@ -291,6 +375,12 @@
   width: 70%;
   margin: auto;
   display: flex;
+}
+a.rr-helpfulness-link:visited {
+  color: rgba(228, 38, 38, 0.808);
+}
+a.rr-helpfulness-link {
+  color: rgba(228, 38, 38, 0.808);
 }
 .rr-product-thumbnail {
   max-height: 100px;
@@ -301,8 +391,11 @@
 .rr-tile-checkmark {
   grid-column: 4 span;
 }
+.rr-review-body {
+  font-family: Roboto;
+}
 .rr-helpfulness {
-  grid-row: 7;
+  //grid-row: 7;
   grid-column: span 5;
 }
 /* Review Breakdown Component */
@@ -335,6 +428,15 @@
   overflow: hidden;
   transform: translate(-50%, -50%);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border-style: groove;
+}
+
+.rr-review-modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .rr-form-display-block {
@@ -348,6 +450,7 @@
 .rr-review-modal-stars {
   width: 50%;
   height: auto;
+  display: flex;
 }
 
 .rr-modal-form-thumbnail {
@@ -410,9 +513,15 @@
   text-shadow: 0 0 1px #333;
 }
 
+.rr-review-modal-text-area {
+  height: 300px;
+  width: 90%;
+  resize: none;
+}
+
 .rr-chara-1 {
   display: inline-block;
-  padding-left: 7%;
+  padding-left: 5%;
 }
 .rr-chara-radio-button {
   padding-left: 10%;

@@ -38,8 +38,11 @@ class RatingBreakdown extends React.Component {
       backgroundColor: '#2be255',
     };
 
+    let className = 'rr-review-bar';
+
     if (percentage === 0) {
       barStyling.color = '#dddddd';
+      className = '';
     }
 
     return (
@@ -55,7 +58,7 @@ class RatingBreakdown extends React.Component {
 
         <div className="rr-review-bar-container">
           <div
-            className="rr-review-bar"
+            className={className}
             style={barStyling}
             value={indexNumber}
             onClick={(e) => {
