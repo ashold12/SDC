@@ -215,6 +215,11 @@ class ReviewForm extends React.Component {
       document.getElementById('bod').style.overflow = 'auto';
     }
 
+    const style = {
+      background: document.getElementById('bod').style.background,
+      color: document.getElementById('bod').style.color,
+    };
+
     const characteristicRB = Object.keys(this.metaData.characteristics).map((char) => (
       <CharacteristicsRadioButtonSet
         characteristic={char}
@@ -225,7 +230,7 @@ class ReviewForm extends React.Component {
 
     return (
       <div className={`${modalClassName}`}>
-        <section className="rr-review-modal-main">
+        <section className="rr-review-modal-main" style={style}>
           <h1>Write your review!</h1>
           <div className="rr-review-modal-header">
             <h2>About the {this.props.productTitle}</h2>
@@ -243,6 +248,7 @@ class ReviewForm extends React.Component {
             <div className="rr-review-modal-nickname">
               Nickname:*{' '}
               <input
+                style={style}
                 type="text"
                 maxLength="60"
                 name="nickName"
@@ -255,6 +261,7 @@ class ReviewForm extends React.Component {
             <div className="rr-reviw-modal-email">
               E-Mail*:{' '}
               <input
+                style={style}
                 type="email"
                 maxLength="60"
                 name="email"
@@ -269,6 +276,7 @@ class ReviewForm extends React.Component {
             <div className="rr-review-modal-summary">
               Summary:
               <input
+                style={style}
                 type="text"
                 size="60"
                 maxLength="60"
@@ -280,6 +288,7 @@ class ReviewForm extends React.Component {
             </div>
             <div className="rr-review-modal-reviewbody">
               <textarea
+                style={style}
                 type="textarea"
                 cols="40"
                 rows="30"
