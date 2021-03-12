@@ -160,7 +160,9 @@ class RelatedItemsAndComparison extends Component {
     }
     return (
       <div className="rpo-main-container">
+        <div className="rpo-title-div">Related Products</div>
         <RelatedProducts cards={this.state.relatedProductCards} />
+        <div className="rpo-title-div">Your Outfits</div>
         <YourOutfit
           cards={this.state.yourOutfit}
           addCurrentProductToOutfit={this.updateYourOutfit}
