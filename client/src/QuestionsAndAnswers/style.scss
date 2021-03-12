@@ -72,7 +72,6 @@ h2 {
 
 #qa-answerlist-title {
   font-weight: bold;
-
 }
 
 //Most Helpful
@@ -170,7 +169,6 @@ h2 {
   height: 25px;
   width: 100%;
   border: none;
-  cursor: pointer;
   justify-content: flex-end;
   overflow: hidden;
 }
@@ -209,15 +207,8 @@ h2 {
   color: rgb(83.14, 11.37, 66.66);
 }
 
-// .qa-searchbar-container {
-//   display: block;
-//   padding-bottom: 5px;
-//   padding-top: 5px;
-// }
-
 mark {
   background-color: rgb(16.86%, 88.63%, 33.33%);
-
 
   color: rgb(83.14, 11.37, 66.66);
 }
@@ -225,7 +216,7 @@ mark {
 //Modals
 
 .qa-modal-alert-text {
-  color: white;
+  color: red;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
@@ -260,9 +251,7 @@ mark {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-
-  background-color: rgb(192, 192, 192);
-
+  background-color: white;
 
   display: block;
 }
@@ -377,10 +366,11 @@ mark {
 }
 //Submit Button
 .qa-question-modal-griditem11 {
-
   background-color: black;
   color: white;
   border-radius: 28px;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
 
   grid-column-start: 9;
   grid-column-end: 10;
@@ -390,11 +380,9 @@ mark {
   padding-left: 3px;
 }
 .qa-question-modal-griditem11:hover {
-
   background-color: greenyellow;
   color: black;
   border-radius: 28px;
-
 }
 
 //close button?
@@ -404,8 +392,7 @@ button.qa-question-modal-griditem12 {
   width: 25px;
   border: none;
 
-  background-color: rgb(192, 192, 192);
-
+  background-color: transparent;
 
   //border
 
@@ -454,7 +441,7 @@ button.qa-question-modal-griditem12:hover {
   opacity: 1;
   visibility: visible;
   overflow: hidden;
-  z-index: 1;
+  z-index: 51;
 
   border: solid;
   border-width: thick;
@@ -463,9 +450,7 @@ button.qa-question-modal-griditem12:hover {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-
-  background-color: rgb(192, 192, 192);
-
+  background-color: white;
 
   display: block;
 }
@@ -579,9 +564,10 @@ button.qa-question-modal-griditem12:hover {
 
 //Submit button
 .qa-answer-modal-griditem11 {
-
   background-color: black;
   color: white;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
   border-radius: 28px;
   grid-column-start: 10;
   grid-column-end: 10;
@@ -603,8 +589,7 @@ button.qa-answer-modal-griditem12 {
   height: 25px;
   width: 25px;
   border: none;
-  background-color: rgb(192, 192, 192);
-
+  background-color: transparent;
 
   grid-column-start: 10;
   grid-column-end: 11;
@@ -674,28 +659,110 @@ button.qa-answer-modal-remove-photo:hover {
 
 //Component Footer
 
+.qa-componentFooter-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 //Buttons
 
-.a-componentFooter-buttons-container {
-  background-color: rgb(83.14, 11.37, 66.66);
-}
-
-.qa-componentFooter-buttons {
-  padding-top: 5px;
-  margin-right: 105px;
-  margin-top: 10px;
-  height: 50px;
-  cursor: pointer;
-  font-size: normal;
-  font-weight: 500;
+.qa-componentFooter-button2 {
+  display: inline-block;
+  justify-content: right;
+  border-radius: 28px;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
   background-color: black;
   color: white;
-  border-radius: 28px;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 225px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 20px;
 }
-.qa-componentFooter-buttons:hover {
-  background-color: greenyellow;
+
+.qa-componentFooter-button2 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button2 span:after {
+  content: '+';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button2:hover span {
+  padding-right: 25px;
   color: black;
+}
+
+.qa-componentFooter-button2:hover {
+  background: greenyellow;
+}
+
+.qa-componentFooter-button2:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+//button1
+
+.qa-componentFooter-button1 {
+  display: inline-block;
   border-radius: 28px;
+  background-color: black;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 400px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.qa-componentFooter-button1 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button1 span:after {
+  content: '+';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button1:hover span {
+  padding-right: 25px;
+  color: black;
+}
+
+.qa-componentFooter-button1:hover {
+  background: greenyellow;
+}
+
+.qa-componentFooter-button1:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 //ReportedAnswerButton

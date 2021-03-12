@@ -27,6 +27,7 @@
   grid-row-end: 6;
   height: 43.5em;
   width: 43.5em;
+  object-fit: contain;
 }
 
 .o-imageGallery-thumbnail {
@@ -118,6 +119,12 @@
   padding-top: 25px;
 }
 
+#o-read-link {
+  text-decoration: none;
+  color: rgba(228, 38, 38, 0.808);
+  font-weight: bold;
+}
+
 #o-sale-price {
   color: red;
   font-size: 1.2em;
@@ -161,6 +168,10 @@
   grid-column-end: 2;
 }
 
+#o-size-selector:focus {
+  outline: none;
+}
+
 #o-quantity-selector {
   display: grid;
   border-radius: 28px;
@@ -176,6 +187,10 @@
   grid-column-end: 3;
 }
 
+#o-quantity-selector:focus {
+  outline: none;
+}
+
 #o-add-to-bag-button {
   background-color: black;
   color: white;
@@ -186,6 +201,40 @@
   background-color: greenyellow;
   color: black;
   border-radius: 28px;
+}
+
+#o-add-to-bag-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#o-add-to-bag-button span:after {
+  content: '+';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#o-add-to-bag-button:hover span {
+  padding-right: 25px;
+  color: black;
+}
+
+#o-add-to-bag-button:hover {
+  background: greenyellow;
+}
+
+#o-add-to-bag-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#o-add-to-bag-button:focus {
+  outline: none;
 }
 
 .o-productOverview {
@@ -231,6 +280,7 @@
   height: 5em;
   width: 5em;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .o-items:hover {

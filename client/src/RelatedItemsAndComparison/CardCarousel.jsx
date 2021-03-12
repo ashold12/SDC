@@ -56,6 +56,7 @@ class CardCarousel extends Component {
       this.setState({
         activeIdx: 0,
         prev: { visibility: 'hidden' },
+        next: { visibility: 'visible' },
         activeCards: cards.slice(0, displayNum),
         numActive: numArr.slice(0, displayNum),
       });
