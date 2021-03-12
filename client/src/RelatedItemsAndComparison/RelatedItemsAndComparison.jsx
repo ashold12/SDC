@@ -132,7 +132,6 @@ class RelatedItemsAndComparison extends Component {
   }
 
   updateYourOutfit(removeIDFromOutfit) {
-    // this.state.outfitID.has(this.props.selectedProduct.id)
     if (removeIDFromOutfit) {
       const currentOutfit = { ...this.state.yourOutfit };
       delete currentOutfit[removeIDFromOutfit];
