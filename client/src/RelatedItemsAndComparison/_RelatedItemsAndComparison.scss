@@ -58,26 +58,19 @@
   color: #A9A9A9;
 }
 
-.rpo-add-card-function:hover .rpo-plus {
-  color: greenyellow;
-  transition: 1.5s ease-out;
-  // box-shadow: 0 2px 30px greenyellow;
-  // border: 0 solid transparent;
-  // box-sizing: border-box;
-  // content: '';
-  // pointer-events: none;
-}
+// .rpo-add-card-function:hover .rpo-plus {
+//   color: greenyellow;
+//   transition: 1.5s ease-out;
+// }
+
+// .rpo-add-card-function:hover .add-outfit-card-text {
+//   color: #5b9a8e;
+//   transition: 1.5s ease-out;
+// }
 
 .rpo-add-card-function:hover {
-  color: greenyellow;
   transition: 1.5s ease-out;
-  // box-shadow: 0 2px 30px #2F4F4F;
   box-shadow: 0 2px 30px greenyellow;
-
-  // border: 0 solid transparent;
-  // box-sizing: border-box;
-  // content: '';
-  // pointer-events: none;
 }
 
 
