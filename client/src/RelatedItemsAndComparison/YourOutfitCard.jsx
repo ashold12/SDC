@@ -8,7 +8,7 @@ function YourOutfitCard({ selectedProduct, selectedStyle, selectedRating }) {
   const original_price = selectedStyle.original_price;
 
   const price = sale_price ? (
-    <p>
+    <p className="rpo-price">
       <span className="rpo-sale-price">
         {sale_price}
         {' '}
@@ -19,7 +19,7 @@ function YourOutfitCard({ selectedProduct, selectedStyle, selectedRating }) {
     </p>
   )
     : (
-      <p>
+      <p className="rpo-price">
         {original_price}
       </p>
     );
@@ -27,6 +27,8 @@ function YourOutfitCard({ selectedProduct, selectedStyle, selectedRating }) {
   // const handleClick = () => {
   //   changeProduct(productInfo.id);
   // };
+  const src = selectedStyle.photos[0].url ? selectedStyle.photos[0].url : 'https://www.mypokecard.com/en/Gallery/my/galery/RLJ0O5wPFEpu.jpg';
+
   return (
 
     <div
@@ -35,13 +37,13 @@ function YourOutfitCard({ selectedProduct, selectedStyle, selectedRating }) {
       <div className="rpo-image-div">
         <img
           className="rpo-product-image"
-          src={selectedStyle.photos[0].url}
+          src={src}
           alt={selectedProduct.name}
         />
       </div>
       <div className="rpo-product-info-div">
         <p className="rpo-product-category">{selectedProduct.category}</p>
-        <p className="rpo-product-info">{selectedProduct.name}</p>
+        <p className="rpo-product-name">{selectedProduct.name}</p>
         {price}
         <div className="rpo-product-rating Stars">
           <div className="Stars" style={{'--rating': selectedRating}}></div>

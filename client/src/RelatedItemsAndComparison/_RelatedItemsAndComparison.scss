@@ -44,6 +44,61 @@
   transition: 0.5s ease-out;
 }
 
+// .rpo-add-card-function:hover {
+//   color: greenyellow;
+//   transition: 1.5s ease-out;
+//   // border: 5px solid #272133;
+//   box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+// }
+
+.add-outfit-card-text {
+  width: 130px;
+  text-align: center;
+  font-weight: bold;
+  color: #A9A9A9;
+}
+
+.rpo-add-card-function:hover .rpo-plus {
+  color: greenyellow;
+  transition: 1.5s ease-out;
+  // box-shadow: 0 2px 30px greenyellow;
+  // border: 0 solid transparent;
+  // box-sizing: border-box;
+  // content: '';
+  // pointer-events: none;
+}
+
+.rpo-add-card-function:hover {
+  color: greenyellow;
+  transition: 1.5s ease-out;
+  // box-shadow: 0 2px 30px #2F4F4F;
+  box-shadow: 0 2px 30px greenyellow;
+
+  // border: 0 solid transparent;
+  // box-sizing: border-box;
+  // content: '';
+  // pointer-events: none;
+}
+
+
+.rpo-add-card-function {
+  background-color: #2e3033;
+  width: 180px;
+  height: 250px;
+  box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  margin: 10px;
+  position: relative;
+  transition: 1.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  // background: #eeeeee;
+  border-bottom: 2px solid #cccccc;
+}
+
 .rpo-add-outfit-card {
   width: 250px;
   height: 400px;
@@ -62,15 +117,36 @@
   left: 50px;
   transition: 0.5s ease-out;
 }
-//stack cards ontop of each other
-// .card:not(:first-child) {
-//   margin-left: -50px;
-// }
+
+.rpo-product-info-div {
+  display: grid;
+
+}
+
+.rpo-product-info-div > p {
+  display: grid;
+  margin: 7px;
+}
+
+.rpo-product-category {
+  justify-self: center;
+  font-style: italic;
+  margin: 7px;
+  color: #808080;
+}
+
+.rpo-product-name {
+  color: #778899;
+  justify-self: center;
+}
+
 .rpo-price {
-  margin: auto;
+  margin: 7px;
+  color: #b12704;
+  justify-self: center;
 }
 .rpo-sale-price {
-  color:red;
+  color:crimson;
 }
 
 .rpo-slashed-price {
@@ -90,7 +166,9 @@
 .rpo-add-outfit-container {
   display: flex;
   width: 100%;
+  height: 400px;
   align-items: center;
+  justify-content: center;
   margin: auto;
   padding: 1rem;
 }
@@ -111,6 +189,7 @@
   display: flex;
   // gap: 5%;
   align-items: center;
+  justify-content: center;
   width: 100%;
   margin: auto;
   overflow-x: auto;
@@ -138,17 +217,6 @@
 .next {
   right: 1rem;
 }
-
-
-// .rpo-card {
-// 	padding: 5px 20px;
-// 	background: #59eb97;
-// 	text-align: center;
-// 	width: 100%;
-// 	margin-right: 10px;
-// 	border-radius: 21px;
-// }
-
 
 .spinner {
   width: 30em;

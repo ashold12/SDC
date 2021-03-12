@@ -48,7 +48,7 @@ function ItemCard({ productInfo, changeProduct }) {
       </div>
       <div className="rpo-product-info-div">
         <p className="rpo-product-category">{productInfo.category}</p>
-        <p className="rpo-product-info">{productInfo.name}</p>
+        <p className="rpo-product-name">{productInfo.name}</p>
         {price}
         <div className="rpo-product-rating Stars">
           <div className="Stars" style={{'--rating': productInfo.rating}}></div>

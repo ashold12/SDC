@@ -26,8 +26,11 @@ class YourOutfit extends Component {
   render() {
     return (
       <div className="rpo-add-outfit-container">
-        <AddOutfitCard addCurrentProductToOutfit={this.props.addCurrentProductToOutfit} />
-        <CardCarousel cards={this.state.cards} displayNum={3} />
+        <AddOutfitCard
+          addCurrentProductToOutfit={this.props.addCurrentProductToOutfit}
+          darkMode={this.props.darkMode}
+        />
+        <CardCarousel cards={this.state.cards} displayNum={4} />
       </div>
     );
   }
