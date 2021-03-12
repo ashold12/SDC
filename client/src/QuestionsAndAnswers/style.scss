@@ -170,7 +170,6 @@ h2 {
   height: 25px;
   width: 100%;
   border: none;
-  cursor: pointer;
   justify-content: flex-end;
   overflow: hidden;
 }
@@ -209,23 +208,17 @@ h2 {
   color: rgb(83.14, 11.37, 66.66);
 }
 
-// .qa-searchbar-container {
-//   display: block;
-//   padding-bottom: 5px;
-//   padding-top: 5px;
-// }
-
 mark {
   background-color: rgb(16.86%, 88.63%, 33.33%);
 
-
   color: rgb(83.14, 11.37, 66.66);
+
 }
 
 //Modals
 
 .qa-modal-alert-text {
-  color: white;
+  color: red;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
@@ -674,28 +667,108 @@ button.qa-answer-modal-remove-photo:hover {
 
 //Component Footer
 
+.qa-componentFooter-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 //Buttons
 
-.a-componentFooter-buttons-container {
-  background-color: rgb(83.14, 11.37, 66.66);
+.qa-componentFooter-button2 {
+  display: inline-block;
+  justify-content: right;
+  border-radius: 28px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 225px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 20px;
 }
 
-.qa-componentFooter-buttons {
-  padding-top: 5px;
-  margin-right: 105px;
-  margin-top: 10px;
-  height: 50px;
+.qa-componentFooter-button2 span {
   cursor: pointer;
-  font-size: normal;
-  font-weight: 500;
-  background-color: black;
-  color: white;
-  border-radius: 28px;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
-.qa-componentFooter-buttons:hover {
-  background-color: greenyellow;
+
+.qa-componentFooter-button2 span:after {
+  content: '+';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button2:hover span {
+  padding-right: 25px;
   color: black;
+}
+
+.qa-componentFooter-button2:hover {
+  background: greenyellow;
+}
+
+.qa-componentFooter-button2:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+//button1
+
+.qa-componentFooter-button1 {
+  display: inline-block;
   border-radius: 28px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 400px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.qa-componentFooter-button1 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button1 span:after {
+  content: '+';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.qa-componentFooter-button1:hover span {
+  padding-right: 25px;
+  color: black;
+}
+
+.qa-componentFooter-button1:hover {
+  background: greenyellow;
+}
+
+.qa-componentFooter-button1:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 //ReportedAnswerButton
