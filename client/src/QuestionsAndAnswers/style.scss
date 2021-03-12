@@ -72,7 +72,6 @@ h2 {
 
 #qa-answerlist-title {
   font-weight: bold;
-
 }
 
 //Most Helpful
@@ -212,7 +211,6 @@ mark {
   background-color: rgb(16.86%, 88.63%, 33.33%);
 
   color: rgb(83.14, 11.37, 66.66);
-
 }
 
 //Modals
@@ -253,9 +251,7 @@ mark {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-
-  background-color: rgb(192, 192, 192);
-
+  background-color: white;
 
   display: block;
 }
@@ -370,10 +366,11 @@ mark {
 }
 //Submit Button
 .qa-question-modal-griditem11 {
-
   background-color: black;
   color: white;
   border-radius: 28px;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
 
   grid-column-start: 9;
   grid-column-end: 10;
@@ -383,11 +380,9 @@ mark {
   padding-left: 3px;
 }
 .qa-question-modal-griditem11:hover {
-
   background-color: greenyellow;
   color: black;
   border-radius: 28px;
-
 }
 
 //close button?
@@ -397,8 +392,7 @@ button.qa-question-modal-griditem12 {
   width: 25px;
   border: none;
 
-  background-color: rgb(192, 192, 192);
-
+  background-color: transparent;
 
   //border
 
@@ -447,7 +441,7 @@ button.qa-question-modal-griditem12:hover {
   opacity: 1;
   visibility: visible;
   overflow: hidden;
-  z-index: 1;
+  z-index: 51;
 
   border: solid;
   border-width: thick;
@@ -456,9 +450,7 @@ button.qa-question-modal-griditem12:hover {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
-
-  background-color: rgb(192, 192, 192);
-
+  background-color: white;
 
   display: block;
 }
@@ -572,9 +564,10 @@ button.qa-question-modal-griditem12:hover {
 
 //Submit button
 .qa-answer-modal-griditem11 {
-
   background-color: black;
   color: white;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
   border-radius: 28px;
   grid-column-start: 10;
   grid-column-end: 10;
@@ -596,8 +589,7 @@ button.qa-answer-modal-griditem12 {
   height: 25px;
   width: 25px;
   border: none;
-  background-color: rgb(192, 192, 192);
-
+  background-color: transparent;
 
   grid-column-start: 10;
   grid-column-end: 11;
@@ -678,8 +670,9 @@ button.qa-answer-modal-remove-photo:hover {
   display: inline-block;
   justify-content: right;
   border-radius: 28px;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
   background-color: black;
-  border: none;
   color: white;
   text-align: center;
   font-size: 20px;
@@ -728,7 +721,8 @@ button.qa-answer-modal-remove-photo:hover {
   display: inline-block;
   border-radius: 28px;
   background-color: black;
-  border: none;
+  border-top-color: rgb(192, 192, 192);
+  border-left-color: rgb(192, 192, 192);
   color: white;
   text-align: center;
   font-size: 20px;

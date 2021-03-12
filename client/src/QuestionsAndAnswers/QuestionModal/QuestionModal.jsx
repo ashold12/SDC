@@ -9,11 +9,16 @@ const QuestionModal = function ({
   verifyForm,
   resetForm,
 }) {
+  const style = {
+    background: document.getElementById('bod').style.background,
+    color: document.getElementById('bod').style.color,
+  };
+
   if (!show) {
     return null;
   }
   return (
-    <div className={show ? 'qa-question-modal-show' : 'qa-question-modal-hide'}>
+    <div className={show ? 'qa-question-modal-show' : 'qa-question-modal-hide'} style={style}>
       <form
         className="qa-question-modal-form"
         onSubmit={(e) => {

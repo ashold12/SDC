@@ -12,12 +12,18 @@ const AnswerModal = function ({
   resetForm,
   imageClose,
 }) {
+  const style = {
+    background: document.getElementById('bod').style.background,
+    color: document.getElementById('bod').style.color,
+    overflow: document.getElementById('bod').overflow,
+  };
+
   if (!show) {
     return null;
   }
 
   return (
-    <div className={show ? 'qa-answer-modal-show' : 'qa-answer-modal-hide'}>
+    <div className={show ? 'qa-answer-modal-show' : 'qa-answer-modal-hide'} style={style}>
       <form
         className="qa-answer-modal-form"
         onSubmit={(e) => {
