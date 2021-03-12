@@ -14,6 +14,19 @@
   border-radius: 20px;
 }
 
+.rr-review-modal-main::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+.rr-review-modal-main::-webkit-scrollbar-track {
+  background: #b1aeae4d; /* color of the tracking area */
+}
+
+.rr-review-modal-main::-webkit-scrollbar-thumb {
+  background-color: #2be25536;
+  border-radius: 20px;
+}
+
 /* RR Selector */
 
 /* RR buttons */
@@ -417,7 +430,10 @@ a.rr-helpfulness-link {
   background: rgb(255, 0, 0);
   margin: auto;
 }
-
+.rr-review-modal-header {
+  display: flex;
+  justify-content: start;
+}
 .rr-review-modal-main {
   position: fixed;
   background: rgb(255, 255, 255);
@@ -431,6 +447,16 @@ a.rr-helpfulness-link {
   display: flex;
   flex-direction: column;
   border-style: groove;
+  border-radius: 10px;
+}
+
+.rr-review-modal h2 {
+  color: #e94f4f;
+  font-family: 'Roboto';
+}
+.rr-review-modal h1 {
+  color: #e94f4f;
+  font-family: 'Roboto';
 }
 
 .rr-review-modal-buttons {
@@ -449,8 +475,12 @@ a.rr-helpfulness-link {
 
 .rr-review-modal-stars {
   width: 50%;
-  height: auto;
   display: flex;
+}
+
+.rr-review-modal-star {
+  padding-top: 3%;
+  padding-left: 3%;
 }
 
 .rr-modal-form-thumbnail {
@@ -524,10 +554,11 @@ a.rr-helpfulness-link {
   padding-left: 5%;
 }
 .rr-chara-radio-button {
-  padding-left: 10%;
+  display: flex;
+  justify-content: end;
 }
-.rr-chara-rad-butt {
-  margin: 0 15% 0 0%;
+.rr-rad-button-label {
+  margin-left: 2%;
 }
 /* End rating and reviews submit reviews modal */
 /*End Ratings and Reviews*/
