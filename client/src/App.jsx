@@ -70,8 +70,10 @@ class App extends React.Component {
         console.log(e);
       });
   }
-//17070
-  getProduct(productID = 17091) {
+
+
+  getProduct(productID = 17070) {
+
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))

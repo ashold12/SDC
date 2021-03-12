@@ -72,6 +72,7 @@ h2 {
 
 #qa-answerlist-title {
   font-weight: bold;
+
 }
 
 //Most Helpful
@@ -107,6 +108,7 @@ h2 {
   font-size: 30;
   font-weight: bold;
   display: block;
+
   text-shadow: 1px 1px rgb(192, 192, 192);
 }
 
@@ -202,12 +204,15 @@ h2 {
 
 .qa-search-exactMatch {
   background-color: rgb(16.86%, 88.63%, 33.33%);
+
   color: rgb(83.14, 11.37, 66.66);
 }
 
 mark {
   background-color: rgb(16.86%, 88.63%, 33.33%);
-  color: black;
+
+  color: rgb(83.14, 11.37, 66.66);
+
 }
 
 //Modals
@@ -248,7 +253,9 @@ mark {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
+
   background-color: rgb(192, 192, 192);
+
 
   display: block;
 }
@@ -363,9 +370,11 @@ mark {
 }
 //Submit Button
 .qa-question-modal-griditem11 {
+
   background-color: black;
   color: white;
   border-radius: 28px;
+
   grid-column-start: 9;
   grid-column-end: 10;
   grid-row-start: 9;
@@ -374,9 +383,11 @@ mark {
   padding-left: 3px;
 }
 .qa-question-modal-griditem11:hover {
+
   background-color: greenyellow;
   color: black;
   border-radius: 28px;
+
 }
 
 //close button?
@@ -385,7 +396,9 @@ button.qa-question-modal-griditem12 {
   height: 25px;
   width: 25px;
   border: none;
+
   background-color: rgb(192, 192, 192);
+
 
   //border
 
@@ -404,7 +417,9 @@ button.qa-question-modal-griditem12:hover {
   height: 25px;
   width: 25px;
   border-radius: 50%;
+
   background-color: black;
+
   transition: cubic-bezier(1, 0.6, 0.9, 1);
   padding: 0px 0px;
 }
@@ -441,7 +456,9 @@ button.qa-question-modal-griditem12:hover {
   border-left-color: rgb(239, 244, 239);
   border-right-color: rgb(239, 244, 239);
 
+
   background-color: rgb(192, 192, 192);
+
 
   display: block;
 }
@@ -555,6 +572,7 @@ button.qa-question-modal-griditem12:hover {
 
 //Submit button
 .qa-answer-modal-griditem11 {
+
   background-color: black;
   color: white;
   border-radius: 28px;
@@ -580,7 +598,6 @@ button.qa-answer-modal-griditem12 {
   border: none;
   background-color: rgb(192, 192, 192);
 
-  //border
 
   grid-column-start: 10;
   grid-column-end: 11;
