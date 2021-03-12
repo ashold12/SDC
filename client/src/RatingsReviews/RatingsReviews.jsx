@@ -247,7 +247,7 @@ class RatingsReviews extends React.Component {
     const { product_id, filters, meta } = this.state;
     return (
       <div className="rr-start-div">
-        Ratings and Reviews.
+        <h2>Ratings and Reviews.</h2>
         <ReviewFilterSelector
           ratings={this.state.meta.ratings}
           passChangeToRR={this.sortReviewsBy}

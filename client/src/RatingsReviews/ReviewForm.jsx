@@ -215,6 +215,11 @@ class ReviewForm extends React.Component {
       document.getElementById('bod').style.overflow = 'auto';
     }
 
+    const style = {
+      background: document.getElementById('bod').style.background,
+      color: document.getElementById('bod').style.color,
+    };
+
     const characteristicRB = Object.keys(this.metaData.characteristics).map((char) => (
       <CharacteristicsRadioButtonSet
         characteristic={char}
@@ -225,13 +230,15 @@ class ReviewForm extends React.Component {
 
     return (
       <div className={`${modalClassName}`}>
-        <section className="rr-review-modal-main">
+        <section className="rr-review-modal-main" style={style}>
           <h1>Write your review!</h1>
-          <h2>About the {this.props.productTitle}</h2>
+          <div className="rr-review-modal-header">
+            <h2>About the {this.props.productTitle}</h2>
+            {/* <div className="rr-review-modal-stars"> */}
+            <ClickableStars onChange={this.onChange} ratingString={starRatingString} />
+            {/* </div> */}
+          </div>
           <form>
-            <div className="rr-review-modal-stars">
-              <ClickableStars onChange={this.onChange} ratingString={starRatingString} />
-            </div>
             {characteristicRB}
             Do you recommend this product?*
             <input type="radio" onChange={this.onChange} name="recommendedProduct" value="true" />
@@ -241,6 +248,7 @@ class ReviewForm extends React.Component {
             <div className="rr-review-modal-nickname">
               Nickname:*{' '}
               <input
+                style={style}
                 type="text"
                 maxLength="60"
                 name="nickName"
@@ -253,6 +261,7 @@ class ReviewForm extends React.Component {
             <div className="rr-reviw-modal-email">
               E-Mail*:{' '}
               <input
+                style={style}
                 type="email"
                 maxLength="60"
                 name="email"
@@ -267,6 +276,7 @@ class ReviewForm extends React.Component {
             <div className="rr-review-modal-summary">
               Summary:
               <input
+                style={style}
                 type="text"
                 size="60"
                 maxLength="60"
@@ -278,6 +288,7 @@ class ReviewForm extends React.Component {
             </div>
             <div className="rr-review-modal-reviewbody">
               <textarea
+                style={style}
                 type="textarea"
                 cols="40"
                 rows="30"
@@ -288,16 +299,21 @@ class ReviewForm extends React.Component {
                 value={reviewBody}
                 className="rr-review-modal-text-area"
               />
-              {reviewBodyCounterText}
+              <div className="rr-review-form-minchars">{reviewBodyCounterText}</div>
             </div>
             <div className="rr-modal-photo-thumbnails-container">{photosJSX}</div>
             <div className="rr-modal-photo-upload">{submitPhotoButton}</div>
           </form>
           <div className="rr-review-modal-buttons">
-            <button name="submitButton" onClick={this.postReview} type="button">
-              Submit
+            <button
+              name="submitButton"
+              className="rr-button-pretty"
+              onClick={this.postReview}
+              type="button"
+            >
+              <span>Submit</span>
             </button>
-            <button type="button" onClick={this.props.closeModal}>
+            <button type="button" className="rr-button-pretty" onClick={this.props.closeModal}>
               Close
             </button>
           </div>
