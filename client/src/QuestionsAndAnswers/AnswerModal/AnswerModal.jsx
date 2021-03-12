@@ -15,6 +15,7 @@ const AnswerModal = function ({
   const style = {
     background: document.getElementById('bod').style.background,
     color: document.getElementById('bod').style.color,
+    overflow: document.getElementById('bod').overflow,
   };
 
   if (!show) {

@@ -70,8 +70,8 @@ class App extends React.Component {
         console.log(e);
       });
   }
-//17070
-  getProduct(productID = 17091) {
+
+  getProduct(productID = 17070) {
     axios
       .get(`api/products/${productID}`)
       .then((product) => this.setState({ selectedProduct: product.data }))
@@ -129,6 +129,7 @@ class App extends React.Component {
             selectedProduct={this.state.selectedProduct}
             changeProduct={this.getProduct}
             selectedStyle={this.state.selectedStyle}
+            starRating={this.state.starRating}
           />
         )}
         {this.state.questions.results && (

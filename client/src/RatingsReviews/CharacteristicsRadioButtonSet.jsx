@@ -20,6 +20,14 @@ const CharacteristicsRadioButtonSet = (props) => {
         <div className="rr-chara-1">A size too wide</div>
       </div>
     ),
+    size: [
+      'A size too small',
+      '1/2 a size too small',
+      'Perfect',
+      '1/2 a size too big',
+      'A size too wide',
+    ],
+    width: ['Too narrow', 'Slightly narrow', 'Prefect', 'Slightly wide', 'Too wide'],
     Width: (
       <div className="rr-chara-words">
         <div className="rr-chara-1">Too narrow</div>
@@ -38,6 +46,8 @@ const CharacteristicsRadioButtonSet = (props) => {
         <div className="rr-chara-1">Perfect</div>
       </div>
     ),
+    comfort: ['Uncomfortable', 'Slightly Comfortable', 'Ok', 'Comfortable', 'Perfect'],
+    quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
     Quality: (
       <div className="rr-chara-words">
         <div className="rr-chara-1">Poor</div>
@@ -47,7 +57,8 @@ const CharacteristicsRadioButtonSet = (props) => {
         <div className="rr-chara-1">Perfect</div>
       </div>
     ),
-
+    length: ['Runs short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
+    fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
     Length: (
       <div className="rr-chara-words">
         <div className="rr-chara-1">Runs short</div>
@@ -71,8 +82,11 @@ const CharacteristicsRadioButtonSet = (props) => {
   return (
     <div className="rr-chara-radio-container">
       <h2>{characteristic}</h2>
-      {translationObject[characteristic]}
+
       <div className="rr-chara-radio-button">
+        <label className="rr-rad-button-label" htmlFor={`characteristic-${characteristic}`}>
+          {translationObject[characteristic.toLowerCase()][0]}
+        </label>
         <input
           type="radio"
           className="rr-chara-rad-butt"
@@ -80,6 +94,9 @@ const CharacteristicsRadioButtonSet = (props) => {
           value="1"
           onChange={changeHandler}
         />
+        <label className="rr-rad-button-label" htmlFor={`characteristic-${characteristic}`}>
+          {translationObject[characteristic.toLowerCase()][1]}
+        </label>
         <input
           className="rr-chara-rad-butt"
           type="radio"
@@ -87,6 +104,9 @@ const CharacteristicsRadioButtonSet = (props) => {
           value="2"
           onChange={changeHandler}
         />
+        <label className="rr-rad-button-label" htmlFor={`characteristic-${characteristic}`}>
+          {translationObject[characteristic.toLowerCase()][2]}
+        </label>
         <input
           className="rr-chara-rad-butt"
           type="radio"
@@ -94,6 +114,9 @@ const CharacteristicsRadioButtonSet = (props) => {
           value="3"
           onChange={changeHandler}
         />
+        <label className="rr-rad-button-label" htmlFor={`characteristic-${characteristic}`}>
+          {translationObject[characteristic.toLowerCase()][3]}
+        </label>
         <input
           className="rr-chara-rad-butt"
           type="radio"
@@ -101,6 +124,9 @@ const CharacteristicsRadioButtonSet = (props) => {
           value="4"
           onChange={changeHandler}
         />
+        <label className="rr-rad-button-label" htmlFor={`characteristic-${characteristic}`}>
+          {translationObject[characteristic.toLowerCase()][4]}
+        </label>
         <input
           className="rr-chara-rad-butt"
           type="radio"

@@ -3,7 +3,7 @@ import React from 'react';
 const ClickableStars = function (props) {
   const onChange = props.onChange;
   return (
-    <fieldset>
+    <div className="rr-review-modal-star">
       <span className="rr-star-modal-group">
         <input onChange={onChange} type="radio" id="rating-5" name="rating" value="5" />
         <label onChange={onChange} htmlFor="rating-5">
@@ -27,7 +27,7 @@ const ClickableStars = function (props) {
         <label htmlFor="rating-0">0</label>
       </span>
       {props.ratingString}
-    </fieldset>
+    </div>
   );
 };
 

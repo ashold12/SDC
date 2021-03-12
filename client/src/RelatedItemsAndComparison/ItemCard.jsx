@@ -8,7 +8,7 @@ function ItemCard({ productInfo, changeProduct }) {
   const original_price = productInfo.styles[0].original_price
   // debugger;
   const price = sale_price ? (
-    <p>
+    <p className="rpo-price">
       <span className="rpo-sale-price">
         {sale_price}
         {' '}
@@ -19,7 +19,7 @@ function ItemCard({ productInfo, changeProduct }) {
     </p>
   )
     : (
-      <p>
+      <p className="rpo-price">
         {original_price}
       </p>
     );
@@ -27,6 +27,8 @@ function ItemCard({ productInfo, changeProduct }) {
   const handleClick = () => {
     changeProduct(productInfo.id);
   };
+
+  const src = productInfo.styles[0].photos[0].url ? productInfo.styles[0].photos[0].url : 'https://www.mypokecard.com/en/Gallery/my/galery/RLJ0O5wPFEpu.jpg';
 
   return (
 
@@ -40,7 +42,7 @@ function ItemCard({ productInfo, changeProduct }) {
       <div className="rpo-image-div">
         <img
           className="rpo-product-image"
-          src={productInfo.styles[0].photos[0].url}
+          src={src}
           alt={productInfo.name}
         />
       </div>
@@ -48,8 +50,8 @@ function ItemCard({ productInfo, changeProduct }) {
         <p className="rpo-product-category">{productInfo.category}</p>
         <p className="rpo-product-info">{productInfo.name}</p>
         {price}
-        <div className="rpo-product-rating">
-          Stars
+        <div className="rpo-product-rating Stars">
+          <div className="Stars" style={{'--rating': productInfo.rating}}></div>
         </div>
       </div>
 

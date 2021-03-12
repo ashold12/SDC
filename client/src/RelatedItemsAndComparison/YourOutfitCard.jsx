@@ -3,7 +3,7 @@
 import React from 'react';
 
 /* pass in a check to see if its a star or not, then apply either a star or an x */
-function YourOutfitCard({ selectedProduct, selectedStyle }) {
+function YourOutfitCard({ selectedProduct, selectedStyle, selectedRating }) {
   const sale_price = selectedStyle.sale_price;
   const original_price = selectedStyle.original_price;
 
@@ -43,8 +43,8 @@ function YourOutfitCard({ selectedProduct, selectedStyle }) {
         <p className="rpo-product-category">{selectedProduct.category}</p>
         <p className="rpo-product-info">{selectedProduct.name}</p>
         {price}
-        <div className="rpo-product-rating">
-          Stars
+        <div className="rpo-product-rating Stars">
+          <div className="Stars" style={{'--rating': selectedRating}}></div>
         </div>
       </div>
 
