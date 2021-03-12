@@ -17,6 +17,7 @@ app.all('/api/*', (req, res) => {
   // make a new axios request using that type with an authorization token
   // to the appropriate URL, send back the information we obtain in the response.
   const targetUrl = apiUrl + req.originalUrl.slice(5);
+  debugger;
   axios({
     method: req.method,
     url: targetUrl,
