@@ -9,9 +9,8 @@ import axios from 'axios';
 import ItemCard from './ItemCard.jsx';
 import RelatedProducts from './RelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
-import AddOutfitCard from './AddOutfitCard.jsx';
 import YourOutfitCard from './YourOutfitCard.jsx';
-// import query from './relatedOutfitQuery.js'
+import RPOLoader from './RPOLoader.jsx';
 
 const cancelTokenSource = axios.CancelToken.source();
 
@@ -26,6 +25,7 @@ class RelatedItemsAndComparison extends Component {
       currentProduct: this.props.selectedProduct.id,
       relatedProductCards: [],
       yourOutfit: {},
+      relatedRatings: [],
       loading: true,
     };
 
@@ -34,6 +34,7 @@ class RelatedItemsAndComparison extends Component {
     this.setCards = this.setCards.bind(this);
     this.updateYourOutfit = this.updateYourOutfit.bind(this);
     this.makeCardForOutfit = this.makeCardForOutfit.bind(this);
+    this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
 
   componentDidMount() {
@@ -42,7 +43,7 @@ class RelatedItemsAndComparison extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.selectedProduct.id !== prevProps.selectedProduct.id) {
-      this.setState({ currentProduct: this.props.selectedProduct.id })
+      this.changeCurrentProduct();
       this.getRelated(this.state.currentProduct);
     }
   }
@@ -67,6 +68,8 @@ class RelatedItemsAndComparison extends Component {
       })
       .then(() => this.getRelatedStyles(this.state.relatedID))
       .then((styles) => this.setState({ productStyles: styles }))
+      .then(() => this.getRelatedRating(this.state.relatedID))
+      .then((ratings) => this.setState({ relatedRatings: ratings }))
       .then(() => this.getRelatedInfo(this.state.relatedID))
       .then((infoData) => this.setState({ relatedProductInformation: infoData }))
       .then(() => this.setCards())
@@ -83,6 +86,23 @@ class RelatedItemsAndComparison extends Component {
       .then((styles) => styles.map((style) => style.data.results));
   }
 
+  getRelatedRating(relatedProductIDs) {
+    const ratingsPromise = relatedProductIDs.map((id) => axios.get(`/api/reviews/meta?product_id=${id}`, {
+      cancelToken: cancelTokenSource.token,
+    }));
+    return axios.all(ratingsPromise)
+      .then((metaInfo) => metaInfo.map((metaInfo) => {
+        const { ratings } = metaInfo.data;
+        let totalRatingScore = 0;
+        let totalNumberOfRatings = 0;
+        Object.keys(ratings).forEach((key) => {
+          totalRatingScore += parseInt(key, 10) * ratings[key];
+          totalNumberOfRatings += parseInt(ratings[key], 10);
+        });
+        return (totalRatingScore / totalNumberOfRatings).toFixed(2);
+      }));
+  }
+
   getRelatedInfo(relatedProductIDs) {
     const infoPromise = relatedProductIDs.map((id) => axios.get(`api/products/${id}`, {
       cancelToken: cancelTokenSource.token,
@@ -93,8 +113,9 @@ class RelatedItemsAndComparison extends Component {
 
   setCards() {
     const cardInfo = this.state.relatedProductInformation.map((product, idx) => {
-      const newProduct = JSON.parse(JSON.stringify(product));
+      const newProduct = { ...product };
       newProduct.styles = this.state.productStyles[idx];
+      newProduct.rating = this.state.relatedRatings[idx];
       return (
         <ItemCard
           productInfo={newProduct}
@@ -104,6 +125,10 @@ class RelatedItemsAndComparison extends Component {
       );
     });
     return cardInfo;
+  }
+
+  changeCurrentProduct() {
+    this.setState({ currentProduct: this.props.selectedProduct.id })
   }
 
   updateYourOutfit(removeIDFromOutfit) {
@@ -124,6 +149,7 @@ class RelatedItemsAndComparison extends Component {
       <YourOutfitCard
         selectedProduct={this.props.selectedProduct}
         selectedStyle={this.props.selectedStyle}
+        selectedRating={this.props.starRating}
         key={this.props.selectedProduct.id}
       />
     );
@@ -131,7 +157,7 @@ class RelatedItemsAndComparison extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <RPOLoader />;
     }
     return (
       <div className="rpo-main-container">
