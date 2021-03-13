@@ -61,13 +61,15 @@ class ReviewForm extends React.Component {
     if (e.target.name === 'photoUpload') {
       const { photos, photoFiles } = this.state;
       const photoUrl = URL.createObjectURL(e.target.files[0]);
-      e.target.value = '';
+      //e.target.value = '';
       const file = new File([e.target.files[0]], e.target.files[0].name, {type: e.target.files[0].type});
-      photoFiles.push(file);
-      const temp = [...photoFiles];
-      temp.push(file);
+      photoFiles.push({
+        name: e.target.files[0].name,
+        type: e.target.files[0].type,
+        data: file,
+      })
       photos.push(photoUrl);
-      this.setState({ photos, photoFiles: temp });
+      this.setState({ photos, photoFiles });
     }
     if (e.target.name === 'rating') {
       this.setStarRatingString(e.target.value);
@@ -104,6 +106,7 @@ class ReviewForm extends React.Component {
         starRating,
         photos,
         summaryField,
+        photoFiles,
       } = this.state;
 
       const reviewData = {
@@ -114,11 +117,26 @@ class ReviewForm extends React.Component {
         recommend: recommendedProduct,
         name: nickName,
         email,
-        photos,
+        photos: [], // Temp empty array, add in multiple photos later.
         characteristics: processedObj,
       };
       this.setState({ formError: '' });
-      axios
+
+      // Get axios equest from tQA and insert it here.
+      const config = {
+        method: 'post',
+        url: '/api/images',
+        headers: {
+          'Content-Type': 'image/png',
+          'fileName': photoFiles[0].name,
+          'fileType': photoFiles[0].type,
+        },
+        data: photoFiles[0].data,
+      };
+      axios(config).then((data)=>{
+        const fileLocation = data.data;
+        reviewData.photos.push(fileLocation);
+        axios
         .post('/api/reviews/', reviewData)
         .then((data) => {
           console.log(data.data);
@@ -128,6 +146,19 @@ class ReviewForm extends React.Component {
           console.log(e);
           this.props.closeModal();
         });
+      }).catch((e)=>{
+
+      });
+      // axios
+      //   .post('/api/reviews/', reviewData)
+      //   .then((data) => {
+      //     console.log(data.data);
+      //     this.props.closeModal();
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //     this.props.closeModal();
+      //   });
     }
   }
 
