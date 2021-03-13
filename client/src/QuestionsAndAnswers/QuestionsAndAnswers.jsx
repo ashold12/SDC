@@ -71,7 +71,7 @@ class QuestionsAndAnswers extends React.Component {
     axios.post(`api/qa/questions/${questionIdOfQuestionToBeAnswered}/answers`, answerData)
     .then((response) => {
       this.getAnswers();
-      this.props.getQuestions();
+      this.prolpse.getQuestions();
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
@@ -143,11 +143,30 @@ class QuestionsAndAnswers extends React.Component {
 
   addAnswerPhotos(e) {
     const photos = this.state.answerModalPhotos;
-    const photo = URL.createObjectURL(e.target.files[0]);
-    photos.push(photo);
-    this.setState({
-      answerModalPhotos: photos,
-    });
+
+    const file = new File([e.target.files[0]], e.target.files[0].name, {type: e.target.files[0].type});
+    var config = {
+      method: 'post',
+      url: '/api/images',
+      headers: {
+        'Content-Type': 'image/png',
+        'fileName': e.target.files[0].name,
+        'fileType': e.target.files[0].type,
+      },
+      data : file
+    };
+    axios(config)
+    .then((data)=>{
+      let photo = data.data;
+
+      photos.push(photo);
+      this.setState({
+        answerModalPhotos: photos,
+      });
+    })
+    .catch((e)=>{console.log(e)});
+
+
   }
 
   removeAnswerPhoto(e, photo) {
