@@ -20,6 +20,7 @@ class ReviewForm extends React.Component {
       starRatingString: '',
       characteristics: {},
       formError: '',
+      photoFiles: [],
     };
     this.tempTitle = 'Some product';
     this.onChange = this.onChange.bind(this);
@@ -58,11 +59,15 @@ class ReviewForm extends React.Component {
       this.setState({ email: e.target.value });
     }
     if (e.target.name === 'photoUpload') {
-      const { photos } = this.state;
+      const { photos, photoFiles } = this.state;
       const photoUrl = URL.createObjectURL(e.target.files[0]);
       e.target.value = '';
+      const file = new File([e.target.files[0]], e.target.files[0].name, {type: e.target.files[0].type});
+      photoFiles.push(file);
+      const temp = [...photoFiles];
+      temp.push(file);
       photos.push(photoUrl);
-      this.setState({ photos });
+      this.setState({ photos, photoFiles: temp });
     }
     if (e.target.name === 'rating') {
       this.setStarRatingString(e.target.value);
