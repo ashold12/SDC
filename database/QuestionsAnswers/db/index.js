@@ -39,6 +39,7 @@ const answerSchema = mongoose.Schema({
 });
 
 const prodQuestSchema = mongoose.Schema({
+  _id: Number,
   questions: [questionSchema],
 });
 
@@ -51,10 +52,12 @@ const groupansphotos = mongoose.Schema({
 let ProdQuest = mongoose.model('ProdQuest', prodQuestSchema, 'prodquests');
 let GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupansphotos');
 
-let doSomething = (cb) => {
-  ProdQuest.findOne().then((res) => cb(res));
+const getQuestions = (id, start, end, cb) => {
+  ProdQuest.find({ _id: id }, { questions: { sort: { helpful: -1 } } })
+    .then((result) => cb(null, result))
+    .catch((err) => cb(err));
 };
 
 module.exports = {
-  doSomething,
+  getQuestions,
 };
