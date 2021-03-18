@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --coverage",
     "start": "nodemon server -w ",
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "qa": "nodemon ./database/QuestionsAnswers/index.js -w"
   },
   "repository": {
     "type": "git",
