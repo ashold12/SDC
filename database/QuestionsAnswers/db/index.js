@@ -4,7 +4,7 @@ const dbName = 'sdc';
 const url = `mongodb://127.0.0.1:27017/${dbName}`;
 
 mongoose.connect(url, { useNewUrlParser: true });
-const db = mongoose.connection
+const db = mongoose.connection;
 
 // check success
 db.once('open', () => {
@@ -14,3 +14,47 @@ db.once('open', () => {
 db.on('error', (err) => {
   console.error('connection error:', err);
 });
+
+const questionSchema = mongoose.Schema({
+  body: { type: String, max: 60 },
+  date_written: Date,
+  asker_name: { type: String, max: 60 },
+  asker_email: { type: String, max: 60 },
+  reported: Number,
+  helpful: Number,
+});
+
+const photoSchema = mongoose.Schema({
+  url: String,
+});
+
+const answerSchema = mongoose.Schema({
+  body: { type: String, max: 60 },
+  date_written: Date,
+  answerer_name: { type: String, max: 60 },
+  answerer_email: { type: String, max: 60 },
+  reported: Number,
+  helpful: Number,
+  photos: [photoSchema],
+});
+
+const prodQuestSchema = mongoose.Schema({
+  questions: [questionSchema],
+});
+
+const groupansphotos = mongoose.Schema({
+  // this ID is manually defined and matches the ID of the question
+  id: { type: String, unique: true },
+  answers: [answerSchema],
+});
+
+let ProdQuest = mongoose.model('ProdQuest', prodQuestSchema, 'prodquests');
+let GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupansphotos');
+
+let doSomething = (cb) => {
+  ProdQuest.findOne().then((res) => cb(res));
+};
+
+module.exports = {
+  doSomething,
+};

@@ -17,8 +17,10 @@ app.get(`/qa/questions/`, (req, res) => {
   const product_id = req.query.product_id;
   const count = req.query.count || 5;
   const page = req.query.page || 1;
-
-  res.send(req.query);
+  db.doSomething((response) => {
+    res.send(response);
+  });
+  // res.send(req.query);
 });
 
 app.listen(port, () => {
