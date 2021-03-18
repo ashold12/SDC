@@ -18,8 +18,8 @@ app.get(`/qa/questions/`, (req, res) => {
   const productId = req.query.product_id;
   const count = req.query.count || 5;
   const page = req.query.page || 1;
-  const start = page * count;
-  const end = start + count;
+  const start = (page - 1) * count;
+  const end = start + +count;
 
   db.getQuestions(productId, start, end, (err, data) => {
     if (err) {

@@ -53,7 +53,8 @@ let ProdQuest = mongoose.model('ProdQuest', prodQuestSchema, 'prodquests');
 let GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupansphotos');
 
 const getQuestions = (id, start, end, cb) => {
-  ProdQuest.find({ _id: id }, { questions: { sort: { helpful: -1 } } })
+  ProdQuest.find({ _id: id })
+    .slice('questions', [0, 3])
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
 };
