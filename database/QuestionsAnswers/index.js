@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.get(`/qa/questions/`, (req, res) => {
   console.log(req.query);
-  //console.log(req.params)
+  // console.log(req.params)
   // expect page count and product id
   if (!req.query.product_id || typeof +req.query.product_id !== 'number') {
     res.status(401).send('invalid');
@@ -59,7 +59,21 @@ app.get(`/qa/questions/:question_id/answers`, (req, res) => {
   // res.send(req.query);
 });
 
+app.post('/qa/questions', (req, res) => {
+  const { body, name, email, product_id } = req.body;
+  if (!body || !name || !email || !product_id) {
+    res.status(400).send('Bad Request');
+    return;
+  };
+  db.postQuestion(req.body, (err, data) => {
+    if (err) {
+      console.log(`Error posting data:${err}`);
+      res.status(500).send(err);
+      return;
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`listening on port:${port}`);
 });
-
