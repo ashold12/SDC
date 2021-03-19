@@ -45,20 +45,30 @@ const prodQuestSchema = mongoose.Schema({
 
 const groupansphotos = mongoose.Schema({
   // this ID is manually defined and matches the ID of the question
-  id: { type: String, unique: true },
+  _id: Number,
   answers: [answerSchema],
 });
 
-let ProdQuest = mongoose.model('ProdQuest', prodQuestSchema, 'prodquests');
-let GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupansphotos');
+const ProdQuest = mongoose.model('ProdQuest', prodQuestSchema, 'prodquests');
+const GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupansphotos');
 
 const getQuestions = (id, start, end, cb) => {
   ProdQuest.find({ _id: id })
-    .slice('questions', [0, 3])
+    // still need sort
+    .slice('questions', [start, end])
+    .then((result) => cb(null, result))
+    .catch((err) => cb(err));
+};
+
+const getAnswers = (id, start, end, cb) => {
+  console.log(start, end)
+  GroupAnsPhotos.findOne({ _id: id })
+    .slice('answers', [start, end])
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
 };
 
 module.exports = {
   getQuestions,
+  getAnswers,
 };
