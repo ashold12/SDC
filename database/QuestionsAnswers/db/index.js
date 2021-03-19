@@ -77,7 +77,7 @@ const getAnswers = (id, start, end, cb) => {
 const postQuestion = (questionData, cb) => {
   const { body, name, email, product_id } = questionData;
   const date = new Date().toISOString();
-  console.log('2018-04-04'.toISOString());
+  // console.log('2018-04-04'.toISOString());
   KeyStore.find({ _id: 'questions' }, { _id: 0, value: 1 })
     .then((value) => {
       const question = {
@@ -100,22 +100,15 @@ const postQuestion = (questionData, cb) => {
     .catch((err) => cb(err));
 };
 
-const postAnswer = (answerData, cb) => {
-  const { body, name, email, photos, question_id } = answerData;
+const postAnswer = (answer, questionId, cb) => {
   const date = new Date().toISOString();
   KeyStore.find({ _id: 'answers' }, { _id: 0, value: 1 })
     .then((value) => {
-      const answer = {
-        _id: value[0].value,
-        body,
-        photos,
-        date_written: date,
-        asker_name: name,
-        asker_email: email,
-        reported: 0,
-        helpful: 0,
-      };
-      ProdQuest.findOneAndUpdate({ _id: question_id }, { $push: { answers: answer } })
+      answer._id = value[0].value
+      console.log(answer);
+      cb('hi');
+      return;
+      GroupAnsPhotos.findOneAndUpdate({ _id: question_id }, { $push: { answers: answer } })
         .then(() => {
           KeyStore.findOneAndUpdate({ _id: 'answers' }, { $inc: { value: 1 } })
             .then((data) => cb(null, data))
@@ -125,7 +118,6 @@ const postAnswer = (answerData, cb) => {
     })
     .catch((err) => cb(err));
 };
-
 
 module.exports = {
   getQuestions,

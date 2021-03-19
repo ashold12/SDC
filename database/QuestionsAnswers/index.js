@@ -75,6 +75,26 @@ app.post('/qa/questions', (req, res) => {
   });
 });
 
+app.post('/qa/questions/:question_id/answers', (req, res) => {
+  const questionId = req.params.question_id;
+  let answer = {
+    body: req.body.body,
+    date_written: new Date().toISOString(),
+    answerer_name: req.body.name,
+    answerer_email: req.body.email,
+    reported: 0,
+    helpful: 0,
+    photos: req.body.photos,
+  };
+  db.postAnswer(answer, questionId, (err, data) => {
+    if (err) {
+      res.status(500).send(`Error posting to questions: ${err}`);
+      return;
+    }
+    res.status(201).send(data);
+  });
+});
+
 app.listen(port, () => {
   console.log(`listening on port:${port}`);
 });
