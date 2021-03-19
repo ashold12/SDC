@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbName = 'test-sdc'; // <--- WORKING ON TEST DATABASE
+const dbName = 'sdc-test'; // <--- WORKING ON TEST DATABASE
 const url = `mongodb://127.0.0.1:27017/${dbName}`;
 
 mongoose.connect(url, { useNewUrlParser: true });
@@ -18,11 +18,12 @@ db.on('error', (err) => {
 const keyStoreSchema = mongoose.Schema({
   _id: String,
   value: Number,
-})
+});
 
 const questionSchema = mongoose.Schema({
+  _id: { type: Number, unique: true },
   body: { type: String, max: 60 },
-  date_written: Date,
+  date_written: String,
   asker_name: { type: String, max: 60 },
   asker_email: { type: String, max: 60 },
   reported: { type: Number, default: 0 },
@@ -75,17 +76,27 @@ const getAnswers = (id, start, end, cb) => {
 
 const postQuestion = (questionData, cb) => {
   const { body, name, email, product_id } = questionData;
-  let question = {
-    body,
-    // date_written: new Date(),
-    asker_name: name,
-    asker_email: email,
-    // reported: 0,
-    // helpful: 0,
-  };
-  debugger;
-  ProdQuest.update({ _id: product_id }, { $push: { questions: question } })
-    .then((data) => cb(null, data))
+  let date = new Date().toISOString();
+  console.log(date)
+  KeyStore.find({ _id: 'questions' }, { _id: 0, value: 1 })
+    .then((value) => {
+      const question = {
+        _id: value[0].value,
+        body,
+        date_written: date,
+        asker_name: name,
+        asker_email: email,
+        reported: 0,
+        helpful: 0,
+      };
+      ProdQuest.findOneAndUpdate({ _id: product_id }, { $push: { questions: question } })
+        .then(() => {
+          KeyStore.findOneAndUpdate({ _id: 'questions' }, { $inc: { value: 1 } })
+            .then((data) => cb(null, data))
+            .catch((err) => cb(err));
+        })
+        .catch((err) => cb(err));
+    })
     .catch((err) => cb(err));
 };
 
