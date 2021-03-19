@@ -35,6 +35,7 @@ const photoSchema = mongoose.Schema({
 });
 
 const answerSchema = mongoose.Schema({
+  _id: { type: Number, unique: true },
   body: { type: String, max: 60 },
   date_written: String,
   answerer_name: { type: String, max: 60 },
@@ -101,14 +102,10 @@ const postQuestion = (questionData, cb) => {
 };
 
 const postAnswer = (answer, questionId, cb) => {
-  const date = new Date().toISOString();
   KeyStore.find({ _id: 'answers' }, { _id: 0, value: 1 })
     .then((value) => {
-      answer._id = value[0].value
-      console.log(answer);
-      cb('hi');
-      return;
-      GroupAnsPhotos.findOneAndUpdate({ _id: question_id }, { $push: { answers: answer } })
+      answer._id = value[0].value;
+      GroupAnsPhotos.findOneAndUpdate({ _id: questionId }, { $push: { answers: answer } })
         .then(() => {
           KeyStore.findOneAndUpdate({ _id: 'answers' }, { $inc: { value: 1 } })
             .then((data) => cb(null, data))

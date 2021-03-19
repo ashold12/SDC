@@ -84,7 +84,7 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
     answerer_email: req.body.email,
     reported: 0,
     helpful: 0,
-    photos: req.body.photos,
+    photos: req.body.photos.map((photo) => ({ url: photo })),
   };
   db.postAnswer(answer, questionId, (err, data) => {
     if (err) {
