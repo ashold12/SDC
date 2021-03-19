@@ -64,13 +64,14 @@ app.post('/qa/questions', (req, res) => {
   if (!body || !name || !email || !product_id) {
     res.status(400).send('Bad Request');
     return;
-  };
+  }
   db.postQuestion(req.body, (err, data) => {
     if (err) {
       console.log(`Error posting data:${err}`);
       res.status(500).send(err);
       return;
     }
+    res.status(201).send(data);
   });
 });
 

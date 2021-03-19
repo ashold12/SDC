@@ -73,10 +73,21 @@ const getAnswers = (id, start, end, cb) => {
     .catch((err) => cb(err));
 };
 
-const postQuestion = (question, cb) => {
-  console.log(question);
-  cb('hitting');
-}
+const postQuestion = (questionData, cb) => {
+  const { body, name, email, product_id } = questionData;
+  let question = {
+    body,
+    // date_written: new Date(),
+    asker_name: name,
+    asker_email: email,
+    // reported: 0,
+    // helpful: 0,
+  };
+  debugger;
+  ProdQuest.update({ _id: product_id }, { $push: { questions: question } })
+    .then((data) => cb(null, data))
+    .catch((err) => cb(err));
+};
 
 module.exports = {
   getQuestions,
