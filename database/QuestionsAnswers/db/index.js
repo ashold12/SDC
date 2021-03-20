@@ -61,9 +61,14 @@ const GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupan
 const KeyStore = mongoose.model('KeyStore', keyStoreSchema, 'keystore');
 
 const getQuestions = (id, start, end, cb) => {
-  ProdQuest.find({ _id: id })
-    // still need sort
-    .slice('questions', [start, end])
+  ProdQuest.aggregate([
+    { $match: { _id: 6 } },
+    { $unwind: '$questions' },
+    { $match: { 'questions.reported': { $lt: 1 } } },
+    { $sort: { 'questions.helpful': -1 } },
+    { $group: { '_id': '$_id', 'questions':{$push: '$questions'} } },
+  ])
+    // { $group: { _id: '$_id', results: { $push: '$questions' } } },
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
 };
@@ -134,6 +139,7 @@ const answerReport = (answerId, cb) => {
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
 };
+
 const questionReport = (questionId, cb) => {
   ProdQuest.updateOne({ 'questions._id': questionId }, { $inc: { 'questions.$.reported': 1 } })
     .then((result) => cb(null, result))
