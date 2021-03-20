@@ -116,6 +116,7 @@ const postAnswer = (answer, questionId, cb) => {
     .catch((err) => cb(err));
 };
 
+// mark helpfuls
 const answerHelpful = (answerId, cb) => {
   GroupAnsPhotos.updateOne({ 'answers._id': answerId }, { $inc: { 'answers.$.helpful': 1 } })
     .then((result) => cb(null, result))
@@ -127,6 +128,18 @@ const questionHelpful = (questionId, cb) => {
     .catch((err) => cb(err));
 };
 
+// mark reported
+const answerReport = (answerId, cb) => {
+  GroupAnsPhotos.updateOne({ 'answers._id': answerId }, { $inc: { 'answers.$.reported': 1 } })
+    .then((result) => cb(null, result))
+    .catch((err) => cb(err));
+};
+const questionReport = (questionId, cb) => {
+  ProdQuest.updateOne({ 'questions._id': questionId }, { $inc: { 'questions.$.reported': 1 } })
+    .then((result) => cb(null, result))
+    .catch((err) => cb(err));
+};
+
 module.exports = {
   getQuestions,
   getAnswers,
@@ -134,6 +147,8 @@ module.exports = {
   postAnswer,
   answerHelpful,
   questionHelpful,
+  answerReport,
+  questionReport,
 };
 
 // db.groupansphotos.find({answers:{$elemMatch:{_id: 12392948}}},{answers:1}).pretty()
