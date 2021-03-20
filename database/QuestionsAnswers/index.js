@@ -95,6 +95,24 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
   });
 });
 
+app.put('/qa/answers/:answerId/helpful', (req, res) => {
+  const { answerId } = req.params;
+  db.answerHelpful(answerId, (err, data) => {
+    if (err) { res.status(500).send(`Error updating at ${answerId}:\n${err}`) }
+    res.status(204).send(data);
+  });
+});
+
+app.put('/qa/questions/:questionId/helpful', (req, res) => {
+  const { questionId } = req.params;
+  db.questionHelpful(questionId, (err, data) => {
+    if (err) {
+      res.status(500).send(`Error updating at question:${questionId}:\n${err}`);
+    }
+    res.status(204).send(data);
+  });
+});
+
 app.listen(port, () => {
   console.log(`listening on port:${port}`);
 });

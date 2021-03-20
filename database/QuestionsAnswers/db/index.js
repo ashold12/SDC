@@ -116,9 +116,34 @@ const postAnswer = (answer, questionId, cb) => {
     .catch((err) => cb(err));
 };
 
+const answerHelpful = (answerId, cb) => {
+  GroupAnsPhotos.updateOne({ 'answers._id': answerId }, { $inc: { 'answers.$.helpful': 1 } })
+    .then((result) => cb(null, result))
+    .catch((err) => cb(err));
+};
+const questionHelpful = (questionId, cb) => {
+  ProdQuest.updateOne({ 'questions._id': questionId }, { $inc: { 'questions.$.helpful': 1 } })
+    .then((result) => cb(null, result))
+    .catch((err) => cb(err));
+};
+
 module.exports = {
   getQuestions,
   getAnswers,
   postQuestion,
   postAnswer,
+  answerHelpful,
+  questionHelpful,
 };
+
+// db.groupansphotos.find({answers:{$elemMatch:{_id: 12392948}}},{answers:1}).pretty()
+
+//  db.groupansphotos.find({answers:{$elemMatch:{_id: 12392948}}},{'answers.$': 1}).pretty()
+
+// db.groupansphotos.findOneAndUpdate({'answers._id': 12392948},{$set:{'answers.$.helpful': 1000}})
+
+// db.groupansphotos.findOneAndUpdate({'answers._id': 12392948},{$inc:{'answers.$.helpful': 1}})
+
+//db.groupansphotos.updateOne({'answers._id': 12392948},{$inc:{'answers.$.helpful': 1}})
+
+// FINAL QUERY TO UPDATE VALUE IN HELPFUL
