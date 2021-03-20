@@ -28,7 +28,7 @@ app.get(`/qa/questions/`, (req, res) => {
       return;
     }
     console.log('YOU DID IT');
-    res.send(data);
+    res.send(data[0]);
   });
   // res.send(req.query);
 });
@@ -54,7 +54,7 @@ app.get(`/qa/questions/:question_id/answers`, (req, res) => {
       return;
     }
     console.log('YOU DID IT');
-    res.send(data);
+    res.send(data[0]);
   });
   // res.send(req.query);
 });

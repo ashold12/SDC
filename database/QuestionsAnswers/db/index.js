@@ -62,7 +62,7 @@ const KeyStore = mongoose.model('KeyStore', keyStoreSchema, 'keystore');
 
 const getQuestions = (id, start, end, cb) => {
   ProdQuest.aggregate([
-    { $match: { _id: 6 } },
+    { $match: { _id: +id } },
     { $unwind: '$questions' },
     { $match: { 'questions.reported': { $lt: 1 } } },
     { $sort: { 'questions.helpful': -1 } },
@@ -74,8 +74,13 @@ const getQuestions = (id, start, end, cb) => {
 };
 
 const getAnswers = (id, start, end, cb) => {
-  GroupAnsPhotos.findOne({ _id: id })
-    .slice('answers', [start, end])
+  GroupAnsPhotos.aggregate([
+    { $match: { _id: +id } },
+    { $unwind: '$answers' },
+    { $match: { 'answers.reported': { $lt: 1 } } },
+    { $sort: { 'answers.helpful': -1 } },
+    { $group: { '_id': '$_id', 'answers':{$push: '$answers'} } },
+  ])
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
 };
