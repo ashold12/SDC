@@ -67,6 +67,7 @@ const getQuestions = (id, start, end, cb) => {
     { $match: { 'questions.reported': { $lt: 1 } } },
     { $sort: { 'questions.helpful': -1 } },
     { $group: { '_id': '$_id', 'questions':{$push: '$questions'} } },
+    { $project: {'_id': 0, 'product_id': '$_id', questions: {$slice: ['$questions',start, end] }} },
   ])
     // { $group: { _id: '$_id', results: { $push: '$questions' } } },
     .then((result) => cb(null, result))
