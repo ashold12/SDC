@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const pipelines = require('./pipelines.js');
 
 const dbName = 'sdc-test'; // <--- WORKING ON TEST DATABASE
 const url = `mongodb://127.0.0.1:27017/${dbName}`;
@@ -61,15 +62,7 @@ const GroupAnsPhotos = mongoose.model('GroupAnsPhotos', groupansphotos, 'groupan
 const KeyStore = mongoose.model('KeyStore', keyStoreSchema, 'keystore');
 
 const getQuestions = (id, start, end, cb) => {
-  ProdQuest.aggregate([
-    { $match: { _id: +id } },
-    { $unwind: '$questions' },
-    { $match: { 'questions.reported': { $lt: 1 } } },
-    { $sort: { 'questions.helpful': -1 } },
-    { $group: { _id: '$_id', questions: { $push: '$questions' } } },
-    { $project: { _id: 0, product_id: '$_id', questions: { $slice: ['$questions', start, end] } } },
-  ])
-    // { $group: { _id: '$_id', results: { $push: '$questions' } } },
+  ProdQuest.aggregate(pipelines.makeQuestionPipeline(id, start, end))
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
 };
@@ -163,62 +156,66 @@ module.exports = {
   questionReport,
 };
 
-// db.groupansphotos.find({answers:{$elemMatch:{_id: 12392948}}},{answers:1}).pretty()
+//working query nesting answers in questions
 
-//  db.groupansphotos.find({answers:{$elemMatch:{_id: 12392948}}},{'answers.$': 1}).pretty()
-
-// db.groupansphotos.findOneAndUpdate({'answers._id': 12392948},{$set:{'answers.$.helpful': 1000}})
-
-// db.groupansphotos.findOneAndUpdate({'answers._id': 12392948},{$inc:{'answers.$.helpful': 1}})
-
-//db.groupansphotos.updateOne({'answers._id': 12392948},{$inc:{'answers.$.helpful': 1}})
-
-// FINAL QUERY TO UPDATE VALUE IN HELPFUL
 /*
- { $project: {
-  'product_id': 1,
-  'questions':[{
-    'question_id': '$questions._id',
-    'question_body': '$questions.body',
-    'question_date': '$questions.date_written',
-    'asker_name': '$questions.asker_name',
-    'question_helpfulness': '$questions.helpful',
-    'reported': '$questions.reported',
-    'answers': '$questions.answers'
-    }]
-}}
-
-///////////////////////////
-    { $unwind: '$questions' },
-    {
+const makeQuestionPipeline = (id, start, end) => ([
+  { $match: { _id: +id } },
+  { $unwind: '$questions' },
+  { $match: { 'questions.reported': { $lt: 1 } } },
+  { $sort: { 'questions.helpful': -1 } },
+  { $group: { _id: '$_id', questions: { $push: '$questions' } } },
+  { $project: { _id: 1, questions: { $slice: ['$questions', start, end] } } },
+  { $unwind: '$questions' },
+  {
       $lookup: {
-        from: 'groupansphotos',
-        localField: 'questions._id',
-        foreignField: '_id',
-        as: 'answers',
-      },
-    },
-    { $group: {_id: '$id', questions: { $push: '$questions'} } },
-    { $project: {
-      'product_id': 1,
-      'questions':[{
-        'question_id': '$questions._id',
-        'question_body': '$questions.body',
-        'question_date': '$questions.date_written',
-        'asker_name': '$questions.asker_name',
-        'question_helpfulness': '$questions.helpful',
-        'reported': '$questions.reported',
-        'answers': [{
-          'id': '$answers.answers._id',
-          'body': '$answers.answers.body',
-          'date': '$answers.answers.date_written',
-          'answerer_name': '$answers.answers.answerer_name',
-          'helpfulness': '$answers.answers.helpful',
-          'photos': 1
-          }]
-        }]
-    }}
-  ])
-
-{ $group: { _id: '$_id', questions: { $push: '$questions' }} }
+          from: "groupansphotos",
+          let: { question_id: "$questions._id" },
+          pipeline: [
+              {
+                  $match: {
+                      $expr: { $eq: ["$_id", "$$question_id"] }
+                  }
+              },
+              { $unwind: "$answers" },
+              {
+                  $project: {
+                      _id: 0,
+                      k: { $toString: "$answers._id" },
+                      v: "$$ROOT.answers"
+                  }
+              }
+          ],
+          as: "answers"
+      }
+  },
+  {
+      $match: {
+          $expr: {
+              $gt: [{ $size: "$answers" }, 0]
+          }
+      }
+  },
+  {
+      $addFields: {
+          answers: { $arrayToObject: "$answers" }
+      }
+  },
+  {
+      $group: {
+          _id: "$_id",
+          questions: {
+              $push: {
+                  question_id: "$questions._id",
+                  question_body: "$questions.body",
+                  question_date: "$questions.date_written",
+                  asker_name: "$questions.asker_name",
+                  question_helpfulness: "$questions.helpful",
+                  reported: "$questions.reported",
+                  answers: "$answers"
+              }
+          }
+      }
+  }
+])
 */
