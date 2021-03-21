@@ -66,8 +66,8 @@ const getQuestions = (id, start, end, cb) => {
     { $unwind: '$questions' },
     { $match: { 'questions.reported': { $lt: 1 } } },
     { $sort: { 'questions.helpful': -1 } },
-    { $group: { '_id': '$_id', 'questions':{$push: '$questions'} } },
-    { $project: {'_id': 0, 'product_id': '$_id', questions: {$slice: ['$questions',start, end] }} },
+    { $group: { _id: '$_id', questions: { $push: '$questions' } } },
+    { $project: { _id: 0, product_id: '$_id', questions: { $slice: ['$questions', start, end] } } },
   ])
     // { $group: { _id: '$_id', results: { $push: '$questions' } } },
     .then((result) => cb(null, result))
@@ -80,7 +80,7 @@ const getAnswers = (id, start, end, cb) => {
     { $unwind: '$answers' },
     { $match: { 'answers.reported': { $lt: 1 } } },
     { $sort: { 'answers.helpful': -1 } },
-    { $group: { '_id': '$_id', 'answers':{$push: '$answers'} } },
+    { $group: { _id: '$_id', answers: { $push: '$answers' } } },
   ])
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
@@ -174,3 +174,51 @@ module.exports = {
 //db.groupansphotos.updateOne({'answers._id': 12392948},{$inc:{'answers.$.helpful': 1}})
 
 // FINAL QUERY TO UPDATE VALUE IN HELPFUL
+/*
+ { $project: {
+  'product_id': 1,
+  'questions':[{
+    'question_id': '$questions._id',
+    'question_body': '$questions.body',
+    'question_date': '$questions.date_written',
+    'asker_name': '$questions.asker_name',
+    'question_helpfulness': '$questions.helpful',
+    'reported': '$questions.reported',
+    'answers': '$questions.answers'
+    }]
+}}
+
+///////////////////////////
+    { $unwind: '$questions' },
+    {
+      $lookup: {
+        from: 'groupansphotos',
+        localField: 'questions._id',
+        foreignField: '_id',
+        as: 'answers',
+      },
+    },
+    { $group: {_id: '$id', questions: { $push: '$questions'} } },
+    { $project: {
+      'product_id': 1,
+      'questions':[{
+        'question_id': '$questions._id',
+        'question_body': '$questions.body',
+        'question_date': '$questions.date_written',
+        'asker_name': '$questions.asker_name',
+        'question_helpfulness': '$questions.helpful',
+        'reported': '$questions.reported',
+        'answers': [{
+          'id': '$answers.answers._id',
+          'body': '$answers.answers.body',
+          'date': '$answers.answers.date_written',
+          'answerer_name': '$answers.answers.answerer_name',
+          'helpfulness': '$answers.answers.helpful',
+          'photos': 1
+          }]
+        }]
+    }}
+  ])
+
+{ $group: { _id: '$_id', questions: { $push: '$questions' }} }
+*/
