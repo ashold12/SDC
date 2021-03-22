@@ -18,9 +18,9 @@ app.get(`/qa/questions/`, (req, res) => {
   const productId = req.query.product_id;
   const count = req.query.count || 5;
   const page = req.query.page || 1;
-  const start = (page - 1) * count;
-  const end = start + +count;
-
+  let start = (page - 1) * count;
+  let end = +count;
+  // debugger;
   db.getQuestions(productId, start, end, (err, data) => {
     if (err) {
       console.log(`THIS IS AN ERROR:${err}`);
@@ -44,8 +44,8 @@ app.get(`/qa/questions/:question_id/answers`, (req, res) => {
   const questionId = req.params.question_id;
   const count = req.query.count || 5;
   const page = req.query.page || 1;
-  const start = (page - 1) * count;
-  const end = start + +count;
+  let start = (page - 1) * count;
+  let end = +count;
 
   db.getAnswers(questionId, start, end, (err, data) => {
     if (err) {
@@ -98,7 +98,9 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
 app.put('/qa/answers/:answerId/helpful', (req, res) => {
   const { answerId } = req.params;
   db.answerHelpful(answerId, (err, data) => {
-    if (err) { res.status(500).send(`Error updating at ${answerId}:\n${err}`) }
+    if (err) {
+      res.status(500).send(`Error updating at ${answerId}:\n${err}`);
+    }
     res.status(204).send(data);
   });
 });
@@ -114,10 +116,12 @@ app.put('/qa/questions/:questionId/helpful', (req, res) => {
 });
 
 app.put('/qa/answers/:answerId/report', (req, res) => {
-  console.log('hi')
+  console.log('hi');
   const { answerId } = req.params;
   db.answerReport(answerId, (err, data) => {
-    if (err) { res.status(500).send(`Error updating at ${answerId}:\n${err}`) }
+    if (err) {
+      res.status(500).send(`Error updating at ${answerId}:\n${err}`);
+    }
     res.status(204).send(data);
   });
 });

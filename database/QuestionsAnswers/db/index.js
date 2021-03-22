@@ -55,6 +55,7 @@ const groupansphotos = mongoose.Schema({
   // this ID is manually defined and matches the ID of the question
   _id: { type: Number, unique: true },
   answers: [answerSchema],
+  __v: { type: Number, select: false },
 });
 
 const ProdQuest = mongoose.model('ProdQuest', prodQuestSchema, 'prodquests');
@@ -63,7 +64,10 @@ const KeyStore = mongoose.model('KeyStore', keyStoreSchema, 'keystore');
 
 const getQuestions = (id, start, end, cb) => {
   ProdQuest.aggregate(pipelines.makeQuestionPipeline(id, start, end))
-    .then((result) => cb(null, result))
+    .then((result) => {
+      console.log(result);
+      cb(null, result);
+    })
     .catch((err) => cb(err));
 };
 
@@ -74,6 +78,7 @@ const getAnswers = (id, start, end, cb) => {
     { $match: { 'answers.reported': { $lt: 1 } } },
     { $sort: { 'answers.helpful': -1 } },
     { $group: { _id: '$_id', answers: { $push: '$answers' } } },
+    { $project: { _id: 1, answers: { $slice: ['$answers', start, end] } } },
   ])
     .then((result) => cb(null, result))
     .catch((err) => cb(err));
@@ -110,10 +115,22 @@ const postAnswer = (answer, questionId, cb) => {
     .then((value) => {
       answer._id = value[0].value;
       GroupAnsPhotos.findOneAndUpdate({ _id: questionId }, { $push: { answers: answer } })
-        .then(() => {
-          KeyStore.findOneAndUpdate({ _id: 'answers' }, { $inc: { value: 1 } })
-            .then((data) => cb(null, data))
-            .catch((err) => cb(err));
+        .then((result) => {
+          if (result) {
+            KeyStore.findOneAndUpdate({ _id: 'answers' }, { $inc: { value: 1 } })
+              .then((data) => cb(null, data))
+              .catch((err) => cb(err));
+          } else {
+            GroupAnsPhotos.create({
+              _id: questionId,
+              answers: [answer],
+            }).then((response) => {
+              console.log(response);
+              KeyStore.findOneAndUpdate({ _id: 'answers' }, { $inc: { value: 1 } })
+                .then((data) => cb(null, data))
+                .catch((err) => cb(err));
+            });
+          }
         })
         .catch((err) => cb(err));
     })
@@ -156,7 +173,7 @@ module.exports = {
   questionReport,
 };
 
-//working query nesting answers in questions
+// working query nesting answers in questions
 
 /*
 const makeQuestionPipeline = (id, start, end) => ([

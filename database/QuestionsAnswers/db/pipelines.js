@@ -31,13 +31,13 @@ const makeQuestionPipeline = (id, start, end) => [
       as: 'answers',
     },
   },
-  {
-    $match: {
-      $expr: {
-        $gt: [{ $size: '$answers' }, 0],
-      },
-    },
-  },
+  // {
+  //   $match: {
+  //     $expr: {
+  //       $gt: [{ $size: '$answers' }, 0],
+  //     },
+  //   },
+  // },
   {
     $addFields: {
       answers: { $arrayToObject: '$answers' },
