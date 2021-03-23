@@ -65,7 +65,6 @@ const KeyStore = mongoose.model('KeyStore', keyStoreSchema, 'keystore');
 const getQuestions = (id, start, end, cb) => {
   ProdQuest.aggregate(pipelines.makeQuestionPipeline(id, start, end))
     .then((result) => {
-      console.log(result);
       cb(null, result);
     })
     .catch((err) => cb(err));
@@ -124,8 +123,7 @@ const postAnswer = (answer, questionId, cb) => {
             GroupAnsPhotos.create({
               _id: questionId,
               answers: [answer],
-            }).then((response) => {
-              console.log(response);
+            }).then(() => {
               KeyStore.findOneAndUpdate({ _id: 'answers' }, { $inc: { value: 1 } })
                 .then((data) => cb(null, data))
                 .catch((err) => cb(err));
