@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const pipelines = require('./pipelines.js');
 
 const dbName = 'sdc-test'; // <--- WORKING ON TEST DATABASE
-const url = `mongodb://127.0.0.1:27017/${dbName}`;
+const url = `mongodb://172.31.47.43:27017/${dbName}`;
 
 mongoose.connect(url, { useNewUrlParser: true });
 const db = mongoose.connection;
